@@ -1,26 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Outfit:wght@300..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0F0606;
+  --foreground: #ffffff;
+  --color-accent-orange: #FF5E36;
+  --color-accent-gold: #FFAE19;
+  --color-accent-copper: #C5A07F;
+  --color-accent-bronze: #D4AF37;
+  --color-card-bg: #140A0A;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-accent-orange: var(--color-accent-orange);
+  --color-accent-gold: var(--color-accent-gold);
+  --color-accent-copper: var(--color-accent-copper);
+  --color-accent-bronze: var(--color-accent-bronze);
+  --color-card-bg: var(--color-card-bg);
+  --font-sans: 'Outfit', sans-serif;
+  --font-serif: 'Cormorant Garamond', serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0F0606;
+}
+::-webkit-scrollbar-thumb {
+  background: #251212;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #FF5E36;
+}
+
+/* --- Film Reel & Orange Thread Custom Design Utilities --- */
+
+/* Glowing Orange Thread Timeline Line */
+.orange-thread-timeline {
+  position: relative;
+}
+.orange-thread-timeline::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--color-accent-orange) 50px,
+    var(--color-accent-orange) calc(100% - 50px),
+    transparent
+  );
+  box-shadow: 0 0 8px rgba(255, 94, 54, 0.4), 0 0 15px rgba(255, 94, 54, 0.2);
+  z-index: 1;
+}
+
+/* Horizontal Orange Thread timeline */
+.orange-thread-h {
+  position: relative;
+}
+.orange-thread-h::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-accent-orange) 50px,
+    var(--color-accent-orange) calc(100% - 50px),
+    transparent
+  );
+  box-shadow: 0 0 8px rgba(255, 94, 54, 0.4);
+  transform: translateY(-50%);
+  z-index: 0;
+}
+
+/* Realistic 35mm film cell sprockets */
+.film-cell {
+  position: relative;
+  background-color: var(--color-card-bg);
+  border-left: 20px solid #000000;
+  border-right: 20px solid #000000;
+  border-top: 1px solid #1c0f0f;
+  border-bottom: 1px solid #1c0f0f;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.film-cell::before,
+.film-cell::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 8px;
+  background-image: radial-gradient(circle, var(--background) 3px, transparent 3px);
+  background-size: 100% 16px;
+  background-repeat: repeat-y;
+  z-index: 10;
+}
+
+.film-cell::before {
+  left: -14px;
+}
+
+.film-cell::after {
+  right: -14px;
+}
+
+/* Warm projector light leak hover effect */
+.projector-glow-hover {
+  position: relative;
+  overflow: hidden;
+}
+.projector-glow-hover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 120%, rgba(255, 94, 54, 0.15) 0%, transparent 65%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+.projector-glow-hover:hover::after {
+  opacity: 1;
+}
+
+/* Horizontal film strip track styling */
+.film-strip-track {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  padding: 24px 12px;
+  scroll-snap-type: x mandatory;
+}
+.film-strip-track::-webkit-scrollbar {
+  height: 4px;
+}
+.film-strip-track::-webkit-scrollbar-thumb {
+  background: var(--color-accent-orange);
+}
+
+/* Custom scroll overlay */
+.custom-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scroll::-webkit-scrollbar-track {
+  background: #140A0A;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: #2D1515;
+  border-radius: 3px;
+}
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: #FF5E36;
 }
