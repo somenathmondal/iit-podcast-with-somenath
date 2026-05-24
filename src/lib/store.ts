@@ -24,11 +24,11 @@ export const usePlayerStore = create<PlayerState>((set) => ({
   duration: 2882, // Default 48:02
   volume: 0.8,
   isExpanded: false,
-  setActiveEpisode: (episode) => set({ activeEpisode: episode, isPlaying: true, currentTime: 0 }),
+  setActiveEpisode: (episode) => set({ activeEpisode: episode, isPlaying: true, currentTime: 0, isExpanded: true }),
   setIsPlaying: (playing) => set({ isPlaying: playing }),
   setCurrentTime: (time) => set({ currentTime: time }),
   setDuration: (duration) => set({ duration }),
   setVolume: (volume) => set({ volume }),
   setIsExpanded: (expanded) => set({ isExpanded: expanded }),
-  jumpToTimestamp: (seconds) => set({ currentTime: seconds, isPlaying: true }),
+  jumpToTimestamp: (seconds) => set({ currentTime: seconds, isPlaying: true, isExpanded: true }),
 }));
