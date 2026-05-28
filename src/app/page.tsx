@@ -103,6 +103,31 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#0F0606] text-white flex flex-col font-sans selection:bg-accent-orange selection:text-white">
+      {/* Google PodcastSeries Structured JSON-LD Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "PodcastSeries",
+            "name": "IIT Podcast with Somenath",
+            "description": "Deconstructing life before the JEE, Kota coachings, hostel fests, fiver-point struggles, campus placement diaries, and high-impact paths following graduation.",
+            "url": "https://iit-podcast.vercel.app",
+            "author": {
+              "@type": "Person",
+              "name": "Somenath Mondal"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "IIT Podcast Network"
+            },
+            "sameAs": [
+              "https://open.spotify.com/show/2OkRCNNTbwaAB2CElTDdYH"
+            ]
+          })
+        }}
+      />
+
       {/* 1. Header Navigation */}
       <Header />
 
