@@ -18,6 +18,8 @@ export interface Episode {
   spotifyUrl?: string;
   description: string;
   coverImage?: string;
+  gallery?: string[];
+  views?: number;
   tags: string[];
   takeaways: BlogTakeaway[];
   fullStoryMarkdown: string;
@@ -30,7 +32,7 @@ export const episodes: Episode[] = [
     releaseDate: "June 2025",
     episodeNumber: 0,
     episodeSub: "a",
-    title: "IIT Director's Candid Take on Grades, AI & Placements",
+    title: "IIT KGP Director's Candid Take on Grades, AI & Placements",
     guestName: "Prof. Suman Chakraborty",
     guestTitle: "Director of IIT Kharagpur (Part 1)",
     duration: "48:02",
@@ -624,6 +626,11 @@ export const episodes: Episode[] = [
     spotifyUrl: "https://open.spotify.com/episode/peter",
     description: "Peter shares his international design journey working at Philips, Steelcase, and Bandlab, discussing the intersection of human design, AI, and universal basic income.",
     coverImage: "/thumbnails/Ep26-Peter.png",
+    gallery: [
+      "/thumbnails/Ep26-Peter.png",
+      "/thumbnails/Ep25-Imbesat.png",
+      "/thumbnails/Ep24-Shashwat.png"
+    ],
     tags: ["Industrial Design", "AI", "Universal Basic Income", "Red Dot Award"],
     takeaways: [
       { title: "The Philosophy of Clean Design", time: "18:20", seconds: 1100, text: "Design is not about looks; it is about how it works. A simple, functional system always beats decorative complexity." }

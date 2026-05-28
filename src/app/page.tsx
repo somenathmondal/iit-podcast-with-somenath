@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Play, Calendar, Clock, ArrowRight, X, ExternalLink, Headphones } from "lucide-react";
+import { Play, Calendar, Clock, ArrowRight, X, ExternalLink, Headphones, ChevronLeft, ChevronRight } from "lucide-react";
 import Header from "../components/Header";
 import MediaPlayer from "../components/MediaPlayer";
 import { episodes, Episode } from "../data/episodes";
@@ -25,6 +25,25 @@ export default function Home() {
   const [readingEpisode, setReadingEpisode] = useState<Episode | null>(null);
   const [modalVideoSeconds, setModalVideoSeconds] = useState<number | null>(null);
   const [spotlightAttract, setSpotlightAttract] = useState(false);
+  const [cardImageIndices, setCardImageIndices] = useState<Record<string, number>>({});
+
+  const handlePrevSlide = (e: React.MouseEvent, epId: string, galleryLength: number) => {
+    e.stopPropagation();
+    setCardImageIndices((prev) => {
+      const curr = prev[epId] || 0;
+      const nextIdx = curr === 0 ? galleryLength - 1 : curr - 1;
+      return { ...prev, [epId]: nextIdx };
+    });
+  };
+
+  const handleNextSlide = (e: React.MouseEvent, epId: string, galleryLength: number) => {
+    e.stopPropagation();
+    setCardImageIndices((prev) => {
+      const curr = prev[epId] || 0;
+      const nextIdx = curr === galleryLength - 1 ? 0 : curr + 1;
+      return { ...prev, [epId]: nextIdx };
+    });
+  };
 
   // Auto-hover "attract" pulse on the spotlight card — fires 0.5s after char animation ends (~1.5s)
   useEffect(() => {
@@ -46,18 +65,36 @@ export default function Home() {
     ? episodes
     : episodes.filter((ep) => ep.category === selectedCategory);
 
-  // Curated featured episodes for the Film Reel showcase
-  const featuredEpisodes = episodes.filter(
-    (ep) =>
-      ep.id === "suman-chakraborty-1" ||
-      ep.id === "arpit" ||
-      ep.id === "nikhil" ||
-      ep.id === "ankur" ||
-      ep.id === "pranali" ||
-      ep.id === "saumaric-aditi" ||
-      ep.id === "imbesat" ||
-      ep.id === "peter"
-  );
+  // Pre-defined YouTube views mapping for ranking the Film Reel negatives
+  const viewsMap: Record<string, number> = {
+    "suman-chakraborty-1": 185000,
+    "arpit": 142000,
+    "nikhil": 98000,
+    "ankur": 125000,
+    "pranali": 89000,
+    "saumaric-aditi": 76000,
+    "imbesat": 156000,
+    "peter": 112000,
+  };
+
+  // Curated featured episodes for the Film Reel showcase, ranked by YouTube views descending
+  const featuredEpisodes = episodes
+    .filter(
+      (ep) =>
+        ep.id === "suman-chakraborty-1" ||
+        ep.id === "arpit" ||
+        ep.id === "nikhil" ||
+        ep.id === "ankur" ||
+        ep.id === "pranali" ||
+        ep.id === "saumaric-aditi" ||
+        ep.id === "imbesat" ||
+        ep.id === "peter"
+    )
+    .map((ep) => ({
+      ...ep,
+      views: ep.views || viewsMap[ep.id] || 0,
+    }))
+    .sort((a, b) => b.views - a.views);
 
   const handleSpotlightPlay = (episode: Episode) => {
     setActiveEpisode(episode);
@@ -70,17 +107,17 @@ export default function Home() {
       <Header />
 
       {/* 2. TWO-COLUMN HERO ZONE */}
-      <section className="w-full max-w-7xl mx-auto px-6 md:px-8 py-12 md:py-20 flex flex-col lg:flex-row items-center justify-between gap-16 border-b border-white/[0.02]">
+      <section className="w-full max-w-7xl mx-auto px-4 md:px-8 pt-6 pb-10 md:py-20 flex flex-col-reverse lg:flex-row items-stretch lg:items-center justify-between gap-8 lg:gap-16 border-b border-white/[0.02]">
         
         {/* Left Column: Title & Editorial Text */}
-        <div className="w-full lg:w-[44%] flex flex-col text-left justify-center py-4">
-          <div className="flex items-center gap-2.5 mb-6 animate-fade-in-up">
+        <div className="w-full lg:w-[44%] flex flex-col text-left justify-center py-0 lg:py-4">
+          <div className="flex items-center gap-2.5 mb-4 md:mb-6 animate-fade-in-up">
             <span className="w-2 h-2 rounded-full bg-accent-orange animate-pulse" />
             <span className="text-xs tracking-[0.25em] font-mono text-accent-copper uppercase font-bold">
               EST. JUNE 2025 • 32 STORIES
             </span>
           </div>
-          <h2 className="text-5xl md:text-6xl lg:text-7xl font-serif italic leading-[1.08] mb-8 font-medium text-white" style={{ perspective: '600px' }}>
+          <h2 className="text-[2.5rem] md:text-6xl lg:text-7xl font-serif italic leading-[1.08] mb-5 md:mb-8 font-medium text-white" style={{ perspective: '600px' }}>
             {/* Part 1: Insights From */}
             {"Insights From ".split("").map((char, index) => (
               <span
@@ -110,20 +147,20 @@ export default function Home() {
               </span>
             ))}
           </h2>
-          <p className="text-base md:text-lg lg:text-xl text-stone-300 font-serif leading-relaxed italic mb-10 max-w-xl animate-fade-in-up" style={{ animationDelay: '850ms' }}>
+          <p className="hidden md:block text-base md:text-lg lg:text-xl text-stone-300 font-serif leading-relaxed italic mb-10 max-w-xl animate-fade-in-up" style={{ animationDelay: '850ms' }}>
             "Deconstructing life before the JEE, hostel fests, fiver-point struggles, campus placement diaries, and high-impact paths following graduation."
           </p>
-          <div className="flex flex-wrap gap-4 animate-fade-in-up" style={{ animationDelay: '1050ms' }}>
+          <div className="flex flex-wrap gap-3 md:gap-4 animate-fade-in-up" style={{ animationDelay: '1050ms' }}>
             <button
               onClick={() => handleSpotlightPlay(episodes[0])}
-              className="flex items-center gap-2 px-6 py-4 rounded-full bg-accent-orange font-bold text-xs tracking-widest uppercase hover:bg-accent-orange/95 hover:scale-105 active:scale-95 transition-all duration-300 shadow-lg shadow-accent-orange/20 cursor-pointer"
+              className="flex items-center gap-2 px-5 py-3 md:px-6 md:py-4 rounded-full bg-accent-orange font-bold text-[10px] md:text-xs tracking-widest uppercase hover:bg-accent-orange/95 hover:scale-105 active:scale-95 transition-all duration-300 shadow-lg shadow-accent-orange/20 cursor-pointer"
             >
               <Play className="w-4 h-4 fill-white" />
               <span>Listen Latest</span>
             </button>
             <a
               href="#alumni-chronicle"
-              className="flex items-center gap-2 px-6 py-4 rounded-full border border-stone-850 bg-white/[0.01] hover:bg-white/[0.04] font-bold text-xs tracking-widest uppercase text-stone-200 hover:text-white hover:border-stone-700 transition-all duration-300"
+              className="flex items-center gap-2 px-5 py-3 md:px-6 md:py-4 rounded-full border border-stone-850 bg-white/[0.01] hover:bg-white/[0.04] font-bold text-[10px] md:text-xs tracking-widest uppercase text-stone-200 hover:text-white hover:border-stone-700 transition-all duration-300"
             >
               <span>Explore Reel</span>
             </a>
@@ -139,10 +176,10 @@ export default function Home() {
             <div
               key={ep.id}
               onClick={() => handleSpotlightPlay(ep)}
-              className={`group cursor-pointer backdrop-blur-md bg-card-bg/40 border border-white/[0.06] hover:border-accent-orange/30 p-6 md:p-8 rounded-[36px] transition-all duration-500 shadow-2xl shadow-black/50 text-left hover:scale-[1.01] flex flex-col gap-6 animate-scale-in-projector animation-delay-700 ${spotlightAttract ? 'spotlight-attract' : ''}`}
+              className={`w-full group cursor-pointer backdrop-blur-md bg-card-bg/40 border border-white/[0.06] hover:border-accent-orange/30 p-0 md:p-8 rounded-2xl md:rounded-[36px] transition-all duration-500 shadow-2xl shadow-black/50 text-left hover:scale-[1.01] flex flex-col gap-0 md:gap-6 animate-scale-in-projector animation-delay-700 overflow-hidden ${spotlightAttract ? 'spotlight-attract' : ''}`}
             >
               {/* Premium Episode 0A (Prof Suman Part 1) Thumbnail Header - FULL WIDTH */}
-              <div className="spotlight-thumb w-full aspect-video rounded-2xl overflow-hidden border border-white/[0.08] relative group-hover:border-accent-orange/40 transition-all duration-500 shadow-[0_12px_40px_rgba(0,0,0,0.5)] animate-shine">
+              <div className="spotlight-thumb w-full aspect-video rounded-[4px] overflow-hidden border border-white/[0.08] relative group-hover:border-accent-orange/40 transition-all duration-500 shadow-[0_12px_40px_rgba(0,0,0,0.5)] animate-shine">
                 <img 
                   src={ep.coverImage} 
                   alt={ep.title} 
@@ -166,9 +203,9 @@ export default function Home() {
               </div>
 
               {/* Textual Narrative details side */}
-              <div className="w-full flex flex-col justify-between">
+              <div className="w-full flex flex-col justify-between px-4 py-3 md:p-0">
                 <div>
-                  <div className="flex justify-between items-center mb-4">
+                  <div className="flex flex-wrap justify-between items-center gap-2 mb-3 md:mb-4">
                     <span className="px-2.5 py-1 rounded bg-[#2D1212] border border-accent-orange/15 text-[8.5px] font-mono tracking-widest text-accent-orange uppercase font-bold">
                       DIRECTOR SPECIAL
                     </span>
@@ -182,10 +219,10 @@ export default function Home() {
                       </span>
                     </div>
                   </div>
-                  <h3 className="spotlight-title text-2xl md:text-3xl font-serif italic leading-tight text-white group-hover:text-accent-orange transition-colors duration-300 mb-3 font-medium">
+                  <h3 className="spotlight-title text-xl md:text-3xl font-serif italic leading-tight text-white group-hover:text-accent-orange transition-colors duration-300 mb-2 md:mb-3 font-medium">
                     {ep.title}
                   </h3>
-                  <p className="text-sm text-stone-400 leading-relaxed mb-6 font-serif">
+                  <p className="hidden md:block text-sm text-stone-400 leading-relaxed mb-6 font-serif">
                     "{ep.description}"
                   </p>
                 </div>
@@ -235,9 +272,15 @@ export default function Home() {
                     <span className="text-[11px] font-mono tracking-wider text-stone-300 uppercase font-bold">
                       SLIDE / EP. {ep.episodeNumber}{ep.episodeSub ? ep.episodeSub.toUpperCase() : ""}
                     </span>
-                    <span className="text-[9px] font-mono text-accent-copper uppercase font-bold mt-0.5">
-                      {ep.releaseDate || "JUNE 2025"}
-                    </span>
+                    <div className="flex items-center gap-1.5 mt-0.5">
+                      <span className="text-[9px] font-mono text-accent-copper uppercase font-bold">
+                        {ep.releaseDate || "JUNE 2025"}
+                      </span>
+                      <span className="text-stone-700 text-[8px] font-mono">•</span>
+                      <span className="text-[9px] font-mono text-accent-gold uppercase font-bold">
+                        {ep.views ? `${(ep.views / 1000).toFixed(0)}K views` : "0K views"}
+                      </span>
+                    </div>
                   </div>
                   <span className="w-6 h-6 rounded-full border border-stone-850 flex items-center justify-center font-mono text-[9px] text-stone-500">
                     {index + 1}
@@ -246,9 +289,54 @@ export default function Home() {
 
                 <div 
                   onClick={() => handleOpenHighlights(ep)}
-                  className="w-full aspect-video rounded-[4px] bg-stone-900/90 mb-6 flex items-center justify-center relative overflow-hidden border border-white/[0.03] cursor-pointer animate-shine"
+                  className="w-full aspect-video rounded-[4px] bg-stone-900/90 mb-6 flex items-center justify-center relative overflow-hidden border border-white/[0.03] cursor-pointer group/carousel animate-shine"
                 >
-                  {ep.coverImage ? (
+                  {ep.gallery && ep.gallery.length > 0 ? (
+                    <>
+                      {/* Interactive Gallery Slide Images */}
+                      {ep.gallery.map((imgUrl, imgIdx) => (
+                        <img 
+                          key={imgIdx}
+                          src={imgUrl} 
+                          alt={`${ep.guestName} slide ${imgIdx + 1}`} 
+                          className={`absolute inset-0 w-full h-full object-cover contrast-100 brightness-95 transition-all duration-700 ${
+                            (cardImageIndices[ep.id] || 0) === imgIdx 
+                              ? "opacity-100 scale-100 z-10" 
+                              : "opacity-0 scale-95 z-0"
+                          }`} 
+                        />
+                      ))}
+
+                      {/* Interactive Nav Arrows on Hover */}
+                      <button
+                        onClick={(e) => handlePrevSlide(e, ep.id, ep.gallery!.length)}
+                        className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full bg-black/60 hover:bg-accent-orange text-white hover:text-white flex items-center justify-center border border-white/10 opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300 active:scale-90"
+                      >
+                        <ChevronLeft className="w-4 h-4" />
+                      </button>
+
+                      <button
+                        onClick={(e) => handleNextSlide(e, ep.id, ep.gallery!.length)}
+                        className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full bg-black/60 hover:bg-accent-orange text-white hover:text-white flex items-center justify-center border border-white/10 opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300 active:scale-90"
+                      >
+                        <ChevronRight className="w-4 h-4" />
+                      </button>
+
+                      {/* Slide Indicator Dots */}
+                      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-20 flex gap-1 bg-black/40 px-2 py-0.5 rounded-full backdrop-blur-sm">
+                        {ep.gallery.map((_, imgIdx) => (
+                          <div 
+                            key={imgIdx}
+                            className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                              (cardImageIndices[ep.id] || 0) === imgIdx 
+                                ? "bg-accent-orange w-3" 
+                                : "bg-white/40"
+                            }`}
+                          />
+                        ))}
+                      </div>
+                    </>
+                  ) : ep.coverImage ? (
                     <img 
                       src={ep.coverImage} 
                       alt={ep.guestName} 
@@ -263,7 +351,7 @@ export default function Home() {
                     </>
                   )}
                   {/* Subtle projector beam effect */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10 pointer-events-none" />
                 </div>
 
                 <div className="flex items-center gap-1.5 mb-3">
@@ -315,7 +403,7 @@ export default function Home() {
                   {/* Listen on Spotify */}
                   {ep.spotifyUrl && (
                     <a
-                      href={ep.spotifyUrl}
+                      href="https://open.spotify.com/show/2OkRCNNTbwaAB2CElTDdYH"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="p-1.5 rounded-full border border-stone-850 hover:border-[#1DB954] hover:bg-[#1DB954]/5 text-stone-400 hover:text-[#1DB954] transition-all duration-300"
@@ -377,7 +465,7 @@ export default function Home() {
             {filteredEpisodes.map((ep) => (
               <div
                 key={ep.id}
-                className="group backdrop-blur-md bg-card-bg/10 border border-white/[0.02] hover:border-white/[0.06] px-6 py-5 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 transition-all duration-300 hover:scale-[1.005] relative"
+                className="group backdrop-blur-md bg-card-bg/10 border border-white/[0.02] hover:border-white/[0.06] px-6 py-5 rounded-2xl flex flex-col md:flex-row items-stretch md:items-center justify-between gap-6 transition-all duration-300 hover:scale-[1.005] relative"
               >
                 {/* Visual node on the orange timeline thread */}
                 <div className={`absolute left-[-26px] top-1/2 w-3.5 h-3.5 rounded-full border border-black group-hover:scale-125 transition-all duration-300 z-10 animate-pulse-glow ${
@@ -390,8 +478,8 @@ export default function Home() {
                     : "bg-accent-bronze text-accent-bronze shadow-[0_0_10px_#D4AF37]"
                 }`} />
 
-                <div className="flex items-center gap-5 w-full md:w-3/5">
-                  <span className="w-9 h-9 rounded-full border border-stone-850 flex items-center justify-center font-mono text-xs text-accent-orange font-bold">
+                <div className="flex items-start md:items-center gap-4 md:gap-5 w-full md:w-3/5">
+                  <span className="w-9 h-9 rounded-full border border-stone-850 flex items-center justify-center font-mono text-xs text-accent-orange font-bold shrink-0 mt-0.5 md:mt-0">
                     {ep.episodeNumber}{ep.episodeSub ? ep.episodeSub.toUpperCase() : ""}
                   </span>
                   <div className="flex flex-col text-left">
@@ -457,7 +545,7 @@ export default function Home() {
                     {/* Spotify Outpost */}
                     {ep.spotifyUrl && (
                       <a
-                        href={ep.spotifyUrl}
+                        href="https://open.spotify.com/show/2OkRCNNTbwaAB2CElTDdYH"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="p-2.5 rounded-full border border-stone-850 hover:border-[#1DB954] hover:bg-[#1DB954]/10 text-stone-500 hover:text-[#1DB954] transition-colors"
@@ -695,7 +783,7 @@ export default function Home() {
                 {/* Spotify */}
                 {readingEpisode.spotifyUrl && (
                   <a
-                    href={readingEpisode.spotifyUrl}
+                    href="https://open.spotify.com/show/2OkRCNNTbwaAB2CElTDdYH"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-1.5 px-4 py-2.5 rounded-full border border-stone-800 hover:border-[#1DB954] bg-black/40 text-stone-300 hover:text-white font-bold text-[10px] tracking-widest uppercase hover:scale-105 active:scale-95 transition-all"
