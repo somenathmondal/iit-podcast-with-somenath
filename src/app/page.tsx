@@ -107,7 +107,7 @@ export default function Home() {
               EST. JUNE 2025 • 32 STORIES
             </span>
           </div>
-          <h2 className="text-[2.5rem] md:text-6xl lg:text-7xl font-serif italic leading-[1.08] mb-5 md:mb-8 font-medium text-white" style={{ perspective: '600px' }}>
+          <h2 className="text-[2.5rem] md:text-6xl lg:text-7xl font-sans font-black tracking-tight leading-[1.08] mb-5 md:mb-8 text-white" style={{ perspective: '600px' }}>
             {/* Part 1: Insights From */}
             {"Insights From ".split("").map((char, index) => (
               <span
@@ -137,8 +137,8 @@ export default function Home() {
               </span>
             ))}
           </h2>
-          <p className="hidden md:block text-base md:text-lg lg:text-xl text-stone-300 font-serif leading-relaxed italic mb-10 max-w-xl animate-fade-in-up" style={{ animationDelay: '850ms' }}>
-            "Deconstructing life before the JEE, hostel fests, fiver-point struggles, campus placement diaries, and high-impact paths following graduation."
+          <p className="hidden md:block text-base md:text-lg lg:text-xl text-stone-300 font-sans leading-relaxed mb-10 max-w-xl animate-fade-in-up" style={{ animationDelay: '850ms' }}>
+            Deconstructing life before the JEE, hostel fests, fiver-point struggles, campus placement diaries, and high-impact paths following graduation.
           </p>
           <div className="flex flex-wrap gap-3 md:gap-4 animate-fade-in-up" style={{ animationDelay: '1050ms' }}>
             <button
@@ -209,11 +209,11 @@ export default function Home() {
                       </span>
                     </div>
                   </div>
-                  <h3 className="spotlight-title text-xl md:text-3xl font-serif italic leading-tight text-white group-hover:text-accent-orange transition-colors duration-300 mb-2 md:mb-3 font-medium">
+                  <h3 className="spotlight-title text-xl md:text-3xl font-sans font-bold leading-tight text-white group-hover:text-accent-orange transition-colors duration-300 mb-2 md:mb-3">
                     {ep.title}
                   </h3>
-                  <p className="hidden md:block text-sm text-stone-400 leading-relaxed mb-6 font-serif">
-                    "{ep.description}"
+                  <p className="hidden md:block text-sm text-stone-400 leading-relaxed mb-6 font-sans">
+                    {ep.description}
                   </p>
                 </div>
                 <div className="flex items-center justify-between border-t border-white/[0.04] pt-4 text-xs text-stone-500 font-mono">
@@ -245,7 +245,7 @@ export default function Home() {
               <span className="text-xs tracking-[0.4em] font-mono text-accent-gold uppercase font-bold mb-3 block">
                 EPISODES CATALOGUE
               </span>
-              <h2 className="text-3xl md:text-5xl font-serif italic leading-tight font-medium">
+              <h2 className="text-3xl md:text-5xl font-sans font-bold tracking-tight leading-tight">
                 Audio & Video Library
               </h2>
             </div>
@@ -299,7 +299,7 @@ export default function Home() {
                   <div className="flex flex-col text-left">
                     <h4 
                       onClick={() => handleOpenHighlights(ep)}
-                      className="text-lg md:text-xl font-serif italic text-white hover:text-accent-orange transition-colors duration-300 cursor-pointer"
+                      className="text-lg md:text-xl font-sans font-bold text-white hover:text-accent-orange transition-colors duration-300 cursor-pointer"
                     >
                       {ep.title}
                     </h4>
@@ -391,14 +391,14 @@ export default function Home() {
             <span className="text-xs tracking-[0.4em] font-mono text-accent-orange uppercase font-bold mb-4 block">
               ABOUT THE PODCAST
             </span>
-            <h2 className="text-3xl md:text-5xl font-serif italic leading-tight text-white mb-6 font-medium">
+            <h2 className="text-3xl md:text-5xl font-sans font-bold tracking-tight leading-tight text-white mb-6">
               Deconstructing the <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-orange via-accent-gold to-white">
                 IIT Legacy
               </span>
             </h2>
-            <p className="text-sm md:text-base text-stone-400 font-serif leading-relaxed italic mb-8">
-              "We unlock unfiltered, deeply human dialogues with the thinkers, builders, and administrators who shape the elite IIT corridors."
+            <p className="text-sm md:text-base text-stone-400 font-sans leading-relaxed mb-8">
+              We unlock unfiltered, deeply human dialogues with the thinkers, builders, and administrators who shape the elite IIT corridors.
             </p>
             
             {/* Massive Square Channel Art Showcase */}
@@ -427,7 +427,7 @@ export default function Home() {
             <span className="text-xs tracking-[0.4em] font-mono text-accent-gold uppercase font-bold mb-4 block">
               THE VOICE
             </span>
-            <h2 className="text-3xl md:text-5xl font-serif italic leading-tight text-white mb-8 font-medium">
+            <h2 className="text-3xl md:text-5xl font-sans font-bold tracking-tight leading-tight text-white mb-8">
               About the <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-copper via-accent-gold to-white">
                 Creator
@@ -440,11 +440,11 @@ export default function Home() {
               <div className="absolute -top-20 -left-20 w-40 h-40 bg-accent-orange/10 rounded-full blur-3xl pointer-events-none group-hover:bg-accent-orange/15 transition-colors" />
 
               <div className="flex items-center gap-5 mb-8">
-                <div className="w-16 h-16 rounded-[20px] bg-gradient-to-tr from-accent-orange to-accent-gold flex items-center justify-center text-white font-serif italic text-2xl shadow-lg font-bold flex-shrink-0">
+                <div className="w-16 h-16 rounded-[20px] bg-gradient-to-tr from-accent-orange to-accent-gold flex items-center justify-center text-white font-sans text-2xl shadow-lg font-bold flex-shrink-0">
                   SM
                 </div>
                 <div className="flex flex-col text-left">
-                  <h3 className="text-2xl md:text-3xl font-serif italic font-medium text-white leading-tight">
+                  <h3 className="text-2xl md:text-3xl font-sans font-bold text-white leading-tight">
                     Somenath Mondal
                   </h3>
                   <span className="text-xs font-mono text-accent-copper uppercase font-bold tracking-[0.15em] mt-1 block">
@@ -453,8 +453,8 @@ export default function Home() {
                 </div>
               </div>
 
-              <p className="text-sm md:text-lg text-stone-200 leading-relaxed font-serif italic mb-8">
-                "As an IIT alumnus, I built this space to host the raw, unpolished conversations I wish I had listened to during my own student years. This platform is a living journal of blueprints, resilience, and creative journeys."
+              <p className="text-sm md:text-lg text-stone-200 leading-relaxed font-sans mb-8">
+                As an IIT alumnus, I built this space to host the raw, unpolished conversations I wish I had listened to during my own student years. This platform is a living journal of blueprints, resilience, and creative journeys.
               </p>
 
               <p className="text-xs md:text-base text-stone-400 leading-relaxed font-sans mb-10">
@@ -491,7 +491,7 @@ export default function Home() {
                 <span className="text-xs tracking-widest font-mono text-accent-orange uppercase font-bold">
                   EPISODE {readingEpisode.episodeNumber}{readingEpisode.episodeSub ? readingEpisode.episodeSub.toUpperCase() : ""} CHRONICLE
                 </span>
-                <h3 className="text-xl md:text-2xl font-serif italic text-white mt-1 leading-tight">
+                <h3 className="text-xl md:text-2xl font-sans font-bold text-white mt-1 leading-tight">
                   {readingEpisode.title}
                 </h3>
               </div>
@@ -539,15 +539,15 @@ export default function Home() {
                           <Play className="w-2.5 h-2.5 fill-accent-orange" /> {takeaway.time}
                         </span>
                       </div>
-                      <h5 className="text-base font-serif italic font-medium text-white mb-2">{takeaway.title}</h5>
-                      <p className="text-sm text-stone-300 leading-relaxed font-serif">"{takeaway.text}"</p>
+                      <h5 className="text-base font-sans font-bold text-white mb-2">{takeaway.title}</h5>
+                      <p className="text-sm text-stone-300 leading-relaxed font-sans">"{takeaway.text}"</p>
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* Main Narrative Article */}
-              <div className="prose prose-invert prose-stone max-w-none prose-headings:font-serif prose-headings:italic prose-blockquote:font-serif prose-blockquote:italic border-t border-white/[0.03] pt-8">
+              <div className="prose prose-invert prose-stone max-w-none border-t border-white/[0.03] pt-8">
                 <span className="text-xs tracking-[0.2em] font-mono text-stone-500 uppercase block mb-6">
                   FULL HIGHLIGHTS DIARY
                 </span>
