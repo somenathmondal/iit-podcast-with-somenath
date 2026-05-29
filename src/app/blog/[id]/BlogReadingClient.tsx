@@ -339,10 +339,10 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
             </div>
           ) : (
             /* B. Dynamic Short-Form Episode Digest Renderer */
-            <div className="flex flex-col gap-10">
+            <div className="flex flex-col gap-8">
               
               {/* Spotify Player Trigger */}
-              <div className="flex flex-wrap gap-3 mb-2 border-b border-white/[0.03] pb-6">
+              <div className="flex flex-wrap gap-3">
                 <a
                   href="https://open.spotify.com/show/2OkRCNNTbwaAB2CElTDdYH"
                   target="_blank"
@@ -355,7 +355,7 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
               </div>
 
               {/* Stitched Takeaways Cards Grid */}
-              <div className="border-t border-white/[0.03] pt-8">
+              <div className="pt-2">
                 <h4 className="text-xs tracking-[0.2em] font-mono text-accent-gold uppercase font-bold mb-4">
                   CORE DIGEST KEY TAKEAWAYS
                 </h4>
