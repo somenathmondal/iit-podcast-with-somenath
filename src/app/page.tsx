@@ -461,12 +461,21 @@ export default function Home() {
                 Unlocking the personal files behind academic pressure, mental struggles, multi-hostel festival coordination, and the high-leverage careers post-graduation.
               </p>
 
-              <div className="flex flex-wrap gap-4 border-t border-white/[0.04] pt-8">
+              <div className="flex flex-col gap-3 border-t border-white/[0.04] pt-8">
+                <a
+                  href="https://www.linkedin.com/in/somenath-mondal-xr-tech/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full border border-stone-850 bg-white/[0.01] hover:bg-white/[0.04] hover:border-accent-orange/30 text-stone-300 hover:text-white transition-all duration-300 cursor-pointer w-fit"
+                >
+                  <span>LinkedIn Profile</span>
+                  <ExternalLink className="w-4 h-4" />
+                </a>
                 <a
                   href="https://somenath-portfolio-3d.vercel.app/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-accent-orange text-white font-bold text-xs tracking-widest uppercase hover:bg-accent-orange/95 hover:scale-105 active:scale-95 transition-all duration-300 shadow-lg shadow-accent-orange/20 cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-accent-orange text-white font-bold text-xs tracking-widest uppercase hover:bg-accent-orange/95 hover:scale-105 active:scale-95 transition-all duration-300 shadow-lg shadow-accent-orange/20 cursor-pointer w-fit"
                 >
                   <span>Explore 3D Portfolio</span>
                   <ExternalLink className="w-4 h-4" />
