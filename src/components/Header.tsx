@@ -9,10 +9,10 @@ export default function Header() {
       
       {/* Brand logo */}
       <Link href="/" className="flex flex-col text-left group">
-        <h1 className="text-xl font-serif italic font-medium tracking-tight text-white group-hover:text-accent-copper transition-colors duration-300">
+        <h1 className="text-2xl md:text-3xl font-serif italic font-bold tracking-tight text-white group-hover:text-accent-copper transition-colors duration-300">
           IIT Podcast
         </h1>
-        <span className="text-[7px] tracking-[0.3em] font-mono text-accent-orange uppercase mt-0.5">
+        <span className="text-[8px] md:text-[9px] tracking-[0.35em] font-mono text-accent-orange font-bold uppercase mt-1">
           WITH SOMENATH
         </span>
       </Link>
