@@ -210,7 +210,12 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
   const releaseDate = editorial ? editorial.releaseDate : (episode!.releaseDate || "JUNE 2025");
   const readTime = editorial 
     ? editorial.readTime 
-    : `${Math.round(parseInt(episode!.duration.split(":")[0]) / 5)} min read`;
+    : (() => {
+        const combinedText = `${episode!.description} ${episode!.fullStoryMarkdown}`;
+        const wordCount = combinedText.split(/\s+/).filter(w => w.length > 0).length;
+        const minutes = Math.max(1, Math.ceil(wordCount / 200));
+        return `${minutes} min read`;
+      })();
   const youtubeId = editorial 
     ? (editorial.youtubeId || "wGoU_5GjRro") 
     : episode!.youtubeId;

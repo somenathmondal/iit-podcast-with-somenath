@@ -19,7 +19,12 @@ export default function BlogHub() {
     title: ep.title,
     description: ep.description,
     author: "Somenath Mondal",
-    readTime: `${Math.round(parseInt(ep.duration.split(":")[0]) / 5)} min read`, // Estimate reading time from duration
+    readTime: (() => {
+      const combinedText = `${ep.description} ${ep.fullStoryMarkdown}`;
+      const wordCount = combinedText.split(/\s+/).filter(w => w.length > 0).length;
+      const minutes = Math.max(1, Math.ceil(wordCount / 200));
+      return `${minutes} min read`;
+    })(),
     category: ep.category,
     releaseDate: ep.releaseDate || "JUNE 2025",
     coverImage: ep.youtubeId 
