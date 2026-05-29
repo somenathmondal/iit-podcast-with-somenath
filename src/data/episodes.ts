@@ -190,7 +190,7 @@ export const episodes: Episode[] = [
     episodeNumber: 7,
     title: "7 Pointer at IIT KGP to Working at INSTAGRAM, follow her Blueprint",
     guestName: "Pranali",
-    guestTitle: "Software Engineer at Google",
+    guestTitle: "Software Engineer at Instagram",
     duration: "44:15",
     category: "placement",
     youtubeId: "7Y9xgtR0EwU",

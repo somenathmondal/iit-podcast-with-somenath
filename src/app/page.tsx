@@ -731,7 +731,7 @@ export default function Home() {
 
               {/* Sync Playback Takeaways */}
               <div className="mb-10">
-                <h4 className="text-[10px] tracking-[0.2em] font-mono text-accent-gold uppercase font-bold mb-4">
+                <h4 className="text-xs tracking-[0.2em] font-mono text-accent-gold uppercase font-bold mb-4">
                   STITCHED SEGMENT KEY TAKEAWAYS (CLICK TO JUMP VIDEO)
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -751,8 +751,8 @@ export default function Home() {
                           <Play className="w-2.5 h-2.5 fill-accent-orange" /> {takeaway.time}
                         </span>
                       </div>
-                      <h5 className="text-sm font-serif italic font-medium text-white mb-2">{takeaway.title}</h5>
-                      <p className="text-xs text-stone-400 leading-relaxed font-serif">"{takeaway.text}"</p>
+                      <h5 className="text-base font-serif italic font-medium text-white mb-2">{takeaway.title}</h5>
+                      <p className="text-sm text-stone-300 leading-relaxed font-serif">"{takeaway.text}"</p>
                     </div>
                   ))}
                 </div>
@@ -764,7 +764,7 @@ export default function Home() {
                   FULL HIGHLIGHTS DIARY
                 </span>
                 
-                <div className="font-serif italic text-stone-200 text-sm leading-relaxed whitespace-pre-line prose-p:mb-4">
+                <div className="font-sans text-stone-200 text-base md:text-[18px] leading-[1.8] whitespace-pre-line prose-p:mb-6">
                   {readingEpisode.fullStoryMarkdown}
                 </div>
               </div>

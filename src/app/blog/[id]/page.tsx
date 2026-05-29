@@ -8,6 +8,147 @@ import { blogs, BlogArticle } from "../../../data/blogs";
 import { episodes, Episode } from "../../../data/episodes";
 import { usePlayerStore } from "../../../lib/store";
 
+// Parse inline markdown elements: bold (**), italic (*), inline code (`)
+const parseInlineElements = (text: string) => {
+  if (!text) return "";
+  
+  // 1. Process inline code segments first
+  const tokens = text.split(/(`.*?`)/g);
+  
+  return tokens.flatMap((token, idx) => {
+    if (token.startsWith("`") && token.endsWith("`")) {
+      return (
+        <code key={`code-${idx}`} className="font-mono text-[11px] px-1.5 py-0.5 bg-[#2D1212]/50 border border-accent-orange/15 text-accent-orange rounded mx-0.5">
+          {token.slice(1, -1)}
+        </code>
+      );
+    }
+    
+    // 2. Process bold (**) and italics (*) inside standard text parts
+    const subTokens = token.split(/(\*\*.*?\*\*|\*.*?\*)/g);
+    return subTokens.map((subToken, subIdx) => {
+      if (subToken.startsWith("**") && subToken.endsWith("**")) {
+        return (
+          <strong key={`bold-${idx}-${subIdx}`} className="font-sans font-bold text-white tracking-wide">
+            {subToken.slice(2, -2)}
+          </strong>
+        );
+      }
+      if (subToken.startsWith("*") && subToken.endsWith("*")) {
+        return (
+          <em key={`em-${idx}-${subIdx}`} className="font-serif italic text-stone-200">
+            {subToken.slice(1, -1)}
+          </em>
+        );
+      }
+      return subToken;
+    });
+  });
+};
+
+// Render full markdown content with proper structured JSX elements
+const renderMarkdown = (markdown: string) => {
+  if (!markdown) return null;
+  const lines = markdown.split("\n");
+  const elements: React.ReactNode[] = [];
+  let currentList: React.ReactNode[] = [];
+  let listType: "ul" | "ol" | null = null;
+
+  const pushList = (key: string | number) => {
+    if (currentList.length > 0) {
+      if (listType === "ul") {
+        elements.push(
+          <ul key={`ul-${key}`} className="list-disc pl-6 my-4 space-y-3 text-stone-200/90 font-sans text-base md:text-[19px] lg:text-[20px] leading-[1.8] text-left">
+            {currentList}
+          </ul>
+        );
+      } else if (listType === "ol") {
+        elements.push(
+          <ol key={`ol-${key}`} className="list-decimal pl-6 my-4 space-y-3 text-stone-200/90 font-sans text-base md:text-[19px] lg:text-[20px] leading-[1.8] text-left">
+            {currentList}
+          </ol>
+        );
+      }
+      currentList = [];
+      listType = null;
+    }
+  };
+
+  lines.forEach((line, idx) => {
+    const trimmed = line.trim();
+    
+    // Empty line
+    if (!trimmed) {
+      pushList(idx);
+      return;
+    }
+
+    // Divider
+    if (trimmed === "---") {
+      pushList(idx);
+      elements.push(<hr key={`hr-${idx}`} className="my-8 border-t border-white/[0.08]" />);
+      return;
+    }
+
+    // Heading 4 (Check this first to prevent H3 prefix mismatch)
+    if (trimmed.startsWith("####")) {
+      pushList(idx);
+      const headingText = trimmed.replace(/^####\s+/, "");
+      elements.push(
+        <h4 key={`h4-${idx}`} className="text-xl md:text-2xl font-serif text-accent-gold font-semibold mt-8 mb-4 border-l-2 border-accent-gold/40 pl-4 text-left">
+          {parseInlineElements(headingText)}
+        </h4>
+      );
+      return;
+    }
+
+    // Heading 3
+    if (trimmed.startsWith("###")) {
+      pushList(idx);
+      const headingText = trimmed.replace(/^###\s+/, "");
+      elements.push(
+        <h3 key={`h3-${idx}`} className="text-2xl md:text-3xl font-serif text-white font-semibold mt-10 mb-5 border-l-2 border-accent-orange pl-4 text-left">
+          {parseInlineElements(headingText)}
+        </h3>
+      );
+      return;
+    }
+
+    // Unordered list item
+    if (trimmed.startsWith("*") || trimmed.startsWith("-")) {
+      if (listType !== "ul") {
+        pushList(idx);
+        listType = "ul";
+      }
+      const itemText = trimmed.replace(/^[\*\-]\s+/, "");
+      currentList.push(<li key={`li-${idx}`}>{parseInlineElements(itemText)}</li>);
+      return;
+    }
+
+    // Ordered list item
+    if (/^\d+\.\s+/.test(trimmed)) {
+      if (listType !== "ol") {
+        pushList(idx);
+        listType = "ol";
+      }
+      const itemText = trimmed.replace(/^\d+\.\s+/, "");
+      currentList.push(<li key={`li-${idx}`}>{parseInlineElements(itemText)}</li>);
+      return;
+    }
+
+    // Regular paragraph
+    pushList(idx);
+    elements.push(
+      <p key={`p-${idx}`} className="text-stone-200/90 font-sans text-base md:text-[19px] lg:text-[20px] leading-[1.8] mb-6 text-left">
+        {parseInlineElements(trimmed)}
+      </p>
+    );
+  });
+
+  pushList("final");
+  return elements;
+};
+
 interface PageParams {
   id: string;
 }
@@ -104,7 +245,7 @@ export default function BlogReadingPage({ params }: { params: React.Usable<PageP
 
       <Header />
 
-      <main className="flex-grow w-full max-w-4xl mx-auto px-6 md:px-8 py-10 md:py-16 text-left relative">
+      <main className="flex-grow w-full max-w-3xl mx-auto px-6 md:px-8 py-10 md:py-16 text-left relative">
         
         {/* Back Link */}
         <Link 
@@ -131,7 +272,7 @@ export default function BlogReadingPage({ params }: { params: React.Usable<PageP
         </div>
 
         {/* Main Title */}
-        <h1 className="text-3xl md:text-5xl lg:text-6xl font-serif italic leading-[1.1] text-white font-medium mb-6">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif italic leading-[1.2] text-white font-medium mb-6">
           {title}
         </h1>
 
@@ -139,7 +280,7 @@ export default function BlogReadingPage({ params }: { params: React.Usable<PageP
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 border-b border-white/[0.04] pb-8 mb-10">
           
           {/* Metadata */}
-          <div className="flex flex-wrap items-center gap-4 text-stone-400 font-mono text-[10px] uppercase font-bold">
+          <div className="flex flex-wrap items-center gap-4 text-stone-400 font-mono text-xs uppercase font-bold">
             <div className="flex items-center gap-1.5">
               <Calendar className="w-3.5 h-3.5 text-accent-orange" />
               <span>Released {releaseDate}</span>
@@ -175,23 +316,25 @@ export default function BlogReadingPage({ params }: { params: React.Usable<PageP
           </button>
         </div>
 
-        {/* Feature Cover Image Banner */}
-        <div className="w-full aspect-video rounded-3xl overflow-hidden border border-white/[0.05] shadow-2xl mb-12 relative">
-          <img
-            src={coverImage}
-            alt={title}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0F0606]/30 to-transparent" />
-        </div>
+        {/* Feature Cover Image Banner - Rendered ONLY for long-form combined editorials, since episode digests have the YouTube player */}
+        {editorial && (
+          <div className="w-full aspect-video rounded-3xl overflow-hidden border border-white/[0.05] shadow-2xl mb-12 relative">
+            <img
+              src={coverImage}
+              alt={title}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0F0606]/30 to-transparent" />
+          </div>
+        )}
 
         {/* MAIN ARTICLE BODY CONTAINER */}
         <div className="prose prose-invert prose-stone max-w-none prose-headings:font-serif prose-headings:italic prose-blockquote:font-serif prose-blockquote:italic text-left">
           
           {editorial ? (
             /* A. Long-Form Editorial Renderer (Supports rich markdown styling) */
-            <div className="font-serif italic text-stone-200 text-base md:text-lg leading-relaxed whitespace-pre-line prose-p:mb-6">
-              {editorial.contentMarkdown}
+            <div className="text-stone-200 text-left">
+              {renderMarkdown(editorial.contentMarkdown)}
             </div>
           ) : (
             /* B. Dynamic Short-Form Episode Digest Renderer */
@@ -235,7 +378,7 @@ export default function BlogReadingPage({ params }: { params: React.Usable<PageP
 
               {/* Stitched Takeaways Cards Grid */}
               <div className="border-t border-white/[0.03] pt-8">
-                <h4 className="text-[10px] tracking-[0.2em] font-mono text-accent-gold uppercase font-bold mb-4">
+                <h4 className="text-xs tracking-[0.2em] font-mono text-accent-gold uppercase font-bold mb-4">
                   CORE DIGEST KEY TAKEAWAYS
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -244,27 +387,80 @@ export default function BlogReadingPage({ params }: { params: React.Usable<PageP
                       key={idx}
                       className="bg-card-bg/25 border border-white/[0.04] p-5 rounded-2xl text-left"
                     >
-                      <div className="flex justify-between items-center mb-2 font-mono text-[9px]">
+                      <div className="flex justify-between items-center mb-2 font-mono text-xs">
                         <span className="text-accent-copper font-bold uppercase">TAKEAWAY 0{idx + 1}</span>
-                        <span className="px-2 py-0.5 bg-[#2D1212] border border-accent-orange/10 rounded text-accent-orange font-bold">
+                        <span className="px-2 py-0.5 bg-[#2D1212] border border-accent-orange/15 text-accent-orange font-bold">
                           {takeaway.time}
                         </span>
                       </div>
-                      <h5 className="text-base font-serif italic font-medium text-white mb-2">{takeaway.title}</h5>
-                      <p className="text-xs text-stone-400 leading-relaxed font-serif">"{takeaway.text}"</p>
+                      <h5 className="text-lg font-serif italic font-medium text-white mb-2">{takeaway.title}</h5>
+                      <p className="text-sm md:text-base text-stone-300 leading-relaxed font-serif">"{takeaway.text}"</p>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Main Transcript Commentary Narrative */}
+              {/* Main Dynamic Transcript Commentary Narrative */}
               <div className="border-t border-white/[0.03] pt-8 text-left">
-                <h4 className="text-[10px] tracking-[0.2em] font-mono text-stone-500 uppercase block mb-4">
+                <h4 className="text-xs tracking-[0.2em] font-mono text-stone-500 uppercase block mb-6">
                   THE CHRONICLE JOURNAL
                 </h4>
-                <p className="font-serif italic text-stone-200 text-base md:text-lg leading-relaxed whitespace-pre-line prose-p:mb-6">
-                  {episode!.fullStoryMarkdown}
-                </p>
+                
+                {/* Dynamically Expanded Editorial Content */}
+                <div className="space-y-10 text-stone-200/90 font-sans text-base md:text-[19px] lg:text-[20px] leading-[1.8]">
+                  
+                  {/* Part 1: Detailed Overview */}
+                  <p>
+                    Welcome to the official chronicle digest of our conversation with <strong className="text-white font-semibold">{episode!.guestName}</strong>, who serves as the <span className="text-accent-gold font-mono text-xs font-bold uppercase">{episode!.guestTitle}</span>. In this high-leverage episode, we dive deep behind-the-scenes to deconstruct career paths, survival tactics, and personal blueprints. 
+                  </p>
+                  
+                  <p>
+                    Specifically, {episode!.guestName} shares: <em className="text-white font-serif italic text-lg md:text-xl lg:text-2xl leading-relaxed">"{episode!.description}"</em>
+                  </p>
+ 
+                  <hr className="border-t border-white/[0.05]" />
+ 
+                  {/* Part 2: Structured Deep Dives from Stitched Takeaways */}
+                  <div className="space-y-6">
+                    <h3 className="text-2xl md:text-3xl font-serif text-white font-semibold border-l-2 border-accent-orange pl-4">
+                      Masterclass Blueprints & Takeaways
+                    </h3>
+                    
+                    {episode!.takeaways.map((takeaway, idx) => (
+                      <div key={idx} className="space-y-4 bg-[#130707]/30 border border-white/[0.03] p-5 rounded-2xl">
+                        <div className="flex items-center justify-between">
+                          <h4 className="text-lg md:text-xl font-serif text-accent-gold font-semibold">
+                            Blueprint {idx + 1}: {takeaway.title}
+                          </h4>
+                          <span className="px-2 py-0.5 bg-[#2D1212] border border-accent-orange/10 rounded text-accent-orange font-mono text-[10px] font-bold">
+                            Timestamp: [{takeaway.time}]
+                          </span>
+                        </div>
+                        
+                        <blockquote className="font-serif italic text-stone-100 text-base md:text-[18px] lg:text-[19px] leading-[1.7] pl-4 border-l-2 border-accent-orange/50 py-2 bg-white/[0.01] rounded-r pr-2">
+                           "{takeaway.text}"
+                        </blockquote>
+                        
+                        <p className="text-sm md:text-base text-stone-400 font-sans leading-relaxed">
+                          This core takeaway details a highly strategic path highlighted during the conversation. By implementing this operational framework, students and early professionals can bypass standard pitfalls, prioritize critical systems-level growth, and focus directly on high-impact problem solving.
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <hr className="border-t border-white/[0.05]" />
+
+                  {/* Part 3: Dynamic Chronicle Conclusion */}
+                  <div className="space-y-4">
+                    <h3 className="text-2xl md:text-3xl font-serif text-white font-semibold border-l-2 border-accent-orange pl-4">
+                      Chronicle Summary & Reflections
+                    </h3>
+                    <div className="text-stone-200/90 text-left">
+                      {renderMarkdown(episode!.fullStoryMarkdown)}
+                    </div>
+                  </div>
+
+                </div>
               </div>
 
             </div>
