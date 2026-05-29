@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Outfit:wght@300..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
-
 @import "tailwindcss";
 
 :root {
@@ -20,9 +18,9 @@
   --color-accent-copper: var(--color-accent-copper);
   --color-accent-bronze: var(--color-accent-bronze);
   --color-card-bg: var(--color-card-bg);
-  --font-sans: 'Outfit', sans-serif;
-  --font-serif: 'Cormorant Garamond', serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: var(--font-sans), sans-serif;
+  --font-serif: var(--font-serif), serif;
+  --font-mono: var(--font-mono), monospace;
 }
 
 html {

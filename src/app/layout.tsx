@@ -1,6 +1,27 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
+import { Playfair_Display, Ubuntu, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-serif",
+  style: ["normal", "italic"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+});
+
+const ubuntu = Ubuntu({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  style: ["normal", "italic"],
+  weight: ["300", "400", "500", "700"],
+});
+
+const jetbrains = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://iit-podcast.vercel.app"),
@@ -41,7 +62,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased">
+    <html lang="en" className={`h-full antialiased ${playfair.variable} ${ubuntu.variable} ${jetbrains.variable}`}>
       <body className="min-h-full flex flex-col bg-[#0F0606] text-white">
         {children}
         <Analytics />

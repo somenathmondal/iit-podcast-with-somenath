@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowLeft, BookOpen, Calendar, Clock, ArrowRight, Rss } from "lucide-react";
 import Header from "../../components/Header";
@@ -18,11 +18,13 @@ export default function BlogHub() {
     id: ep.id,
     title: ep.title,
     description: ep.description,
-    author: ep.guestName,
+    author: "Somenath Mondal",
     readTime: `${Math.round(parseInt(ep.duration.split(":")[0]) / 5)} min read`, // Estimate reading time from duration
     category: ep.category,
     releaseDate: ep.releaseDate || "JUNE 2025",
-    coverImage: ep.coverImage || "/thumbnails/Ep00-ProfSuman.png",
+    coverImage: ep.youtubeId 
+      ? `https://img.youtube.com/vi/${ep.youtubeId}/maxresdefault.jpg` 
+      : (ep.coverImage || "/thumbnails/Ep00-ProfSuman.png"),
     tags: ep.tags,
     isDigest: true,
   }));
@@ -33,8 +35,28 @@ export default function BlogHub() {
     ...episodeDigests,
   ];
 
+  const [entries, setEntries] = useState<any[]>(allEntries);
+
+  useEffect(() => {
+    const today = new Date();
+    // Calculate current day of year (0-365) to rotate deterministic daily
+    const startOfNewYear = new Date(today.getFullYear(), 0, 0);
+    const diff = today.getTime() - startOfNewYear.getTime();
+    const oneDayMs = 1000 * 60 * 60 * 24;
+    const dayOfYear = Math.floor(diff / oneDayMs);
+    
+    if (allEntries.length > 0) {
+      const startIndex = dayOfYear % allEntries.length;
+      const rotated = [
+        ...allEntries.slice(startIndex),
+        ...allEntries.slice(0, startIndex),
+      ];
+      setEntries(rotated);
+    }
+  }, []);
+
   // Filter entries based on the selected tab
-  const filteredEntries = allEntries.filter((entry) => {
+  const filteredEntries = entries.filter((entry) => {
     if (filter === "editorial") return !entry.isDigest;
     if (filter === "digest") return entry.isDigest;
     return true; // "all"
@@ -45,19 +67,19 @@ export default function BlogHub() {
       {/* Navigation Header */}
       <Header />
 
-      <main className="flex-grow w-full max-w-7xl mx-auto px-6 md:px-8 py-10 md:py-16 text-left">
+      <main className="flex-grow w-full max-w-7xl mx-auto px-6 md:px-8 py-6 md:py-16 text-left">
         
         {/* Back Link */}
         <Link 
           href="/" 
-          className="inline-flex items-center gap-2 text-stone-400 hover:text-white text-xs font-mono uppercase tracking-wider mb-8 transition-colors group cursor-pointer"
+          className="hidden sm:inline-flex items-center gap-2 text-stone-400 hover:text-white text-xs font-mono uppercase tracking-wider mb-8 transition-colors group cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           <span>Back to Studio</span>
         </Link>
 
         {/* Hero Section */}
-        <header className="mb-12 border-b border-white/[0.02] pb-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+        <header className="hidden sm:block mb-12 border-b border-white/[0.02] pb-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
           <div className="flex flex-col text-left">
             <div className="flex items-center gap-2.5 mb-3">
               <span className="w-2 h-2 rounded-full bg-accent-orange animate-pulse" />
@@ -75,7 +97,7 @@ export default function BlogHub() {
         </header>
 
         {/* Dynamic Daily Blueprint Section */}
-        <section className="mb-12">
+        <section className="hidden sm:block mb-12">
           <DailyTip />
         </section>
 
@@ -112,9 +134,10 @@ export default function BlogHub() {
         {/* Blog Article Grid */}
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {filteredEntries.map((entry) => (
-            <article
+            <Link
               key={entry.id}
-              className="group backdrop-blur-md bg-card-bg/25 border border-white/[0.04] hover:border-accent-orange/30 rounded-[28px] overflow-hidden flex flex-col justify-between transition-all duration-500 hover:scale-[1.008] shadow-lg shadow-black/40 text-left"
+              href={`/blog/${entry.id}`}
+              className="group backdrop-blur-md bg-card-bg/25 border border-white/[0.04] hover:border-accent-orange/30 rounded-[28px] overflow-hidden flex flex-col justify-between transition-all duration-500 hover:scale-[1.008] shadow-lg shadow-black/40 text-left cursor-pointer"
             >
               <div>
                 {/* Visual Header Image Cover */}
@@ -142,11 +165,11 @@ export default function BlogHub() {
                 <div className="p-6">
                   {/* Metas Row */}
                   <div className="flex items-center gap-3 font-mono text-[9px] text-stone-500 uppercase font-bold mb-3">
-                    <div className="flex items-center gap-1">
+                    <div className="hidden sm:flex items-center gap-1">
                       <Calendar className="w-3.5 h-3.5" />
                       <span>{entry.releaseDate}</span>
                     </div>
-                    <span className="text-stone-800">•</span>
+                    <span className="hidden sm:inline text-stone-800">•</span>
                     <div className="flex items-center gap-1">
                       <Clock className="w-3.5 h-3.5" />
                       <span>{entry.readTime}</span>
@@ -168,15 +191,14 @@ export default function BlogHub() {
                 <span className="text-[10px] font-mono text-stone-500 uppercase">
                   By {entry.author}
                 </span>
-                <Link
-                  href={`/blog/${entry.id}`}
-                  className="text-xs tracking-widest font-mono text-accent-orange font-bold uppercase flex items-center gap-1 cursor-pointer group-hover:translate-x-1.5 transition-transform duration-300"
+                <div
+                  className="text-xs tracking-widest font-mono text-accent-orange font-bold uppercase flex items-center gap-1 group-hover:translate-x-1.5 transition-transform duration-300"
                 >
                   <span>Read Article</span>
                   <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
+                </div>
               </div>
-            </article>
+            </Link>
           ))}
         </section>
 

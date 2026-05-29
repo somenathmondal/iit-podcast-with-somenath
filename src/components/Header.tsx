@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Sparkles, Rss } from "lucide-react";
+import { Sparkles, Rss, BookOpen } from "lucide-react";
 
 export default function Header() {
   return (
@@ -37,7 +37,16 @@ export default function Header() {
       </nav>
 
       {/* CTA buttons */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2 md:gap-4">
+        {/* Mobile Journal Link */}
+        <Link
+          href="/blog"
+          className="flex md:hidden items-center gap-1.5 px-3 py-1.5 rounded-full border border-accent-copper/20 bg-accent-copper/5 text-accent-copper font-bold text-[8px] tracking-widest uppercase hover:bg-accent-copper/15 active:scale-95 transition-all duration-300"
+        >
+          <BookOpen className="w-3 h-3 text-accent-copper" />
+          <span>Journal</span>
+        </Link>
+
         {/* JEE Sandbox Link */}
         <Link
           href="/sandbox"

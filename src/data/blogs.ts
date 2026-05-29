@@ -9,6 +9,9 @@ export interface BlogArticle {
   coverImage: string;
   contentMarkdown: string;
   tags: string[];
+  youtubeId?: string;
+  guestName?: string;
+  guestTitle?: string;
 }
 
 export const blogs: BlogArticle[] = [
@@ -16,11 +19,14 @@ export const blogs: BlogArticle[] = [
     id: "mckinsey-consulting-blueprint",
     title: "The McKinsey Case Interview Survival Guide: Pivoting from Engineering to Consulting",
     description: "A comprehensive combined guide synthesised from IIT alumni lessons on breaking into top-tier management consulting, passing McKinsey case rounds, and adjusting your mindset.",
-    author: "IIT Podcast Editorial",
+    author: "Somenath Mondal",
     readTime: "8 min read",
     category: "placement",
     releaseDate: "MAY 2025",
     coverImage: "/thumbnails/Ep24-Shashwat.png",
+    youtubeId: "wGoU_5GjRro",
+    guestName: "Shashwat",
+    guestTitle: "McKinsey Analyst",
     tags: ["Consulting", "McKinsey", "Case Interview", "Career Pivot"],
     contentMarkdown: `Many IIT graduates aspire to transition from technical engineering backgrounds into top-tier management consulting firms like McKinsey, BCG, and Bain. However, the shift requires a fundamental rewiring of how you analyze and communicate problems. 
 
@@ -67,11 +73,14 @@ Transitioning from the relaxed environment of college or pure research to corpor
     id: "dsa-vs-systems-engineering",
     title: "DSA vs. Systems Programming: Preparing for High-Growth Tech Roles",
     description: "An editorial analysis of how to balance competitive programming (LeetCode) with deep systems engineering (operating systems, databases) to secure premium tech placements.",
-    author: "IIT Podcast Tech Desk",
+    author: "Somenath Mondal",
     readTime: "10 min read",
     category: "placement",
     releaseDate: "MAY 2025",
     coverImage: "/thumbnails/Ep01-Arpit.png",
+    youtubeId: "a5RhmyDLMr0",
+    guestName: "Arpit",
+    guestTitle: "Systems Engineer",
     tags: ["DSA", "Systems Engineering", "LeetCode", "Placements", "Software Engineering"],
     contentMarkdown: `Securing a premium software engineering placement is a major goal for many IIT students. However, the campus placement ecosystem often creates a hyper-focus on competitive programming and LeetCode, sometimes at the expense of core engineering capability.
 
