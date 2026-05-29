@@ -22,12 +22,18 @@ export default function Header() {
         {["Episodes", "Alumni Chronicle", "Guests", "About"].map((link) => (
           <Link
             key={link}
-            href={`#${link.toLowerCase().replace(" ", "-")}`}
+            href={`/#${link.toLowerCase().replace(" ", "-")}`}
             className="text-xs tracking-wider font-mono text-stone-400 hover:text-white transition-colors duration-300 uppercase"
           >
             {link}
           </Link>
         ))}
+        <Link
+          href="/blog"
+          className="text-xs tracking-wider font-mono text-stone-400 hover:text-white transition-colors duration-300 uppercase"
+        >
+          Journal
+        </Link>
       </nav>
 
       {/* CTA buttons */}
