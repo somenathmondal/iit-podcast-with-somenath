@@ -466,7 +466,7 @@ export default function Home() {
                   href="https://www.linkedin.com/in/somenath-mondal-xr-tech/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full border border-stone-850 bg-white/[0.01] hover:bg-white/[0.04] hover:border-accent-orange/30 text-stone-300 hover:text-white transition-all duration-300 cursor-pointer w-fit"
+                  className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full border border-stone-850 bg-white/[0.01] hover:bg-white/[0.04] hover:border-accent-orange/30 text-stone-300 hover:text-white font-bold text-xs tracking-widest uppercase transition-all duration-300 cursor-pointer w-fit"
                 >
                   <span>LinkedIn Profile</span>
                   <ExternalLink className="w-4 h-4" />
