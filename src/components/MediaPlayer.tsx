@@ -288,7 +288,7 @@ export default function MediaPlayer() {
             {activeEpisode && (
               <iframe
                 ref={iframeRef}
-                src={`https://www.youtube.com/embed/${activeEpisode.youtubeId}?enablejsapi=1&autoplay=1`}
+                src={`https://www.youtube.com/embed/${activeEpisode.youtubeId}?enablejsapi=1&autoplay=1&controls=0&rel=0&iv_load_policy=3`}
                 title={activeEpisode.title}
                 className="w-full h-full border-0 py-4 px-6 rounded-3xl"
                 allow="autoplay; encrypted-media; picture-in-picture"
