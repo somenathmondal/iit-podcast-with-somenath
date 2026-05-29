@@ -12,7 +12,7 @@ This is a temporary checklist of tasks and visual additions to tackle next for t
   - Replace remaining placeholder IDs (`_placeholder` / temporary names) in `episodes.ts` with the official live video IDs and Spotify track links.
 - [x] **Create an On-Site Video Player**
   - Integrate a seamless on-site YouTube embed player (inside the highlights modal or a dedicated view) so users can watch the podcast without leaving the site.
-- [ ] **Blog-style Tidbits & Lessons**
+- [x] **Blog-style Tidbits & Lessons**
   - Enrich the `takeaways` and `fullStoryMarkdown` arrays for each episode with interesting tidbits, behind-the-scenes logs, and key career blueprints.
 
 ---
