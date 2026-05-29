@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowLeft, Calendar, Clock, Share2, Check, BookOpen, Headphones } from "lucide-react";
+import { track } from "@vercel/analytics";
 import Header from "../../../components/Header";
 import { blogs, BlogArticle } from "../../../data/blogs";
 import { episodes, Episode } from "../../../data/episodes";
@@ -299,6 +300,7 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
               href="https://www.linkedin.com/in/somenath-mondal-xr-tech/" 
               target="_blank" 
               rel="noopener noreferrer" 
+              onClick={() => track('LinkedIn Click', { location: 'author_meta_top' })}
               className="flex items-center gap-1.5 hover:text-white transition-colors"
             >
               <BookOpen className="w-3.5 h-3.5 text-accent-copper" />
@@ -416,6 +418,7 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
           href="https://www.linkedin.com/in/somenath-mondal-xr-tech/" 
           target="_blank" 
           rel="noopener noreferrer" 
+          onClick={() => track('LinkedIn Click', { location: 'author_bio_card' })}
           className="mt-12 bg-card-bg/10 border border-white/[0.03] hover:border-accent-orange/20 hover:bg-card-bg/20 p-6 rounded-2xl flex items-center gap-4 text-left transition-all group block"
         >
           <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-accent-orange to-accent-gold flex items-center justify-center text-white font-serif italic text-sm font-bold flex-shrink-0">
