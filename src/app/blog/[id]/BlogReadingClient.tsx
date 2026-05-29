@@ -330,7 +330,7 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
         </div>
 
         {/* MAIN ARTICLE BODY CONTAINER */}
-        <div className="prose prose-invert prose-stone max-w-none prose-headings:font-serif prose-headings:italic prose-blockquote:font-serif prose-blockquote:italic text-left">
+        <div className="prose prose-invert prose-stone max-w-none prose-headings:font-serif prose-blockquote:font-serif text-left">
           
           {editorial ? (
             /* A. Long-Form Editorial Renderer (Supports rich markdown styling) */
@@ -354,30 +354,6 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
                 </a>
               </div>
 
-              {/* Stitched Takeaways Cards Grid */}
-              <div className="pt-2">
-                <h4 className="text-xs tracking-[0.2em] font-mono text-accent-gold uppercase font-bold mb-4">
-                  CORE DIGEST KEY TAKEAWAYS
-                </h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {episode!.takeaways.map((takeaway, idx) => (
-                    <div
-                      key={idx}
-                      className="bg-card-bg/25 border border-white/[0.04] p-5 rounded-2xl text-left"
-                    >
-                      <div className="flex justify-between items-center mb-2 font-mono text-xs">
-                        <span className="text-accent-copper font-bold uppercase">TAKEAWAY 0{idx + 1}</span>
-                        <span className="px-2 py-0.5 bg-[#2D1212] border border-accent-orange/15 text-accent-orange font-bold">
-                          {takeaway.time}
-                        </span>
-                      </div>
-                      <h5 className="text-lg font-serif italic font-medium text-white mb-2">{takeaway.title}</h5>
-                      <p className="text-sm md:text-base text-stone-300 leading-relaxed font-serif">"{takeaway.text}"</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
               {/* Main Dynamic Transcript Commentary Narrative */}
               <div className="border-t border-white/[0.03] pt-8 text-left">
                 <h4 className="text-xs tracking-[0.2em] font-mono text-stone-500 uppercase block mb-6">
@@ -393,41 +369,11 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
                   </p>
                   
                   <p>
-                    Specifically, {episode!.guestName} shares: <em className="text-white font-serif italic text-lg md:text-xl lg:text-2xl leading-relaxed">"{episode!.description}"</em>
+                    Specifically, {episode!.guestName} shares: <strong className="text-white font-sans font-medium text-lg md:text-xl lg:text-2xl leading-relaxed">"{episode!.description}"</strong>
                   </p>
  
                   <hr className="border-t border-white/[0.05]" />
  
-                  {/* Part 2: Structured Deep Dives from Stitched Takeaways */}
-                  <div className="space-y-6">
-                    <h3 className="text-2xl md:text-3xl font-serif text-white font-semibold border-l-2 border-accent-orange pl-4">
-                      Masterclass Blueprints & Takeaways
-                    </h3>
-                    
-                    {episode!.takeaways.map((takeaway, idx) => (
-                      <div key={idx} className="space-y-4 bg-[#130707]/30 border border-white/[0.03] p-5 rounded-2xl">
-                        <div className="flex items-center justify-between">
-                          <h4 className="text-lg md:text-xl font-serif text-accent-gold font-semibold">
-                            Blueprint {idx + 1}: {takeaway.title}
-                          </h4>
-                          <span className="px-2 py-0.5 bg-[#2D1212] border border-accent-orange/10 rounded text-accent-orange font-mono text-[10px] font-bold">
-                            Timestamp: [{takeaway.time}]
-                          </span>
-                        </div>
-                        
-                        <blockquote className="font-serif italic text-stone-100 text-base md:text-[18px] lg:text-[19px] leading-[1.7] pl-4 border-l-2 border-accent-orange/50 py-2 bg-white/[0.01] rounded-r pr-2">
-                           "{takeaway.text}"
-                        </blockquote>
-                        
-                        <p className="text-sm md:text-base text-stone-400 font-sans leading-relaxed">
-                          This core takeaway details a highly strategic path highlighted during the conversation. By implementing this operational framework, students and early professionals can bypass standard pitfalls, prioritize critical systems-level growth, and focus directly on high-impact problem solving.
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-
-                  <hr className="border-t border-white/[0.05]" />
-
                   {/* Part 3: Dynamic Chronicle Conclusion */}
                   <div className="space-y-4">
                     <h3 className="text-2xl md:text-3xl font-serif text-white font-semibold border-l-2 border-accent-orange pl-4">
