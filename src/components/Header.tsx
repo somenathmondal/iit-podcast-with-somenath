@@ -19,7 +19,7 @@ export default function Header() {
 
       {/* Navigation center links */}
       <nav className="hidden md:flex items-center gap-8">
-        {["Episodes", "Alumni Chronicle", "Guests", "About"].map((link) => (
+        {["Episodes", "Guests", "About"].map((link) => (
           <Link
             key={link}
             href={`/#${link.toLowerCase().replace(" ", "-")}`}

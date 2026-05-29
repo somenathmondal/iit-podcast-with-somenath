@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { Play, Calendar, Clock, ArrowRight, X, ExternalLink, Headphones, ChevronLeft, ChevronRight } from "lucide-react";
 import Header from "../components/Header";
 import { episodes, Episode } from "../data/episodes";
@@ -24,25 +25,7 @@ export default function Home() {
   const [readingEpisode, setReadingEpisode] = useState<Episode | null>(null);
   const [modalVideoSeconds, setModalVideoSeconds] = useState<number | null>(null);
   const [spotlightAttract, setSpotlightAttract] = useState(false);
-  const [cardImageIndices, setCardImageIndices] = useState<Record<string, number>>({});
 
-  const handlePrevSlide = (e: React.MouseEvent, epId: string, galleryLength: number) => {
-    e.stopPropagation();
-    setCardImageIndices((prev) => {
-      const curr = prev[epId] || 0;
-      const nextIdx = curr === 0 ? galleryLength - 1 : curr - 1;
-      return { ...prev, [epId]: nextIdx };
-    });
-  };
-
-  const handleNextSlide = (e: React.MouseEvent, epId: string, galleryLength: number) => {
-    e.stopPropagation();
-    setCardImageIndices((prev) => {
-      const curr = prev[epId] || 0;
-      const nextIdx = curr === galleryLength - 1 ? 0 : curr + 1;
-      return { ...prev, [epId]: nextIdx };
-    });
-  };
 
   // Auto-hover "attract" pulse on the spotlight card — fires 0.5s after char animation ends (~1.5s)
   useEffect(() => {
@@ -76,24 +59,7 @@ export default function Home() {
     "peter": 112000,
   };
 
-  // Curated featured episodes for the Film Reel showcase, ranked by YouTube views descending
-  const featuredEpisodes = episodes
-    .filter(
-      (ep) =>
-        ep.id === "suman-chakraborty-1" ||
-        ep.id === "arpit" ||
-        ep.id === "nikhil" ||
-        ep.id === "ankur" ||
-        ep.id === "pranali" ||
-        ep.id === "saumaric-aditi" ||
-        ep.id === "imbesat" ||
-        ep.id === "peter"
-    )
-    .map((ep) => ({
-      ...ep,
-      views: ep.views || viewsMap[ep.id] || 0,
-    }))
-    .sort((a, b) => b.views - a.views);
+
 
   const handleSpotlightPlay = (episode: Episode) => {
     setActiveEpisode(episode);
@@ -182,12 +148,12 @@ export default function Home() {
               <Play className="w-4 h-4 fill-white" />
               <span>Listen Latest</span>
             </button>
-            <a
-              href="#alumni-chronicle"
+            <Link
+              href="/blog"
               className="flex items-center gap-2 px-5 py-3 md:px-6 md:py-4 rounded-full border border-stone-850 bg-white/[0.01] hover:bg-white/[0.04] font-bold text-[10px] md:text-xs tracking-widest uppercase text-stone-200 hover:text-white hover:border-stone-700 transition-all duration-300"
             >
-              <span>Explore Reel</span>
-            </a>
+              <span>Read Journal</span>
+            </Link>
           </div>
         </div>
 
@@ -266,183 +232,7 @@ export default function Home() {
 
       </section>
 
-      {/* 3. ALUMNI CHRONICLE: HORIZONTAL RETRO FILM REEL GALLERY */}
-      <section id="alumni-chronicle" className="w-full max-w-7xl mx-auto px-6 md:px-8 py-20 border-b border-white/[0.02] text-left relative overflow-hidden">
-        
-        <header className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
-          <div className="flex flex-col">
-            <span className="text-xs tracking-[0.4em] font-mono text-accent-orange uppercase font-bold mb-3 block">
-              ALUMNI CHRONICLE
-            </span>
-            <h2 className="text-3xl md:text-5xl font-serif italic leading-tight font-medium">
-              Untold Stories Film Reel
-            </h2>
-          </div>
-          <p className="text-sm text-stone-400 max-w-lg font-serif italic leading-relaxed">
-            Drag or swipe through the horizontal 35mm film negatives to explore written editorial digests and key survival blueprints.
-          </p>
-        </header>
 
-        {/* Horizontal Film Strip Track */}
-        <div className="film-strip-track custom-scroll overflow-x-auto flex pb-8 select-none">
-          {featuredEpisodes.map((ep, index) => (
-            <div
-              key={ep.id}
-              className="film-cell projector-glow-hover flex-shrink-0 w-80 p-6 flex flex-col justify-between group rounded-sm"
-            >
-              <div>
-                <div className="flex justify-between items-center mb-6">
-                  <div className="flex flex-col text-left">
-                    <span className="text-[11px] font-mono tracking-wider text-stone-300 uppercase font-bold">
-                      SLIDE / EP. {ep.episodeNumber}{ep.episodeSub ? ep.episodeSub.toUpperCase() : ""}
-                    </span>
-                    <div className="flex items-center gap-1.5 mt-0.5">
-                      <span className="text-[9px] font-mono text-accent-copper uppercase font-bold">
-                        {ep.releaseDate || "JUNE 2025"}
-                      </span>
-                      <span className="text-stone-700 text-[8px] font-mono">•</span>
-                      <span className="text-[9px] font-mono text-accent-gold uppercase font-bold">
-                        {ep.views ? `${(ep.views / 1000).toFixed(0)}K views` : "0K views"}
-                      </span>
-                    </div>
-                  </div>
-                  <span className="w-6 h-6 rounded-full border border-stone-850 flex items-center justify-center font-mono text-[9px] text-stone-500">
-                    {index + 1}
-                  </span>
-                </div>
-
-                <div 
-                  onClick={() => handleOpenHighlights(ep)}
-                  className="w-full aspect-video rounded-[4px] bg-stone-900/90 mb-6 flex items-center justify-center relative overflow-hidden border border-white/[0.03] cursor-pointer group/carousel animate-shine"
-                >
-                  {ep.gallery && ep.gallery.length > 0 ? (
-                    <>
-                      {/* Interactive Gallery Slide Images */}
-                      {ep.gallery.map((imgUrl, imgIdx) => (
-                        <img 
-                          key={imgIdx}
-                          src={imgUrl} 
-                          alt={`${ep.guestName} slide ${imgIdx + 1}`} 
-                          className={`absolute inset-0 w-full h-full object-cover contrast-100 brightness-95 transition-all duration-700 ${
-                            (cardImageIndices[ep.id] || 0) === imgIdx 
-                              ? "opacity-100 scale-100 z-10" 
-                              : "opacity-0 scale-95 z-0"
-                          }`} 
-                        />
-                      ))}
-
-                      {/* Interactive Nav Arrows on Hover */}
-                      <button
-                        onClick={(e) => handlePrevSlide(e, ep.id, ep.gallery!.length)}
-                        className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full bg-black/60 hover:bg-accent-orange text-white hover:text-white flex items-center justify-center border border-white/10 opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300 active:scale-90"
-                      >
-                        <ChevronLeft className="w-4 h-4" />
-                      </button>
-
-                      <button
-                        onClick={(e) => handleNextSlide(e, ep.id, ep.gallery!.length)}
-                        className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full bg-black/60 hover:bg-accent-orange text-white hover:text-white flex items-center justify-center border border-white/10 opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300 active:scale-90"
-                      >
-                        <ChevronRight className="w-4 h-4" />
-                      </button>
-
-                      {/* Slide Indicator Dots */}
-                      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-20 flex gap-1 bg-black/40 px-2 py-0.5 rounded-full backdrop-blur-sm">
-                        {ep.gallery.map((_, imgIdx) => (
-                          <div 
-                            key={imgIdx}
-                            className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-                              (cardImageIndices[ep.id] || 0) === imgIdx 
-                                ? "bg-accent-orange w-3" 
-                                : "bg-white/40"
-                            }`}
-                          />
-                        ))}
-                      </div>
-                    </>
-                  ) : ep.coverImage ? (
-                    <img 
-                      src={ep.coverImage} 
-                      alt={ep.guestName} 
-                      className="w-full h-full object-cover contrast-100 brightness-95 group-hover:brightness-105 group-hover:scale-105 transition-all duration-700" 
-                    />
-                  ) : (
-                    <>
-                      <div className="absolute inset-0 bg-gradient-to-tr from-accent-orange/10 to-transparent opacity-30" />
-                      <span className="font-serif italic text-white/50 text-xl font-medium tracking-tight px-4 text-center">
-                        {ep.guestName}
-                      </span>
-                    </>
-                  )}
-                  {/* Subtle projector beam effect */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10 pointer-events-none" />
-                </div>
-
-                <div className="flex items-center gap-1.5 mb-3">
-                  <span className="text-xs tracking-wider font-mono text-accent-copper uppercase font-bold">
-                    {ep.guestTitle}
-                  </span>
-                </div>
-                
-                <h3 className="text-xl md:text-2xl font-serif italic leading-snug text-white group-hover:text-accent-orange transition-colors duration-300 mb-3">
-                  {ep.title}
-                </h3>
-                
-                <p className="text-sm text-stone-400 leading-relaxed font-serif mb-6 line-clamp-3">
-                  "{ep.description}"
-                </p>
-              </div>
-
-              {/* Multi-destination Playback Controls */}
-              <div className="border-t border-white/[0.04] pt-4 mt-6 flex items-center justify-between">
-                <button
-                  onClick={() => handleOpenHighlights(ep)}
-                  className="text-xs tracking-widest font-mono text-stone-300 group-hover:text-accent-orange transition-colors duration-300 font-bold uppercase flex items-center gap-1 cursor-pointer"
-                >
-                  Read highlights <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                </button>
-
-                {/* Direct Playback Redirect Toolbar */}
-                <div className="flex items-center gap-3">
-                  {/* On-Site Play */}
-                  <button
-                    onClick={() => handleSpotlightPlay(ep)}
-                    className="p-1.5 rounded-full border border-stone-850 hover:border-accent-orange hover:bg-accent-orange/5 text-stone-400 hover:text-accent-orange transition-all duration-300"
-                    title="Watch On-Site"
-                  >
-                    <Play className="w-3 h-3 fill-current" />
-                  </button>
-                  
-                  {/* Watch on YouTube */}
-                  <a
-                    href={`https://www.youtube.com/watch?v=${ep.youtubeId}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-1.5 rounded-full border border-stone-850 hover:border-[#FF0000] hover:bg-[#FF0000]/5 text-stone-400 hover:text-[#FF0000] transition-all duration-300"
-                    title="Watch on YouTube"
-                  >
-                    <YoutubeIcon className="w-3 h-3" />
-                  </a>
-
-                  {/* Listen on Spotify */}
-                  {ep.spotifyUrl && (
-                    <a
-                      href="https://open.spotify.com/show/2OkRCNNTbwaAB2CElTDdYH"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-1.5 rounded-full border border-stone-850 hover:border-[#1DB954] hover:bg-[#1DB954]/5 text-stone-400 hover:text-[#1DB954] transition-all duration-300"
-                      title="Listen on Spotify"
-                    >
-                      <Headphones className="w-3 h-3" />
-                    </a>
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-      </section>
 
       {/* 4. EPISODE CATALOGUE & DIRECTORY */}
       <section id="episodes" className="w-full max-w-7xl mx-auto px-6 md:px-8 py-20 pb-36 text-left relative">
