@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Play, Calendar, Clock, ArrowRight, X, ExternalLink, Headphones, ChevronLeft, ChevronRight } from "lucide-react";
+import { BookOpen, Play, Calendar, Clock, ArrowRight, X, ExternalLink, Headphones } from "lucide-react";
 import { track } from "@vercel/analytics";
 import Header from "../components/Header";
 import { episodes, Episode } from "../data/episodes";
@@ -99,17 +99,17 @@ export default function Home() {
       <Header />
 
       {/* 2. TWO-COLUMN HERO ZONE */}
-      <section className="w-full max-w-7xl mx-auto px-4 md:px-8 pt-6 pb-10 md:py-20 flex flex-col-reverse lg:flex-row items-stretch lg:items-center justify-between gap-8 lg:gap-16 border-b border-white/[0.02]">
+      <section className="w-full max-w-7xl mx-auto px-4 md:px-8 pt-8 pb-12 md:py-20 flex flex-col-reverse lg:flex-row items-stretch lg:items-center justify-between gap-6 md:gap-8 lg:gap-16 border-b border-white/[0.02]">
         
         {/* Left Column: Title & Editorial Text */}
-        <div className="w-full lg:w-[44%] flex flex-col text-left justify-center py-0 lg:py-4">
-          <div className="flex items-center gap-2.5 mb-4 md:mb-6 animate-fade-in-up">
+        <div className="w-full lg:w-[44%] flex flex-col text-center lg:text-left items-center lg:items-start justify-center py-2 lg:py-4">
+          <div className="flex items-center gap-2.5 mb-3 md:mb-6 animate-fade-in-up">
             <span className="w-2 h-2 rounded-full bg-accent-orange animate-pulse" />
             <span className="text-xs tracking-[0.25em] font-mono text-accent-copper uppercase font-bold">
               EST. JUNE 2025 • 32 STORIES
             </span>
           </div>
-          <h2 className="text-[2.5rem] md:text-6xl lg:text-7xl font-sans font-black tracking-tight leading-[1.08] mb-5 md:mb-8 text-white" style={{ perspective: '600px' }}>
+          <h2 className="text-[2.2rem] sm:text-[2.5rem] md:text-6xl lg:text-7xl font-sans font-black tracking-tight leading-[1.08] mb-4 md:mb-8 text-white" style={{ perspective: '600px' }}>
             {/* Part 1: Insights From */}
             {"Insights From ".split("").map((char, index) => (
               <span
@@ -125,42 +125,34 @@ export default function Home() {
             ))}
             {/* Line break between lines */}
             <br />
-            {/* Part 2: IIT Alumni — each char carries its own gradient */}
-            {"IIT Alumni".split("").map((char, index) => (
-              <span
-                key={`p2-${index}`}
-                className="animate-char-reveal text-transparent bg-clip-text bg-gradient-to-r from-accent-orange via-accent-gold to-white"
-                style={{ 
-                  animationDelay: `${700 + index * 40}ms`,
-                  whiteSpace: char === " " ? "pre" : "normal"
-                }}
-              >
-                {char}
-              </span>
-            ))}
-          </h2>
-          <p className="hidden md:block text-base md:text-lg lg:text-xl text-stone-300 font-sans leading-relaxed mb-10 max-w-xl animate-fade-in-up" style={{ animationDelay: '850ms' }}>
-            Deconstructing life before the JEE, hostel fests, fiver-point struggles, campus placement diaries, and high-impact paths following graduation.
-          </p>
-          <div className="flex flex-wrap gap-3 md:gap-4 animate-fade-in-up" style={{ animationDelay: '1050ms' }}>
-            <button
-              onClick={() => handleSpotlightPlay(episodes[0])}
-              className="flex items-center gap-2 px-5 py-3 md:px-6 md:py-4 rounded-full bg-accent-orange font-bold text-[10px] md:text-xs tracking-widest uppercase hover:bg-accent-orange/95 hover:scale-105 active:scale-95 transition-all duration-300 shadow-lg shadow-accent-orange/20 cursor-pointer"
+            {/* Part 2: IIT Alumni — gradient on the whole phrase */}
+            <span
+              className="animate-char-reveal inline-block text-transparent bg-clip-text bg-gradient-to-r from-accent-orange via-accent-gold to-white"
+              style={{ animationDelay: '700ms' }}
             >
-              <Play className="w-4 h-4 fill-white" />
-              <span>Listen Latest</span>
-            </button>
+              IIT Alumni
+            </span>
+          </h2>
+          <p className="text-sm md:text-base lg:text-lg text-stone-400 font-sans leading-[1.9] mb-8 md:mb-10 max-w-sm mx-auto lg:mx-0 animate-fade-in-up" style={{ animationDelay: '850ms' }}>
+            Is the JEE grind actually worth it?<br />
+            What really happens inside IIT —<br />
+            the pressure, the breakthroughs,<br />
+            the careers nobody talks about.<br />
+            <span className="text-stone-200 font-medium">Hear it raw, from the people who lived it.</span>
+          </p>
+          <div className="flex flex-wrap justify-center lg:justify-start gap-2.5 md:gap-4 animate-fade-in-up" style={{ animationDelay: '1050ms' }}>
             <Link
               href="/blog"
-              className="flex items-center gap-2 px-5 py-3 md:px-6 md:py-4 rounded-full border border-stone-850 bg-white/[0.01] hover:bg-white/[0.04] font-bold text-[10px] md:text-xs tracking-widest uppercase text-stone-200 hover:text-white hover:border-stone-700 transition-all duration-300"
+              className="group flex items-center gap-3 px-8 py-4 md:px-10 md:py-5 rounded-2xl bg-accent-orange text-white font-black text-sm md:text-base tracking-wide uppercase hover:bg-[#ff4a1f] hover:scale-[1.03] active:scale-95 transition-all duration-200 shadow-[0_6px_0_#c43d1a] hover:shadow-[0_3px_0_#c43d1a] hover:translate-y-[3px] active:shadow-none active:translate-y-[6px] cursor-pointer"
             >
+              <BookOpen className="w-5 h-5 animate-float" />
               <span>Read Journal</span>
             </Link>
           </div>
         </div>
 
         {/* Right Column: Expanded Spotlight Card (Vertical aspect-video image layout on desktop) */}
-        <div className="w-full lg:w-[50%] flex flex-col">
+        <div className="w-full lg:w-[50%] flex flex-col mt-2 md:mt-0">
           <span className="text-xs tracking-[0.3em] font-mono text-accent-gold uppercase mb-3 block font-bold text-left animate-fade-in-up animation-delay-500">
             EPISODE SPOTLIGHT
           </span>
@@ -195,7 +187,7 @@ export default function Home() {
               </div>
 
               {/* Textual Narrative details side */}
-              <div className="w-full flex flex-col justify-between px-4 py-3 md:p-0">
+              <div className="w-full flex flex-col justify-between px-4 py-4 md:p-0">
                 <div>
                   <div className="flex flex-wrap justify-between items-center gap-2 mb-3 md:mb-4">
                     <span className="px-2.5 py-1 rounded bg-[#2D1212] border border-accent-orange/15 text-[8.5px] font-mono tracking-widest text-accent-orange uppercase font-bold">
@@ -218,7 +210,7 @@ export default function Home() {
                     {ep.description}
                   </p>
                 </div>
-                <div className="flex items-center justify-between border-t border-white/[0.04] pt-4 text-xs text-stone-500 font-mono">
+                <div className="flex items-center justify-between border-t border-white/[0.04] pt-3 md:pt-4 pb-1 md:pb-0 text-xs text-stone-500 font-mono">
                   <div className="flex items-center gap-1.5 text-stone-400">
                     <Clock className="w-3.5 h-3.5 text-accent-gold" />
                     <span>{ep.duration} MINS</span>
@@ -237,12 +229,12 @@ export default function Home() {
 
 
       {/* 4. EPISODE CATALOGUE & DIRECTORY */}
-      <section id="episodes" className="w-full max-w-7xl mx-auto px-6 md:px-8 py-20 pb-36 text-left relative">
+      <section id="episodes" className="hidden md:block w-full max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-20 pb-20 md:pb-36 text-left relative">
         
         {/* Glowing timeline background thread for the catalog */}
         <div className="orange-thread-timeline">
           
-          <header className="mb-12 flex flex-col md:flex-row items-start md:items-end justify-between gap-6 pl-10">
+          <header className="mb-8 md:mb-12 flex flex-col md:flex-row items-start md:items-end justify-between gap-4 md:gap-6 pl-8 md:pl-10">
             <div className="flex flex-col">
               <span className="text-xs tracking-[0.4em] font-mono text-accent-gold uppercase font-bold mb-3 block">
                 EPISODES CATALOGUE
@@ -277,14 +269,14 @@ export default function Home() {
           </header>
 
           {/* Directory Row Entries */}
-          <div className="flex flex-col gap-4 pl-10">
+          <div className="flex flex-col gap-3 md:gap-4 pl-8 md:pl-10">
             {filteredEpisodes.map((ep) => (
               <div
                 key={ep.id}
-                className="group backdrop-blur-md bg-card-bg/10 border border-white/[0.02] hover:border-white/[0.06] px-6 py-5 rounded-2xl flex flex-col md:flex-row items-stretch md:items-center justify-between gap-6 transition-all duration-300 hover:scale-[1.005] relative"
+                className="group backdrop-blur-md bg-card-bg/10 border border-white/[0.02] hover:border-white/[0.06] px-4 md:px-6 py-4 md:py-5 rounded-2xl flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 md:gap-6 transition-all duration-300 hover:scale-[1.005] relative"
               >
                 {/* Visual node on the orange timeline thread */}
-                <div className={`absolute left-[-26px] top-1/2 w-3.5 h-3.5 rounded-full border border-black group-hover:scale-125 transition-all duration-300 z-10 animate-pulse-glow ${
+                <div className={`absolute left-[-18px] md:left-[-26px] top-1/2 w-3.5 h-3.5 rounded-full border border-black group-hover:scale-125 transition-all duration-300 z-10 animate-pulse-glow ${
                   ep.category === "startup"
                     ? "bg-accent-orange text-accent-orange shadow-[0_0_10px_#FF5E36]"
                     : ep.category === "academic"
@@ -386,26 +378,26 @@ export default function Home() {
         {/* Subtle orange accent light underlay */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[450px] bg-accent-orange/[0.03] rounded-full blur-[180px] pointer-events-none" />
 
-        <div className="w-full max-w-7xl mx-auto px-6 md:px-8 py-28 flex flex-col lg:flex-row justify-between items-start gap-16 relative z-10">
+        <div className="w-full max-w-7xl mx-auto px-4 md:px-8 py-10 md:py-28 flex flex-col lg:flex-row justify-between items-start gap-10 md:gap-16 relative z-10">
           
           {/* Left Column: About the Podcast & Official Banner Art */}
-          <div className="w-full lg:w-[52%] flex flex-col text-left justify-start">
-            <span className="text-xs tracking-[0.4em] font-mono text-accent-orange uppercase font-bold mb-4 block">
+          <div className="flex w-full lg:w-[52%] flex-col text-left justify-start">
+            {/* Heading — desktop only */}
+            <span className="hidden lg:block text-xs tracking-[0.4em] font-mono text-accent-orange uppercase font-bold mb-4">
               ABOUT THE PODCAST
             </span>
-            <h2 className="text-3xl md:text-5xl font-sans font-bold tracking-tight leading-tight text-white mb-6">
+            <h2 className="hidden lg:block text-3xl md:text-5xl font-sans font-bold tracking-tight leading-tight text-white mb-6">
               Deconstructing the <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-orange via-accent-gold to-white">
                 IIT Legacy
               </span>
             </h2>
-            <p className="text-sm md:text-base text-stone-400 font-sans leading-relaxed mb-8">
+            <p className="hidden lg:block text-sm md:text-base text-stone-400 font-sans leading-relaxed mb-8">
               We unlock unfiltered, deeply human dialogues with the thinkers, builders, and administrators who shape the elite IIT corridors.
             </p>
             
-            {/* Massive Square Channel Art Showcase */}
-            <div className="w-full aspect-square rounded-[36px] overflow-hidden border border-white/[0.06] hover:border-accent-orange/20 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative group transition-all duration-500 bg-black/40 animate-shine">
-              {/* Subtle top light overlay */}
+            {/* Channel Art — landscape on mobile, square on desktop */}
+            <div className="w-full aspect-square rounded-2xl lg:rounded-[36px] overflow-hidden border border-white/[0.06] hover:border-accent-orange/20 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative group transition-all duration-500 bg-black/40 animate-shine">
               <div className="absolute inset-0 bg-gradient-to-tr from-accent-orange/5 via-transparent to-white/5 pointer-events-none z-10" />
               
               <img 
@@ -424,24 +416,24 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right Column: About Somenath (The Voice) */}
+          {/* Right Column: About Somenath (The Voice) — full-width on mobile */}
           <div className="w-full lg:w-[40%] flex flex-col text-left justify-start">
-            <span className="text-xs tracking-[0.4em] font-mono text-accent-gold uppercase font-bold mb-4 block">
+            <span className="text-xs tracking-[0.4em] font-mono text-accent-gold uppercase font-bold mb-3 md:mb-4 block">
               THE VOICE
             </span>
-            <h2 className="text-3xl md:text-5xl font-sans font-bold tracking-tight leading-tight text-white mb-8">
-              About the <br />
+            <h2 className="text-2xl md:text-5xl font-sans font-bold tracking-tight leading-tight text-white mb-5 md:mb-8">
+              About the{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-copper via-accent-gold to-white">
                 Creator
               </span>
             </h2>
 
             {/* Embedded Creator Box */}
-            <div className="backdrop-blur-xl bg-[#130707]/30 border border-white/[0.05] hover:border-accent-orange/20 p-8 md:p-10 rounded-[38px] shadow-[0_20px_50px_rgba(0,0,0,0.4)] w-full text-left hover:scale-[1.002] transition-all duration-500 relative overflow-hidden group">
+            <div className="backdrop-blur-xl bg-[#130707]/30 border border-white/[0.05] hover:border-accent-orange/20 p-6 md:p-10 rounded-[28px] md:rounded-[38px] shadow-[0_20px_50px_rgba(0,0,0,0.4)] w-full text-left transition-all duration-500 relative overflow-hidden group">
               {/* Radial glow effect */}
               <div className="absolute -top-20 -left-20 w-40 h-40 bg-accent-orange/10 rounded-full blur-3xl pointer-events-none group-hover:bg-accent-orange/15 transition-colors" />
 
-              <div className="flex items-center gap-5 mb-8">
+              <div className="flex items-center gap-4 md:gap-5 mb-5 md:mb-8">
                 <div className="w-16 h-16 rounded-[20px] bg-gradient-to-tr from-accent-orange to-accent-gold flex items-center justify-center text-white font-sans text-2xl shadow-lg font-bold flex-shrink-0">
                   SM
                 </div>
@@ -455,21 +447,21 @@ export default function Home() {
                 </div>
               </div>
 
-              <p className="text-sm md:text-lg text-stone-200 leading-relaxed font-sans mb-8">
+              <p className="text-sm md:text-lg text-stone-200 leading-relaxed font-sans mb-4 md:mb-8">
                 As an IIT alumnus, I built this space to host the raw, unpolished conversations I wish I had listened to during my own student years. This platform is a living journal of blueprints, resilience, and creative journeys.
               </p>
 
-              <p className="text-xs md:text-base text-stone-400 leading-relaxed font-sans mb-10">
+              <p className="hidden md:block text-xs md:text-base text-stone-400 leading-relaxed font-sans mb-10">
                 Unlocking the personal files behind academic pressure, mental struggles, multi-hostel festival coordination, and the high-leverage careers post-graduation.
               </p>
 
-              <div className="flex flex-col gap-3 border-t border-white/[0.04] pt-8">
+              <div className="flex flex-col gap-3 border-t border-white/[0.04] pt-5 md:pt-8">
                 <a
                   href="https://www.linkedin.com/in/somenath-mondal-xr-tech/"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => track('LinkedIn Click', { location: 'creator_card' })}
-                  className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full border border-stone-850 bg-white/[0.01] hover:bg-white/[0.04] hover:border-accent-orange/30 text-stone-300 hover:text-white font-bold text-xs tracking-widest uppercase transition-all duration-300 cursor-pointer w-fit"
+                  className="inline-flex items-center justify-center gap-2.5 px-5 py-3 md:px-6 md:py-3.5 rounded-full border border-stone-850 bg-white/[0.01] hover:bg-white/[0.04] hover:border-accent-orange/30 text-stone-300 hover:text-white font-bold text-xs tracking-widest uppercase transition-all duration-300 cursor-pointer w-fit"
                 >
                   <span>LinkedIn Profile</span>
                   <ExternalLink className="w-4 h-4" />
@@ -478,7 +470,7 @@ export default function Home() {
                   href="https://somenath-portfolio-3d.vercel.app/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-accent-orange text-white font-bold text-xs tracking-widest uppercase hover:bg-accent-orange/95 hover:scale-105 active:scale-95 transition-all duration-300 shadow-lg shadow-accent-orange/20 cursor-pointer w-fit"
+                  className="inline-flex items-center justify-center gap-2.5 px-5 py-3 md:px-6 md:py-3.5 rounded-full bg-accent-orange text-white font-bold text-xs tracking-widest uppercase hover:bg-accent-orange/95 hover:scale-105 active:scale-95 transition-all duration-300 shadow-lg shadow-accent-orange/20 cursor-pointer w-fit"
                 >
                   <span>Explore 3D Portfolio</span>
                   <ExternalLink className="w-4 h-4" />
