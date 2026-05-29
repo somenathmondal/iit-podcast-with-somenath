@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, memo } from "react";
 import { Play, Pause, SkipBack, SkipForward, Volume2, Maximize2, Minimize2 } from "lucide-react";
 import { usePlayerStore } from "../lib/store";
+import { usePathname } from "next/navigation";
 
 interface Particle {
   x: number;
@@ -172,6 +173,8 @@ export default function MediaPlayer() {
     setIsExpanded,
   } = usePlayerStore();
 
+  const pathname = usePathname();
+
   const progressRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const lastProgressTime = useRef(0);
@@ -228,6 +231,11 @@ export default function MediaPlayer() {
   }, [currentTime]);
 
   if (!activeEpisode) return null;
+
+  // Hide global player if currently reading this specific episode's blog page to prevent duplicate iframe playback
+  if (pathname === `/blog/${activeEpisode.id}`) {
+    return null;
+  }
 
   const handleProgressClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (progressRef.current) {
