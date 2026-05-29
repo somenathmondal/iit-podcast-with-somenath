@@ -2,11 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { ArrowLeft, Calendar, Clock, Share2, Check, Play, BookOpen, Headphones } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, Share2, Check, BookOpen, Headphones } from "lucide-react";
 import Header from "../../../components/Header";
 import { blogs, BlogArticle } from "../../../data/blogs";
 import { episodes, Episode } from "../../../data/episodes";
-import { usePlayerStore } from "../../../lib/store";
 
 // Parse inline markdown elements: bold (**), italic (*), inline code (`)
 const parseInlineElements = (text: string) => {
@@ -154,7 +153,6 @@ interface BlogReadingClientProps {
 }
 
 export default function BlogReadingClient({ id }: BlogReadingClientProps) {
-  const { setActiveEpisode, setIsPlaying } = usePlayerStore();
 
   const [mounted, setMounted] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -231,12 +229,7 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
     }
   };
 
-  const handlePlayPodcast = () => {
-    if (episode) {
-      setActiveEpisode(episode);
-      setIsPlaying(true);
-    }
-  };
+
 
   return (
     <div className="min-h-screen bg-[#0F0606] text-white flex flex-col font-sans selection:bg-accent-orange selection:text-white relative">
@@ -348,15 +341,8 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
             /* B. Dynamic Short-Form Episode Digest Renderer */
             <div className="flex flex-col gap-10">
               
-              {/* On-Site Audio & Spotify Player Triggers */}
+              {/* Spotify Player Trigger */}
               <div className="flex flex-wrap gap-3 mb-2 border-b border-white/[0.03] pb-6">
-                <button
-                  onClick={handlePlayPodcast}
-                  className="flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-accent-orange text-white font-bold text-[9px] tracking-widest uppercase hover:scale-105 active:scale-95 transition-all cursor-pointer shadow-lg shadow-accent-orange/10"
-                >
-                  <Play className="w-3 h-3 fill-white" />
-                  <span>Play Audio Podcast</span>
-                </button>
                 <a
                   href="https://open.spotify.com/show/2OkRCNNTbwaAB2CElTDdYH"
                   target="_blank"
