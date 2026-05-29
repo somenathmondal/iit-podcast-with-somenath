@@ -21,7 +21,7 @@ const YoutubeIcon = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => 
 );
 
 export default function Home() {
-  const { setActiveEpisode, activeEpisode, isPlaying, setIsPlaying, jumpToTimestamp } = usePlayerStore();
+  const { setActiveEpisode, activeEpisode, isPlaying, setIsPlaying, setIsExpanded, jumpToTimestamp } = usePlayerStore();
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [readingEpisode, setReadingEpisode] = useState<Episode | null>(null);
   const [modalVideoSeconds, setModalVideoSeconds] = useState<number | null>(null);
@@ -65,6 +65,7 @@ export default function Home() {
   const handleSpotlightPlay = (episode: Episode) => {
     setActiveEpisode(episode);
     setIsPlaying(true);
+    setIsExpanded(true);
   };
 
   return (
