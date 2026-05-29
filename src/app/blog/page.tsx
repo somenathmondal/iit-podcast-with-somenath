@@ -27,9 +27,11 @@ export default function BlogHub() {
     })(),
     category: ep.category,
     releaseDate: ep.releaseDate || "JUNE 2025",
-    coverImage: ep.youtubeId 
-      ? `https://img.youtube.com/vi/${ep.youtubeId}/maxresdefault.jpg` 
-      : (ep.coverImage || "/thumbnails/Ep00-ProfSuman.png"),
+    coverImage: ep.coverImage && ep.coverImage !== ""
+      ? ep.coverImage
+      : (ep.youtubeId 
+          ? `https://img.youtube.com/vi/${ep.youtubeId}/hqdefault.jpg` 
+          : "/thumbnails/Ep00-ProfSuman.png"),
     tags: ep.tags,
     isDigest: true,
   }));

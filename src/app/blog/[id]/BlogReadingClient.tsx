@@ -221,7 +221,9 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
     : episode!.youtubeId;
   const coverImage = editorial 
     ? editorial.coverImage 
-    : `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`;
+    : (episode?.coverImage && episode.coverImage !== ""
+        ? episode.coverImage
+        : `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`);
   const tags = editorial ? editorial.tags : episode!.tags;
 
   const handleShare = async () => {

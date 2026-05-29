@@ -63,9 +63,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       tags: tags,
       images: [
         {
-          url: episode?.youtubeId 
-            ? `https://img.youtube.com/vi/${episode.youtubeId}/maxresdefault.jpg` 
-            : (editorial?.coverImage || "/IIT_Podcast_Thumbnail_3K.jpg"),
+          url: editorial?.coverImage || episode?.coverImage || (episode?.youtubeId 
+            ? `https://img.youtube.com/vi/${episode.youtubeId}/hqdefault.jpg` 
+            : "/IIT_Podcast_Thumbnail_3K.jpg"),
           width: 1200,
           height: 630,
           alt: `${guestName} Editorial Banner`,
@@ -77,9 +77,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: seoTitle,
       description: seoDescription,
       images: [
-        episode?.youtubeId 
-          ? `https://img.youtube.com/vi/${episode.youtubeId}/maxresdefault.jpg` 
-          : (editorial?.coverImage || "/IIT_Podcast_Thumbnail_3K.jpg")
+        editorial?.coverImage || episode?.coverImage || (episode?.youtubeId 
+          ? `https://img.youtube.com/vi/${episode.youtubeId}/hqdefault.jpg` 
+          : "/IIT_Podcast_Thumbnail_3K.jpg")
       ],
     }
   };
