@@ -276,7 +276,7 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
         </div>
 
         {/* Main Title */}
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif italic leading-[1.2] text-white font-medium mb-3 md:mb-6">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-sans font-extrabold tracking-tight leading-[1.2] bg-gradient-to-r from-white via-[#FFF5F2] to-accent-orange bg-clip-text text-transparent mb-3 md:mb-6">
           {title}
         </h1>
 

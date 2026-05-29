@@ -18,17 +18,17 @@ interface PlayerState {
 }
 
 export const usePlayerStore = create<PlayerState>((set) => ({
-  activeEpisode: episodes[0], // Default load first episode
+  activeEpisode: null, // Start hidden by default for non-blocking premium UX
   isPlaying: false,
   currentTime: 0,
   duration: 2882, // Default 48:02
   volume: 0.8,
   isExpanded: false,
-  setActiveEpisode: (episode) => set({ activeEpisode: episode, isPlaying: true, currentTime: 0, isExpanded: true }),
+  setActiveEpisode: (episode) => set({ activeEpisode: episode, isPlaying: true, currentTime: 0, isExpanded: false }), // Keep collapsed by default to not cover blog text
   setIsPlaying: (playing) => set({ isPlaying: playing }),
   setCurrentTime: (time) => set({ currentTime: time }),
   setDuration: (duration) => set({ duration }),
   setVolume: (volume) => set({ volume }),
   setIsExpanded: (expanded) => set({ isExpanded: expanded }),
-  jumpToTimestamp: (seconds) => set({ currentTime: seconds, isPlaying: true, isExpanded: true }),
+  jumpToTimestamp: (seconds) => set({ currentTime: seconds, isPlaying: true, isExpanded: false }), // Keep collapsed by default
 }));

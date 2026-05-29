@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { Playfair_Display, Ubuntu, JetBrains_Mono } from "next/font/google";
+import MediaPlayer from "../components/MediaPlayer";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -65,6 +66,7 @@ export default function RootLayout({
     <html lang="en" className={`h-full antialiased ${playfair.variable} ${ubuntu.variable} ${jetbrains.variable}`}>
       <body className="min-h-full flex flex-col bg-[#0F0606] text-white">
         {children}
+        <MediaPlayer />
         <Analytics />
       </body>
     </html>

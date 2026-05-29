@@ -87,7 +87,7 @@ export default function BlogHub() {
                 JOURNAL & BLUEPRINTS
               </span>
             </div>
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-serif italic leading-tight text-white font-medium">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-sans font-extrabold tracking-tight leading-tight bg-gradient-to-r from-white via-[#FFF8F5] to-accent-orange bg-clip-text text-transparent">
               Alumni Survival Notebook
             </h1>
           </div>
@@ -176,7 +176,7 @@ export default function BlogHub() {
                     </div>
                   </div>
 
-                  <h3 className="text-lg md:text-xl font-serif italic leading-tight text-white group-hover:text-accent-orange transition-colors duration-300 font-medium mb-3">
+                  <h3 className="text-lg md:text-xl font-sans font-bold leading-tight text-white group-hover:text-accent-orange transition-colors duration-300 mb-3">
                     {entry.title}
                   </h3>
                   

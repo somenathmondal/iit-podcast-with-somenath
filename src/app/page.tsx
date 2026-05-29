@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { Play, Calendar, Clock, ArrowRight, X, ExternalLink, Headphones, ChevronLeft, ChevronRight } from "lucide-react";
 import Header from "../components/Header";
-import MediaPlayer from "../components/MediaPlayer";
 import { episodes, Episode } from "../data/episodes";
 import { usePlayerStore } from "../lib/store";
 
@@ -689,8 +688,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. PERSISTENT MEDIA PLAYER */}
-      <MediaPlayer />
+
 
       {/* 6. FULL STORY MODAL READ OVERLAY */}
       {readingEpisode && (
