@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, memo } from "react";
-import { Play, Pause, SkipBack, SkipForward, Volume2, Maximize2, Minimize2 } from "lucide-react";
+import { Play, Pause, SkipBack, SkipForward, Volume2, Maximize2, Minimize2, X } from "lucide-react";
 import { usePlayerStore } from "../lib/store";
 import { usePathname } from "next/navigation";
 
@@ -175,6 +175,15 @@ export default function MediaPlayer() {
 
   const pathname = usePathname();
 
+  const [isDismissed, setIsDismissed] = useState(false);
+
+  // Automatically restore player bar when a new episode is selected
+  useEffect(() => {
+    if (activeEpisode) {
+      setIsDismissed(false);
+    }
+  }, [activeEpisode?.id]);
+
   const progressRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const lastProgressTime = useRef(0);
@@ -248,133 +257,173 @@ export default function MediaPlayer() {
   };
 
   return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[92%] max-w-6xl z-50 transition-all duration-500">
-      
-      {/* 1. Retro Projector visualizer container (only show when NOT expanded to avoid visual overlap!) */}
-      {!isExpanded && (
-        <div className="absolute top-[-192px] left-1/2 -translate-x-1/2 w-[500px] h-[200px] pointer-events-none flex flex-col items-center justify-end z-[-1]">
-          <ProjectorVisualizer isPlaying={isPlaying} />
-        </div>
-      )}
-
-      {/* 2. Unified Premium Glassmorphic Console Card (Expands smoothly like a sliding drawer!) */}
-      <div className="backdrop-blur-xl bg-[#1A0D0D]/65 border border-white/[0.08] shadow-[0_12px_40px_rgba(0,0,0,0.6)] rounded-3xl overflow-hidden transition-all duration-500 ease-in-out flex flex-col w-full">
+    <>
+      {/* 1. Main persistent media player console card with smooth slide-down sliding animation */}
+      <div 
+        className={`fixed bottom-6 left-1/2 -translate-x-1/2 w-[92%] max-w-6xl z-50 transition-all duration-500 ease-in-out ${
+          isDismissed ? "translate-y-36 opacity-0 pointer-events-none" : "translate-y-0 opacity-100"
+        }`}
+      >
         
-        {/* Dynamic sliding drawer for YouTube Video */}
-        <div 
-          className="transition-all duration-500 ease-in-out overflow-hidden w-full flex items-center justify-center bg-black/30 border-b border-white/[0.04]"
-          style={{ 
-            height: isExpanded ? "380px" : "0px",
-            maxHeight: isExpanded ? "380px" : "0px",
-            opacity: isExpanded ? 1 : 0,
-            pointerEvents: isExpanded ? "auto" : "none"
-          }}
-        >
-          {activeEpisode && (
-            <iframe
-              ref={iframeRef}
-              src={`https://www.youtube.com/embed/${activeEpisode.youtubeId}?enablejsapi=1&autoplay=1`}
-              title={activeEpisode.title}
-              className="w-full h-full border-0 py-4 px-6 rounded-3xl"
-              allow="autoplay; encrypted-media; picture-in-picture"
-              allowFullScreen
-            />
-          )}
-        </div>
+        {/* 1.1. Retro Projector visualizer container (only show when NOT expanded to avoid visual overlap!) */}
+        {!isExpanded && (
+          <div className="absolute top-[-192px] left-1/2 -translate-x-1/2 w-[500px] h-[200px] pointer-events-none flex flex-col items-center justify-end z-[-1]">
+            <ProjectorVisualizer isPlaying={isPlaying} />
+          </div>
+        )}
 
-        {/* Controls Row */}
-        <div className="px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-4 w-full">
+        {/* 1.2. Unified Premium Glassmorphic Console Card (Expands smoothly like a sliding drawer!) */}
+        <div className="backdrop-blur-xl bg-[#1A0D0D]/65 border border-white/[0.08] shadow-[0_12px_40px_rgba(0,0,0,0.6)] rounded-3xl overflow-hidden transition-all duration-500 ease-in-out flex flex-col w-full">
           
-          {/* Left Section: Video Embed / Cover Thumbnail & Title */}
-          <div className="flex items-center gap-4 w-full md:w-1/3">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-accent-orange to-accent-gold flex items-center justify-center flex-shrink-0 text-white font-serif italic text-lg shadow-md font-bold">
-              EP{activeEpisode.episodeNumber}
-            </div>
-            <div className="flex flex-col text-left overflow-hidden">
-              <span className="text-[10px] tracking-widest text-accent-copper uppercase font-mono">
-                NOW PLAYING: EPISODE {activeEpisode.episodeNumber}
-              </span>
-              <span className="text-xs font-serif italic text-white font-medium truncate">
-                {activeEpisode.title}
-              </span>
-              <span className="text-[9px] text-stone-400 truncate">
-                {activeEpisode.guestName} ({activeEpisode.guestTitle})
-              </span>
-            </div>
+          {/* Dynamic sliding drawer for YouTube Video */}
+          <div 
+            className="transition-all duration-500 ease-in-out overflow-hidden w-full flex items-center justify-center bg-black/30 border-b border-white/[0.04]"
+            style={{ 
+              height: isExpanded ? "380px" : "0px",
+              maxHeight: isExpanded ? "380px" : "0px",
+              opacity: isExpanded ? 1 : 0,
+              pointerEvents: isExpanded ? "auto" : "none"
+            }}
+          >
+            {activeEpisode && (
+              <iframe
+                ref={iframeRef}
+                src={`https://www.youtube.com/embed/${activeEpisode.youtubeId}?enablejsapi=1&autoplay=1`}
+                title={activeEpisode.title}
+                className="w-full h-full border-0 py-4 px-6 rounded-3xl"
+                allow="autoplay; encrypted-media; picture-in-picture"
+                allowFullScreen
+              />
+            )}
           </div>
 
-          {/* Center Section: Core Controls & Duration bar */}
-          <div className="flex flex-col items-center gap-2 w-full md:w-1/3">
-            {/* Main Playback Buttons */}
-            <div className="flex items-center gap-5">
-              <button className="text-stone-400 hover:text-white transition-colors">
-                <SkipBack className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => setIsPlaying(!isPlaying)}
-                className="w-10 h-10 rounded-full bg-accent-orange text-white flex items-center justify-center shadow-lg shadow-accent-orange/20 hover:scale-105 active:scale-95 transition-all duration-300"
-              >
-                {isPlaying ? <Pause className="w-4 h-4 fill-white" /> : <Play className="w-4 h-4 fill-white translate-x-[1px]" />}
-              </button>
-              <button className="text-stone-400 hover:text-white transition-colors">
-                <SkipForward className="w-4 h-4" />
-              </button>
+          {/* Controls Row */}
+          <div className="px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-4 w-full relative">
+            
+            {/* Absolute positioned close button inside controls row to prevent overlap */}
+            <button 
+              onClick={() => setIsDismissed(true)}
+              className="absolute top-2 right-2 md:top-3 md:right-3 text-stone-500 hover:text-white hover:bg-white/[0.04] p-1.5 rounded-full transition-all cursor-pointer active:scale-95 z-20"
+              title="Minimize Player"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+            
+            {/* Left Section: Video Embed / Cover Thumbnail & Title */}
+            <div className="flex items-center gap-4 w-full md:w-1/3">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-accent-orange to-accent-gold flex items-center justify-center flex-shrink-0 text-white font-serif italic text-lg shadow-md font-bold">
+                EP{activeEpisode.episodeNumber}
+              </div>
+              <div className="flex flex-col text-left overflow-hidden">
+                <span className="text-[10px] tracking-widest text-accent-copper uppercase font-mono">
+                  NOW PLAYING: EPISODE {activeEpisode.episodeNumber}
+                </span>
+                <span className="text-xs font-serif italic text-white font-medium truncate">
+                  {activeEpisode.title}
+                </span>
+                <span className="text-[9px] text-stone-400 truncate">
+                  {activeEpisode.guestName} ({activeEpisode.guestTitle})
+                </span>
+              </div>
             </div>
 
-            {/* Time & Custom Slider Progress bar */}
-            <div className="w-full flex items-center gap-3">
-              <span className="text-[9px] text-stone-400 font-mono min-w-[30px] text-right">
-                {formatTime(currentTime)}
-              </span>
-              <div
-                ref={progressRef}
-                onClick={handleProgressClick}
-                className="flex-grow h-1.5 rounded-full bg-stone-800 cursor-pointer overflow-hidden relative"
-              >
+            {/* Center Section: Core Controls & Duration bar */}
+            <div className="flex flex-col items-center gap-2 w-full md:w-1/3">
+              {/* Main Playback Buttons */}
+              <div className="flex items-center gap-5">
+                <button className="text-stone-400 hover:text-white transition-colors">
+                  <SkipBack className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => setIsPlaying(!isPlaying)}
+                  className="w-10 h-10 rounded-full bg-accent-orange text-white flex items-center justify-center shadow-lg shadow-accent-orange/20 hover:scale-105 active:scale-95 transition-all duration-300"
+                >
+                  {isPlaying ? <Pause className="w-4 h-4 fill-white" /> : <Play className="w-4 h-4 fill-white translate-x-[1px]" />}
+                </button>
+                <button className="text-stone-400 hover:text-white transition-colors">
+                  <SkipForward className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* Time & Custom Slider Progress bar */}
+              <div className="w-full flex items-center gap-3">
+                <span className="text-[9px] text-stone-400 font-mono min-w-[30px] text-right">
+                  {formatTime(currentTime)}
+                </span>
                 <div
-                  className="absolute top-0 left-0 h-full bg-gradient-to-r from-accent-orange to-accent-gold transition-all duration-100"
-                  style={{ width: `${(currentTime / duration) * 100}%` }}
+                  ref={progressRef}
+                  onClick={handleProgressClick}
+                  className="flex-grow h-1.5 rounded-full bg-stone-800 cursor-pointer overflow-hidden relative"
+                >
+                  <div
+                    className="absolute top-0 left-0 h-full bg-gradient-to-r from-accent-orange to-accent-gold transition-all duration-100"
+                    style={{ width: `${(currentTime / duration) * 100}%` }}
+                  />
+                </div>
+                <span className="text-[9px] text-stone-400 font-mono min-w-[30px] text-left">
+                  {formatTime(duration)}
+                </span>
+              </div>
+            </div>
+
+            {/* Right Section: Volume & Mode controls */}
+            <div className="flex items-center justify-end gap-5 w-full md:w-1/3">
+              {/* YouTube Video View Toggle */}
+              <button 
+                onClick={() => setIsExpanded(!isExpanded)}
+                className={`flex items-center gap-1.5 px-3 py-1.5 border rounded-full text-[9px] tracking-widest font-mono uppercase transition-all duration-300 ${
+                  isExpanded 
+                    ? 'border-accent-orange text-accent-orange bg-accent-orange/5' 
+                    : 'border-stone-800 text-stone-400 hover:text-white hover:border-stone-600'
+                }`}
+              >
+                {isExpanded ? <Minimize2 className="w-3 h-3" /> : <Maximize2 className="w-3 h-3" />}
+                <span>{isExpanded ? "Close Video" : "Watch Video"}</span>
+              </button>
+
+              {/* Volume Control */}
+              <div className="hidden lg:flex items-center gap-2">
+                <Volume2 className="w-3.5 h-3.5 text-stone-400" />
+                <input
+                  type="range"
+                  min="0"
+                  max="1"
+                  step="0.1"
+                  value={volume}
+                  onChange={(e) => setVolume(parseFloat(e.target.value))}
+                  className="w-16 accent-accent-orange cursor-pointer bg-stone-800 h-1 rounded-lg"
                 />
               </div>
-              <span className="text-[9px] text-stone-400 font-mono min-w-[30px] text-left">
-                {formatTime(duration)}
-              </span>
             </div>
-          </div>
 
-          {/* Right Section: Volume & Mode controls */}
-          <div className="flex items-center justify-end gap-5 w-full md:w-1/3">
-            {/* YouTube Video View Toggle */}
-            <button 
-              onClick={() => setIsExpanded(!isExpanded)}
-              className={`flex items-center gap-1.5 px-3 py-1.5 border rounded-full text-[9px] tracking-widest font-mono uppercase transition-all duration-300 ${
-                isExpanded 
-                  ? 'border-accent-orange text-accent-orange bg-accent-orange/5' 
-                  : 'border-stone-800 text-stone-400 hover:text-white hover:border-stone-600'
-              }`}
-            >
-              {isExpanded ? <Minimize2 className="w-3 h-3" /> : <Maximize2 className="w-3 h-3" />}
-              <span>{isExpanded ? "Close Video" : "Watch Video"}</span>
-            </button>
-
-            {/* Volume Control */}
-            <div className="hidden lg:flex items-center gap-2">
-              <Volume2 className="w-3.5 h-3.5 text-stone-400" />
-              <input
-                type="range"
-                min="0"
-                max="1"
-                step="0.1"
-                value={volume}
-                onChange={(e) => setVolume(parseFloat(e.target.value))}
-                className="w-16 accent-accent-orange cursor-pointer bg-stone-800 h-1 rounded-lg"
-              />
-            </div>
           </div>
 
         </div>
-
       </div>
-    </div>
+
+      {/* 2. Tiny Floating Circular Play/Pause Toggle (Appears in bottom-right corner when player is dismissed) */}
+      <div 
+        className={`fixed bottom-6 right-6 z-50 transition-all duration-500 ease-in-out transform ${
+          isDismissed 
+            ? "translate-y-0 scale-100 opacity-100" 
+            : "translate-y-20 scale-75 opacity-0 pointer-events-none"
+        }`}
+      >
+        <button
+          onClick={() => setIsDismissed(false)}
+          className="w-12 h-12 rounded-full bg-accent-orange hover:bg-accent-orange/95 text-white flex items-center justify-center shadow-lg shadow-accent-orange/30 hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer border border-accent-orange/20"
+          title="Restore Player"
+        >
+          {isPlaying ? (
+            <span className="relative flex h-5 w-5 items-center justify-center">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-40"></span>
+              <Pause className="w-3.5 h-3.5 fill-white text-white relative" />
+            </span>
+          ) : (
+            <Play className="w-3.5 h-3.5 fill-white text-white translate-x-[1px]" />
+          )}
+        </button>
+      </div>
+    </>
   );
 }
