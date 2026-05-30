@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import { ArrowLeft, Calendar, Clock, Share2, Check, BookOpen, Headphones } from "lucide-react";
+import { Link } from "next-view-transitions";
+import { ArrowLeft, ArrowRight, Calendar, Clock, Share2, Check, BookOpen, Headphones } from "lucide-react";
 import { track } from "@vercel/analytics";
 import Header from "../../../components/Header";
 import { blogs, BlogArticle } from "../../../data/blogs";
@@ -204,6 +204,11 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
 
   // 2. Check if ID belongs to episode digests
   const episode = episodes.find((ep) => ep.id === id);
+
+  // 3. Compute the next entry for continuous swiping navigation
+  const allEntries = [...blogs, ...episodes];
+  const currentIndex = allEntries.findIndex(e => e.id === id);
+  const nextEntry = currentIndex >= 0 && currentIndex < allEntries.length - 1 ? allEntries[currentIndex + 1] : null;
 
   if (!mounted) {
     return (
@@ -473,6 +478,27 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
             <span className="text-[9px] font-mono text-accent-copper uppercase font-bold">CREATOR & HOST, IIT PODCAST</span>
           </div>
         </a>
+
+        {/* Read Next Navigation Block */}
+        {nextEntry && (
+          <Link
+            href={`/blog/${nextEntry.id}`}
+            className="mt-8 group relative bg-[#1A0E0E]/80 backdrop-blur-md border-2 border-[#2A1616] hover:border-accent-orange/80 rounded-[28px] overflow-hidden flex justify-between items-center transition-all duration-200 text-left cursor-pointer shadow-[0_6px_0_0_#2A1616] hover:shadow-[0_8px_0_0_#FF6B00] hover:-translate-y-1 active:translate-y-[6px] active:shadow-[0_0px_0_0_#FF6B00] p-6 md:p-8"
+          >
+            <div className="flex flex-col max-w-[80%]">
+              <span className="text-[10px] font-mono text-accent-orange tracking-widest uppercase font-bold mb-2 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent-orange animate-pulse" />
+                Read Next Chronicle
+              </span>
+              <h4 className="text-lg md:text-xl font-sans font-bold text-white group-hover:text-accent-orange transition-colors line-clamp-2">
+                {nextEntry.title}
+              </h4>
+            </div>
+            <div className="w-12 h-12 rounded-full border-2 border-[#2A1616] bg-[#110808] flex items-center justify-center group-hover:bg-[#FF6B00] group-hover:border-[#FF6B00] transition-colors flex-shrink-0 shadow-inner">
+              <ArrowRight className="w-6 h-6 text-stone-500 group-hover:text-white transition-colors" />
+            </div>
+          </Link>
+        )}
 
       </main>
     </div>

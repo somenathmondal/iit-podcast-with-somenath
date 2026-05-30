@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { Rss, BookOpen } from "lucide-react";
 
 export default function Header() {

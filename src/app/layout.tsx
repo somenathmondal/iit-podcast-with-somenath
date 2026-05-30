@@ -3,6 +3,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { Playfair_Display, Ubuntu, JetBrains_Mono } from "next/font/google";
 import MediaPlayer from "../components/MediaPlayer";
+import { ViewTransitions } from "next-view-transitions";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -64,13 +65,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`h-full antialiased ${playfair.variable} ${ubuntu.variable} ${jetbrains.variable}`}>
-      <body className="min-h-full flex flex-col bg-[#0F0606] text-white">
-        {children}
-        <MediaPlayer />
-        <Analytics />
-        <GoogleAnalytics gaId="G-90T9HPG5JB" />
-      </body>
-    </html>
+    <ViewTransitions>
+      <html lang="en" className={`h-full antialiased ${playfair.variable} ${ubuntu.variable} ${jetbrains.variable}`}>
+        <body className="min-h-full flex flex-col bg-[#0F0606] text-white">
+          {children}
+          <MediaPlayer />
+          <Analytics />
+          <GoogleAnalytics gaId="G-90T9HPG5JB" />
+        </body>
+      </html>
+    </ViewTransitions>
   );
 }
