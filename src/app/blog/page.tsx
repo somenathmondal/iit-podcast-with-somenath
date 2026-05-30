@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowLeft, BookOpen, Calendar, Clock, ArrowRight, Rss } from "lucide-react";
 import Header from "../../components/Header";
+import { motion } from "framer-motion";
 import DailyTip from "../../components/DailyTip";
 import { blogs, BlogArticle } from "../../data/blogs";
 import { episodes, Episode } from "../../data/episodes";
@@ -12,6 +13,19 @@ type FilterType = "all" | "editorial" | "digest";
 
 export default function BlogHub() {
   const [filter, setFilter] = useState<FilterType>("all");
+
+  const titleText = "IIT Alumni Stories";
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+    },
+  };
+  const letterVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { type: "spring", damping: 14, stiffness: 100 } },
+  };
 
   // Transform standard episodes into short-form digest cards dynamically to instantly populate content!
   const episodeDigests = episodes.map((ep) => ({
@@ -121,19 +135,72 @@ export default function BlogHub() {
                 JOURNAL & BLUEPRINTS
               </span>
             </div>
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-sans font-extrabold tracking-tight leading-tight bg-gradient-to-r from-white via-[#FFF8F5] to-accent-orange bg-clip-text text-transparent">
-              IIT Alumni Stories
-            </h1>
+            <motion.h1 
+              className="text-3xl md:text-5xl lg:text-6xl font-sans font-extrabold tracking-tight leading-tight flex flex-wrap bg-gradient-to-r from-[#FF6B00] via-[#FF8C00] to-[#FFB800] bg-clip-text text-transparent"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              {titleText.split(" ").map((word, wordIndex) => (
+                <span key={wordIndex} className="inline-flex overflow-hidden mr-[0.3em] last:mr-0">
+                  {word.split("").map((char, charIndex) => (
+                    <motion.span key={charIndex} variants={letterVariants}>
+                      {char}
+                    </motion.span>
+                  ))}
+                </span>
+              ))}
+            </motion.h1>
           </div>
-          <p className="text-sm md:text-base text-stone-400 max-w-md font-serif italic leading-relaxed">
+          <motion.p 
+            className="text-sm md:text-base text-stone-400 max-w-md font-serif italic leading-relaxed"
+            initial={{ opacity: 0, x: -20, filter: "blur(5px)" }}
+            animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+            transition={{ delay: 2.5, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          >
             Deconstructing campus placements, case preparation checklists, research breakthroughs, and startup paradigms into short digests and combined masterclass guides.
-          </p>
+          </motion.p>
         </header>
 
         {/* Featured Episode Section */}
         {featuredEntry && (
-          <section className="mb-10 md:mb-12">
-            <Link href={`/blog/${featuredEntry.id}`} className="group relative flex flex-col md:block w-full rounded-[24px] md:rounded-[32px] overflow-hidden border border-white/[0.05] hover:border-accent-orange/40 transition-all duration-500 shadow-2xl bg-[#110808] md:bg-transparent">
+          <motion.section 
+            className="relative mb-10 md:mb-12 p-[1px] md:p-[2px] rounded-[24px] md:rounded-[32px] overflow-hidden"
+            initial="initial"
+            animate="animate"
+            whileHover="hovered"
+            variants={{
+              initial: { scale: 1, y: 0 },
+              animate: { 
+                scale: [1, 1.02, 1],
+                y: [0, -8, 0],
+                transition: { delay: 3.5, duration: 2.5, ease: "easeInOut" }
+              },
+              hovered: { scale: 1.02, y: -8, transition: { duration: 0.3 } }
+            }}
+          >
+            {/* Animated Magic Border */}
+            <motion.div 
+              className="absolute inset-[-100%] z-0 pointer-events-none"
+              style={{
+                background: "conic-gradient(from 90deg, transparent 0%, transparent 70%, #FFB800 85%, #FF6B00 100%)"
+              }}
+              variants={{
+                initial: { rotate: 0, opacity: 0 },
+                animate: { 
+                  rotate: [0, 360], 
+                  opacity: [0, 1, 1, 0], 
+                  transition: { delay: 3.5, duration: 2.5, ease: "linear" } 
+                },
+                hovered: { 
+                  rotate: [0, 360], 
+                  opacity: 1, 
+                  transition: { duration: 2, ease: "linear", repeat: Infinity } 
+                }
+              }}
+            />
+            
+            <Link href={`/blog/${featuredEntry.id}`} className="relative z-10 group flex flex-col md:block w-full rounded-[23px] md:rounded-[30px] overflow-hidden border border-white/[0.05] hover:border-accent-orange/40 transition-all duration-500 shadow-2xl bg-[#110808]">
               
               {/* Image Container */}
               <div className="relative md:absolute md:inset-0 h-[220px] sm:h-[300px] md:h-auto z-0 overflow-hidden">
@@ -155,9 +222,19 @@ export default function BlogHub() {
                     5K on YouTube
                   </span>
                 </div>
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-sans font-bold leading-tight text-white mb-4 group-hover:text-accent-orange transition-colors">
+                <motion.h2 
+                  className="text-3xl md:text-4xl lg:text-5xl font-sans font-bold leading-tight mb-4"
+                  variants={{
+                    initial: { color: "#FFFFFF" },
+                    animate: { 
+                      color: ["#FFFFFF", "#FF6B00", "#FFFFFF"],
+                      transition: { delay: 3.5, duration: 2.5, ease: "easeInOut" }
+                    },
+                    hovered: { color: "#FF6B00", transition: { duration: 0.3 } }
+                  }}
+                >
                   {featuredEntry.title}
-                </h2>
+                </motion.h2>
                 <p className="text-sm md:text-base text-stone-300 font-serif line-clamp-3 mb-8">
                   "{featuredEntry.description}"
                 </p>
@@ -167,7 +244,7 @@ export default function BlogHub() {
                 </div>
               </div>
             </Link>
-          </section>
+          </motion.section>
         )}
 
 

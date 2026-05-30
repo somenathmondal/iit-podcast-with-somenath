@@ -260,20 +260,23 @@ Listen to Pranali's views on the Gender Imbalance at IIT and Tech and how she do
     id: "sanghamitra",
     releaseDate: "January 2025",
     episodeNumber: 10,
-    title: "IIT JEE to TOP Researcher to PROFESSOR in USA, follow BRILLIANT journey",
-    guestName: "Sanghamitra & Sandeep",
-    guestTitle: "Researchers & CMU PhD Candidates",
+    title: "From South Point to Professor at UMD: Meet Sanghamitra Dutta",
+    guestName: "Sanghamitra Dutta",
+    guestTitle: "Assistant Professor at UMD",
+    guestProfiles: [
+      { name: "Sanghamitra Dutta", url: "https://www.linkedin.com/in/sanghamitra-dutta-b2938852" }
+    ],
     duration: "55:12",
     category: "academic",
     youtubeId: "vrewbhtdcc0",
-    spotifyUrl: "https://open.spotify.com/episode/sanghamitra",
-    description: "A beautiful joint episode discussing their shared academic journey at IIT, applying for global master's programs, and pursuing research at Carnegie Mellon University (CMU).",
+    spotifyUrl: "https://open.spotify.com/episode/1igV4jMmoFJ3SRcPOnd8lJ",
+    description: "Sanghamitra Dutta, Assistant Professor at the University of Maryland, discusses her journey from Kolkata to academia, surviving IIT placements, and finding her true calling in research.",
     coverImage: "/thumbnails/Ep10-Sanghamitra.png",
-    tags: ["Research", "Carnegie Mellon", "Academic Couple", "PhDs"],
+    tags: ["Academia", "Higher Studies", "Research", "Relationships"],
     takeaways: [
       { title: "Writing a Strong SOP", time: "22:15", seconds: 1335, text: "A successful statement of purpose is a story. Connect your undergraduate projects to the professor's current research agenda." }
     ],
-    fullStoryMarkdown: "Sanghamitra and Sandeep share their joint blueprints for securing fully-funded global graduate opportunities."
+    fullStoryMarkdown: "In this episode, Somenath chats with Sanghamitra Dutta, now an Assistant Professor at the University of Maryland College Park, about her incredible journey from South Point School in Kolkata to the world of academia.\n\n### Math Lover & School Days\nSanghamitra shares how she grew up loving Maths and embracing the competitive culture at her school, all while enjoying her favorite chicken curry!\n\n### First Day Struggles at IIT\nShe reminisces about her first day at IIT, carrying heavy bags and learning to cycle around campus. Sanghamitra also talks about her deep involvement with the Bengali Dramatics Society and teaching kids through NSS.\n\n### Placement Advice & Academia\nShe offers valuable placement tips for navigating that stressful season at IIT and explicitly shares her reasons for choosing academia over industry. Sanghamitra dives into her daily life as a professor, offering insights into the academic world and explaining exactly why it was her calling.\n\n### Finding Love at IIT\nShe fondly talks about her relationship with Sandeep, whom she met during her time at IIT, and how they’ve built a beautiful life together."
   },
   {
     id: "akash",
