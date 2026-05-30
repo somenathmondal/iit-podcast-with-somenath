@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { BookOpen, Play, Calendar, Clock, ArrowRight, X, ExternalLink, Headphones } from "lucide-react";
 import { track } from "@vercel/analytics";
+import { sendGAEvent } from '@next/third-parties/google';
 import Header from "../components/Header";
 import { episodes, Episode } from "../data/episodes";
 import { usePlayerStore } from "../lib/store";
@@ -460,7 +461,10 @@ export default function Home() {
                   href="https://www.linkedin.com/in/somenath-mondal-xr-tech/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => track('LinkedIn Click', { location: 'creator_card' })}
+                  onClick={() => {
+                    track('LinkedIn Click', { location: 'creator_card' });
+                    sendGAEvent('event', 'clicked_linkedin_profile', { location: 'creator_card' });
+                  }}
                   className="inline-flex items-center justify-center gap-2.5 px-5 py-3 md:px-6 md:py-3.5 rounded-full border border-stone-850 bg-white/[0.01] hover:bg-white/[0.04] hover:border-accent-orange/30 text-stone-300 hover:text-white font-bold text-xs tracking-widest uppercase transition-all duration-300 cursor-pointer w-fit"
                 >
                   <span>LinkedIn Profile</span>

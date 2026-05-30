@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
+import { GoogleAnalytics } from '@next/third-parties/google';
 import { Playfair_Display, Ubuntu, JetBrains_Mono } from "next/font/google";
 import MediaPlayer from "../components/MediaPlayer";
 import "./globals.css";
@@ -68,6 +69,7 @@ export default function RootLayout({
         {children}
         <MediaPlayer />
         <Analytics />
+        <GoogleAnalytics gaId="G-90T9HPG5JB" />
       </body>
     </html>
   );
