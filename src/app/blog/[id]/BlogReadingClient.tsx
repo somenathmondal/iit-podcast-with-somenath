@@ -8,8 +8,8 @@ import Header from "../../../components/Header";
 import { blogs, BlogArticle } from "../../../data/blogs";
 import { episodes, Episode } from "../../../data/episodes";
 
-// Parse inline markdown elements: bold (**), italic (*), inline code (`)
-const parseInlineElements = (text: string) => {
+// Parse inline markdown elements: links, bold (**), italic (*), inline code (`)
+const parseInlineElements = (text: string): React.ReactNode[] | string => {
   if (!text) return "";
   
   // 1. Process inline code segments first
@@ -24,24 +24,43 @@ const parseInlineElements = (text: string) => {
       );
     }
     
-    // 2. Process bold (**) and italics (*) inside standard text parts
-    const subTokens = token.split(/(\*\*.*?\*\*|\*.*?\*)/g);
-    return subTokens.map((subToken, subIdx) => {
-      if (subToken.startsWith("**") && subToken.endsWith("**")) {
+    // 2. Process Links [text](url)
+    const linkTokens = token.split(/(\[.*?\]\(.*?\))/g);
+    return linkTokens.flatMap((linkToken, linkIdx) => {
+      const linkMatch = linkToken.match(/^\[(.*?)\]\((.*?)\)$/);
+      if (linkMatch) {
         return (
-          <strong key={`bold-${idx}-${subIdx}`} className="font-sans font-bold text-white tracking-wide">
-            {subToken.slice(2, -2)}
-          </strong>
+          <a 
+            key={`link-${idx}-${linkIdx}`} 
+            href={linkMatch[2]} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-accent-gold font-bold hover:text-white underline decoration-accent-gold/40 hover:decoration-white transition-colors underline-offset-4"
+          >
+            {linkMatch[1]}
+          </a>
         );
       }
-      if (subToken.startsWith("*") && subToken.endsWith("*")) {
-        return (
-          <em key={`em-${idx}-${subIdx}`} className="font-serif italic text-stone-200">
-            {subToken.slice(1, -1)}
-          </em>
-        );
-      }
-      return subToken;
+
+      // 3. Process bold (**) and italics (*)
+      const formatTokens = linkToken.split(/(\*\*.*?\*\*|\*.*?\*)/g);
+      return formatTokens.map((formatToken, formatIdx) => {
+        if (formatToken.startsWith("**") && formatToken.endsWith("**")) {
+          return (
+            <strong key={`bold-${idx}-${linkIdx}-${formatIdx}`} className="font-sans font-bold text-white tracking-wide">
+              {formatToken.slice(2, -2)}
+            </strong>
+          );
+        }
+        if (formatToken.startsWith("*") && formatToken.endsWith("*")) {
+          return (
+            <em key={`em-${idx}-${linkIdx}-${formatIdx}`} className="font-serif italic text-stone-200">
+              {formatToken.slice(1, -1)}
+            </em>
+          );
+        }
+        return formatToken;
+      });
     });
   });
 };
@@ -58,7 +77,7 @@ const renderMarkdown = (markdown: string) => {
     if (currentList.length > 0) {
       if (listType === "ul") {
         elements.push(
-          <ul key={`ul-${key}`} className="list-disc pl-6 my-4 space-y-3 text-stone-200/90 font-sans text-base md:text-[19px] lg:text-[20px] leading-[1.8] text-left">
+          <ul key={`ul-${key}`} className="my-6 space-y-4 text-stone-200/90 font-sans text-base md:text-[19px] lg:text-[20px] leading-[1.8] text-left">
             {currentList}
           </ul>
         );
@@ -121,7 +140,12 @@ const renderMarkdown = (markdown: string) => {
         listType = "ul";
       }
       const itemText = trimmed.replace(/^[\*\-]\s+/, "");
-      currentList.push(<li key={`li-${idx}`}>{parseInlineElements(itemText)}</li>);
+      currentList.push(
+        <li key={`li-${idx}`} className="flex gap-3 items-start">
+          <span className="text-accent-orange font-bold mt-0.5">•</span>
+          <span>{parseInlineElements(itemText)}</span>
+        </li>
+      );
       return;
     }
 
@@ -220,6 +244,8 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
   const youtubeId = editorial 
     ? (editorial.youtubeId || "wGoU_5GjRro") 
     : episode!.youtubeId;
+  const spotifyUrl = editorial?.spotifyUrl || episode?.spotifyUrl;
+  const guestProfiles = editorial?.guestProfiles || episode?.guestProfiles;
   const coverImage = editorial 
     ? editorial.coverImage 
     : (episode?.coverImage && episode.coverImage !== ""
@@ -301,30 +327,48 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
               target="_blank" 
               rel="noopener noreferrer" 
               onClick={() => track('LinkedIn Click', { location: 'author_meta_top' })}
-              className="flex items-center gap-1.5 hover:text-white transition-colors"
+              className="flex items-center gap-1.5 hover:text-white transition-colors group"
             >
-              <BookOpen className="w-3.5 h-3.5 text-accent-copper" />
+              <div className="w-5 h-5 rounded-full overflow-hidden border border-white/[0.1] group-hover:border-accent-orange/40 transition-colors">
+                <img src="/somenath_profile.png" alt="Somenath Mondal" className="w-full h-full object-cover" />
+              </div>
               <span>By {author}</span>
             </a>
           </div>
 
-          {/* Share */}
-          <button
-            onClick={handleShare}
-            className="flex items-center gap-2 px-4 py-2 rounded-full border border-stone-850 hover:border-accent-orange/40 bg-white/[0.01] hover:bg-accent-orange/10 font-bold text-[9px] tracking-widest uppercase text-stone-300 hover:text-white transition-all duration-300 cursor-pointer self-start sm:self-center"
-          >
-            {copied ? (
-              <>
-                <Check className="w-3.5 h-3.5 text-[#1DB954]" />
-                <span className="text-[#1DB954]">Link Copied</span>
-              </>
-            ) : (
-              <>
-                <Share2 className="w-3.5 h-3.5 text-accent-orange" />
-                <span>Copy Link</span>
-              </>
+          <div className="flex items-center gap-2 self-start sm:self-center">
+            {/* Share */}
+            <button
+              onClick={handleShare}
+              className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl border-2 border-stone-800 bg-[#0F0606] hover:bg-stone-900 font-bold text-[10px] tracking-widest uppercase text-stone-300 hover:text-white hover:border-accent-orange hover:-translate-y-1 active:translate-y-1 shadow-[0_4px_0_0_rgba(41,37,36,1)] hover:shadow-[0_4px_0_0_rgba(234,88,12,1)] active:shadow-none transition-all duration-200 cursor-pointer whitespace-nowrap"
+            >
+              {copied ? (
+                <>
+                  <Check className="w-3.5 h-3.5 text-[#1DB954]" />
+                  <span className="text-[#1DB954]">Link Copied</span>
+                </>
+              ) : (
+                <>
+                  <Share2 className="w-3.5 h-3.5 text-accent-orange" />
+                  <span>Copy Link</span>
+                </>
+              )}
+            </button>
+
+            {/* Spotify Button */}
+            {spotifyUrl && (
+              <a
+                href={spotifyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => track('Spotify Click', { location: 'blog_header' })}
+                className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl border-2 border-[#1DB954] bg-[#0F0606] font-bold text-[10px] tracking-widest uppercase text-[#1DB954] hover:bg-[#1DB954] hover:text-black hover:-translate-y-1 active:translate-y-1 shadow-[0_4px_0_0_rgba(29,185,84,0.3)] hover:shadow-[0_4px_0_0_rgba(29,185,84,1)] active:shadow-none transition-all duration-200 cursor-pointer whitespace-nowrap"
+              >
+                <Headphones className="w-3.5 h-3.5" />
+                <span>Listen on Spotify</span>
+              </a>
             )}
-          </button>
+          </div>
         </div>
 
         {/* Dynamic YouTube Video Embed Banner - ALWAYS rendered at the top of the blog page */}
@@ -350,19 +394,6 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
             /* B. Dynamic Short-Form Episode Digest Renderer */
             <div className="flex flex-col gap-8">
               
-              {/* Spotify Player Trigger */}
-              <div className="flex flex-wrap gap-3">
-                <a
-                  href="https://open.spotify.com/show/2OkRCNNTbwaAB2CElTDdYH"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 px-4 py-2.5 rounded-full border border-stone-800 hover:border-[#1DB954] bg-black/40 text-stone-300 hover:text-white font-bold text-[9px] tracking-widest uppercase hover:scale-105 active:scale-95 transition-all"
-                >
-                  <Headphones className="w-3.5 h-3.5 text-[#1DB954]" />
-                  <span>Listen on Spotify</span>
-                </a>
-              </div>
-
               {/* Main Dynamic Transcript Commentary Narrative */}
               <div className="border-t border-white/[0.03] pt-8 text-left">
                 <h4 className="text-xs tracking-[0.2em] font-mono text-stone-500 uppercase block mb-6">
@@ -378,7 +409,7 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
                   </p>
                   
                   <p>
-                    Specifically, {episode!.guestName} shares: <strong className="text-white font-sans font-medium text-lg md:text-xl lg:text-2xl leading-relaxed">"{episode!.description}"</strong>
+                    <strong className="text-white font-sans font-medium text-lg md:text-xl lg:text-2xl leading-relaxed">{episode!.description}</strong>
                   </p>
  
                   <hr className="border-t border-white/[0.05]" />
@@ -401,17 +432,29 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
 
         </div>
 
-        {/* Footer Tags */}
-        <div className="mt-12 pt-8 border-t border-white/[0.03] flex flex-wrap gap-2 text-left">
-          {tags.map((tag) => (
-            <span
-              key={tag}
-              className="px-3 py-1 rounded-full border border-stone-850 bg-white/[0.01] text-[10px] font-mono text-stone-400 uppercase font-bold"
-            >
-              #{tag}
-            </span>
-          ))}
-        </div>
+        {/* Dynamic Guest Connections (Duolingo Style) */}
+        {guestProfiles && guestProfiles.length > 0 && (
+          <div className="mt-12 pt-8 border-t border-white/[0.03] text-left">
+            <h3 className="text-xl md:text-2xl font-serif text-white mb-6 flex items-center gap-3">
+              <span className="text-2xl">🤝</span> <span>Connect with the guests</span>
+            </h3>
+            <div className="flex flex-wrap gap-4">
+              {guestProfiles.map((guest, i) => (
+                <a
+                  key={i}
+                  href={guest.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => track('LinkedIn Click', { location: 'guest_bottom_button', guest: guest.name })}
+                  className="px-6 py-3.5 rounded-2xl border-2 border-stone-800 bg-[#0F0606] text-stone-300 font-bold font-sans hover:-translate-y-1 hover:border-accent-orange hover:text-white transition-all shadow-[0_4px_0_0_rgba(41,37,36,1)] hover:shadow-[0_4px_0_0_rgba(234,88,12,1)] active:translate-y-1 active:shadow-none flex items-center gap-2"
+                >
+                  <BookOpen className="w-4 h-4 text-accent-gold" />
+                  {guest.name}
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Author Bio Card */}
         <a 
@@ -421,8 +464,8 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
           onClick={() => track('LinkedIn Click', { location: 'author_bio_card' })}
           className="mt-12 bg-card-bg/10 border border-white/[0.03] hover:border-accent-orange/20 hover:bg-card-bg/20 p-6 rounded-2xl flex items-center gap-4 text-left transition-all group block"
         >
-          <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-accent-orange to-accent-gold flex items-center justify-center text-white font-serif italic text-sm font-bold flex-shrink-0">
-            SM
+          <div className="w-12 h-12 rounded-full overflow-hidden border border-white/[0.08] flex-shrink-0 group-hover:border-accent-orange/40 transition-colors shadow-lg">
+            <img src="/somenath_profile.png" alt="Somenath Mondal" className="w-full h-full object-cover" />
           </div>
           <div className="flex flex-col">
             <span className="text-xs font-mono text-stone-500 uppercase tracking-widest">WRITTEN BY</span>

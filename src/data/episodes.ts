@@ -24,6 +24,7 @@ export interface Episode {
   takeaways: BlogTakeaway[];
   fullStoryMarkdown: string;
   releaseDate?: string;
+  guestProfiles?: { name: string; url: string }[];
 }
 
 export const episodes: Episode[] = [
@@ -38,7 +39,7 @@ export const episodes: Episode[] = [
     duration: "48:02",
     category: "academic",
     youtubeId: "4ivvkpPn9wk",
-    spotifyUrl: "https://open.spotify.com/episode/suman-chakraborty-1",
+    spotifyUrl: "https://open.spotify.com/episode/6FWmZmk4lXus44k5Tk855Z",
     description: "An incredibly candid conversation with the Director of IIT Kharagpur. We tackle the harsh realities of student academic pressure, mental health struggles on campus, and the rise of AI—discussing whether it's a blessing or a curse for future engineers.",
     coverImage: "/thumbnails/Ep00-ProfSuman.png",
     tags: ["Mental Health", "IIT KGP", "AI & Tech", "Director Special"],
@@ -54,21 +55,21 @@ export const episodes: Episode[] = [
     releaseDate: "June 2025",
     episodeNumber: 0,
     episodeSub: "b",
-    title: "Addressing Research Gaps and Institutional Reforming",
+    title: "Rethinking Education, AI, and the Future of Work",
     guestName: "Prof. Suman Chakraborty",
-    guestTitle: "Director of IIT Kharagpur (Part 2)",
+    guestTitle: "Director of IIT Kharagpur",
     duration: "35:15",
     category: "academic",
     youtubeId: "4ivvkpPn9wk",
-    spotifyUrl: "https://open.spotify.com/episode/suman-chakraborty-2",
-    description: "Part 2 of our deep dive with the Director of IIT Kharagpur, discussing the future of Indian research, breaking global loops, and systemic reforms needed to make campuses world-class.",
+    spotifyUrl: "https://open.spotify.com/episode/45UTNZFKOWZD1zYjpLX67b",
+    description: "Prof. Suman Chakraborty, Director of IIT Kharagpur, discusses the AI revolution, the future of work, rethinking the JEE exam, and the evolving role of the B.Tech degree.",
     coverImage: "/thumbnails/Ep00-ProfSuman2.png",
-    tags: ["Research", "Higher Education", "Reform", "IIT KGP"],
+    tags: ["Academia", "AI Revolution", "Future of Work", "IIT KGP Director"],
     takeaways: [
       { title: "Solving Global Loop Failures", time: "05:10", seconds: 310, text: "Our local research pipelines must utilize pairwise refinement to overcome global closure constraints, replicating practical engineering successes." },
       { title: "Funding the Future", time: "15:40", seconds: 940, text: "Real research requires consistent institutional backing, reducing administrative roadblocks for young investigators." }
     ],
-    fullStoryMarkdown: "In the second part of our Director Special, Prof. Suman Chakraborty tackles the institutional reform needed to foster world-class research on Indian soil."
+    fullStoryMarkdown: "Welcome back to Part 2 of our deep-dive podcast with Professor Suman Chakraborty, the new Director of IIT Kharagpur. In this episode, we continue our discussion on crucial topics including AI, education, and his vision for the institution. If you missed Part 1, we covered his strategic direction and immediate administration priorities, enhancing research facilities, mental health initiatives and his plans to engage mothers on campus, and whether AI is a blessing or a curse.\n\n### The AI Revolution and the Future of Work\nProfessor Chakraborty weighs in on the increasing capabilities of AI models in the software domain and the push toward physical frontiers like humanoid robots and self-driven taxis. He emphasizes that the entire world is being transformed by technology, particularly AI. He argues that students should focus on a \"cocktail\" of core knowledge and advanced technologies like AI, emphasizing \"cyber physical systems\". He also notes the importance of semiconductor research as the \"next buzz after the quantum boom,\" stressing India's need to focus on hardware innovation.\n\n### Rethinking Education and JEE in the AI Era\nWe tackle the evolving role of the JEE exam, especially after AI models demonstrated the capability to top the exam. Professor Chakraborty argues that the JEE is an elimination exam and suggests a change is needed: reducing the JEE syllabus and focusing on deeper foundations rather than just formula cracking. He asserts that modern teaching methodologies must change, moving away from rote learning and focusing on context and analytical insight.\n\n### The Future of B.Tech and IIT Kharagpur's Priorities\nProfessor Chakraborty discusses the value of the traditional four-year B.Tech course in the AI era. He supports the National Education Policy 2020 (NEP) and its provision for different exit routes, allowing students to leave with a diploma or certificate if they have sufficient knowledge for the working world. He also touches on administrative priorities such as addressing student mental health and introducing a \"Dean, campus and community development\" position to tackle campus issues like the canine problem.\n\n### Rapid-Fire Session\nWe conclude with a rapid-fire session, where he shares why he believes IIT Kharagpur is the \"dreamiest institute in the world\" and his immediate plans to connect with young alumni."
   },
   {
     id: "arpit",
@@ -188,20 +189,34 @@ export const episodes: Episode[] = [
     id: "pranali",
     releaseDate: "March 2025",
     episodeNumber: 7,
-    title: "7 Pointer at IIT KGP to Working at INSTAGRAM, follow her Blueprint",
-    guestName: "Pranali",
+    title: "From Confident Kid to Top Tech Jobs – Meet Pranali Jalgam",
+    guestName: "Pranali Jalgam",
     guestTitle: "Software Engineer at Instagram",
     duration: "44:15",
     category: "placement",
     youtubeId: "7Y9xgtR0EwU",
-    spotifyUrl: "https://open.spotify.com/episode/pranali",
-    description: "Pranali shares her roadmap through interview pipelines at Microsoft, Goldman Sachs, and Google, alongside her advocacy for diversity in engineering fields.",
+    spotifyUrl: "https://open.spotify.com/episode/0HTlBvn481UJYPpaDgXd6r",
+    description: "Pranali reveals how she cleared interviews at top companies like Ola, LinkedIn, Grab, Disney+ Hotstar, Google, and Instagram after starting with a 7-pointer.",
     coverImage: "/thumbnails/Ep07-Pranali.png",
-    tags: ["Women In Tech", "Big Tech", "Coding Strategy", "Google"],
+    tags: ["Tech", "Big Tech", "Coding Strategy", "Instagram"],
+    guestProfiles: [
+      { name: "Pranali Jalgam", url: "https://www.linkedin.com/in/pranali-jalgam-7b83743b" }
+    ],
     takeaways: [
       { title: "Navigating Tech Interviews", time: "15:30", seconds: 930, text: "Communicate your thought process out loud. Interviewers care more about how you think than the final syntax." }
     ],
-    fullStoryMarkdown: "Pranali outlines her strategic coding approach and maps the transition from student to Google engineer."
+    fullStoryMarkdown: `In this episode, I talk to Pranali Jalgam about her incredible journey from being a confident yet naughty kid commuting 3 hours daily to Prashanti classes in Hyderabad to making her mark in the tech world! 🌍
+
+### 🌳 IIT KGP Life
+Pranali shares her love for the lush greenery at IIT Kharagpur, the challenges of dealing with food she didn’t enjoy, and how her HOD helped her convert to a Dual degree program. 🎓
+
+### 💻 Finding Her Passion
+After initially getting a 7-pointer, she discovered her passion for Software Engineering and shares tales about the exhausting placement season at IIT.
+
+### 💼 Top Tech Interviews
+Pranali reveals how she cleared interviews at top companies like Ola, LinkedIn, Grab, Disney+ Hotstar, Google, Instagram – with valuable tips for anyone aspiring to land their dream job! ✨
+
+Listen to Pranali's views on the Gender Imbalance at IIT and Tech and how she does her bit to correct it!`
   },
   {
     id: "bagathi",
@@ -336,66 +351,31 @@ export const episodes: Episode[] = [
     ],
     fullStoryMarkdown: "Shrrinesh outlines his journey through tennis courts, Y-Combinator bootcamps, and boardrooms."
   },
-  {
-    id: "amrita",
-    releaseDate: "November 2024",
-    episodeNumber: 15,
-    episodeSub: "a",
-    title: "Navigating Pure Mathematics & Advanced Research",
-    guestName: "Amrita",
-    guestTitle: "Theoretical Mathematician",
-    duration: "30:10",
-    category: "academic",
-    youtubeId: "m7H04R9Wp-o",
-    spotifyUrl: "https://open.spotify.com/episode/amrita",
-    description: "A fascinating look at the world of pure theoretical mathematics. We discuss why students shy away from math, and the deep beauty of theoretical research.",
-    coverImage: "/Simple Neon Stand Up Comedy Show Youtube Thumbnail.jpg",
-    tags: ["Pure Math", "Research", "Academia", "Algorithms"],
-    takeaways: [
-      { title: "The Beauty of Abstraction", time: "08:40", seconds: 520, text: "Pure math builds structural thinking. It is the language upon which all modern encryption and AI systems are based." }
-    ],
-    fullStoryMarkdown: "Amrita discusses theoretical mathematics and the joy of abstract problem solving."
-  },
+
   {
     id: "prakhar",
     releaseDate: "October 2024",
     episodeNumber: 15,
     episodeSub: "b",
-    title: "[#iitian + #ias Officer] SECRETS to Cracking UPSC in 1 YEAR!",
-    guestName: "Prakhar",
-    guestTitle: "UPSC Civil Servant & NCC Cadet",
+    title: "IITian + IAS Officer shares SECRETS to Cracking UPSC in 1 YEAR!",
+    guestName: "Prakhar Singh",
+    guestTitle: "IAS Officer & IIT KGP Alum",
+    guestProfiles: [
+      { name: "Prakhar Singh", url: "https://www.linkedin.com/in/prakhars246" }
+    ],
     duration: "46:15",
     category: "global",
     youtubeId: "RKSmHM8bQFw",
-    spotifyUrl: "https://open.spotify.com/episode/prakhar",
-    description: "Prakhar shares how NCC military training on campus shaped his discipline and mindset, driving him to crack the rigorous UPSC Civil Services examination.",
+    spotifyUrl: "https://open.spotify.com/episode/3qtlfRCBXwCb7hKGpQGn8a",
+    description: "Prakhar shares his journey from feeling overwhelmed in Kota to cracking IIT, declining JPMorgan, and successfully clearing the UPSC exams in 1 year.",
     coverImage: "/thumbnails/Ep15-Prakhar.png",
-    tags: ["UPSC", "NCC", "Civil Service", "Discipline"],
+    tags: ["UPSC", "IAS Officer", "Kota Prep", "IIT KGP"],
     takeaways: [
       { title: "UPSC Preparation Roadmap", time: "15:20", seconds: 920, text: "Consistency is key. Studying a few topics deeply every single day beats cramming 14 hours sporadically." }
     ],
-    fullStoryMarkdown: "Prakhar outlines his path through military cadet squads, thick policy textbooks, and public administration."
+    fullStoryMarkdown: "In this inspiring episode, Somenath chats with his wingmate, Prakhar Singh, who cracked both IIT JEE and UPSC to become an IAS Officer in Madhya Pradesh.\n\n### Journey to IIT\nComing from a small town, Prakhar details his experience of moving to Kota, being overwhelmed by its magnitude, and intensely preparing for IIT in just 3-4 months.\n\n### Life at IIT KGP\nFrom NSS activities to the vibrant traditions of Illu and Rangoli, Prakhar paints a vivid picture of IIT life, including surviving Mechanical coursework and navigating canteen food.\n\n### From JPMorgan to IAS\nPrakhar shares a funny story about being placed at JPMorgan and why he chose to pivot toward his dream of becoming an IAS officer, preparing for UPSC with a strict 1-year plan—and succeeding.\n\n### Life in Government Service\nHe delves into the challenges of working in public administration and provides highly actionable advice for dedicated UPSC aspirants."
   },
-  {
-    id: "akshay",
-    releaseDate: "October 2024",
-    episodeNumber: 16,
-    episodeSub: "a",
-    title: "Cracking Investment Banking from an Engineering Base",
-    guestName: "Akshay",
-    guestTitle: "Investment Banking Analyst",
-    duration: "32:50",
-    category: "placement",
-    youtubeId: "m7H04R9Wp-o",
-    spotifyUrl: "https://open.spotify.com/episode/akshay",
-    description: "Akshay explains how engineers can leverage their quantitative skills to break into high-end finance, hedge funds, and investment banking firms.",
-    coverImage: "/Simple Neon Stand Up Comedy Show Youtube Thumbnail.jpg",
-    tags: ["Investment Banking", "Finance", "Quantitative", "Wall Street"],
-    takeaways: [
-      { title: "Financial Modeling for Engineers", time: "11:45", seconds: 705, text: "Engineers have a natural edge in quantitative analysis. Focus on derivatives, corporate finance, and system modeling." }
-    ],
-    fullStoryMarkdown: "Akshay maps out his financial modeling guide and tech-to-finance roadmap."
-  },
+
   {
     id: "sai",
     releaseDate: "September 2024",
@@ -420,20 +400,23 @@ export const episodes: Episode[] = [
     id: "arijit",
     releaseDate: "September 2024",
     episodeNumber: 17,
-    title: "5 THINGS He Learnt from Travelling to 100+ Countries",
-    guestName: "Arijit",
-    guestTitle: "Oxford Rhodes Scholar",
+    title: "From Kharagpur to Oxford: Arijit Patra's Inspiring Journey",
+    guestName: "Arijit Patra",
+    guestTitle: "Rhodes Scholar & AI Researcher",
+    guestProfiles: [
+      { name: "Arijit Patra", url: "https://www.linkedin.com/in/arijit-patra-92a18457" }
+    ],
     duration: "53:15",
     category: "global",
     youtubeId: "fPbOY0rzC48",
-    spotifyUrl: "https://open.spotify.com/episode/arijit",
-    description: "An extraordinary narrative of academic excellence, winning the highly prestigious global Rhodes Scholarship, and transitioning to life and studies at Oxford University.",
+    spotifyUrl: "https://open.spotify.com/episode/7nOY9TMCfmw8K6rQtCE8QI",
+    description: "Arijit Patra discusses his transition from Mechanical Engineering at IIT to becoming an Oxford Rhodes Scholar, his work in medical AI, and traveling to 90+ countries.",
     coverImage: "/thumbnails/Ep17-Arijit.png",
-    tags: ["Oxford", "Rhodes Scholar", "Global Academia", "Excellence"],
+    tags: ["Higher Studies", "Rhodes Scholar", "Medical AI", "Travel"],
     takeaways: [
       { title: "Rhodes Interview Secrets", time: "21:30", seconds: 1290, text: "The panel looks for deep intellectual curiosity combined with a commitment to public service. Authenticity beats standard scripts." }
     ],
-    fullStoryMarkdown: "Arijit details the grueling Rhodes interview process and describes academic life inside Oxford's historic campuses."
+    fullStoryMarkdown: "In this fascinating episode, Somenath chats with his friend Arijit Patra, who went from being a Mechanical Engineer at IIT Kharagpur to becoming a Rhodes Scholar, working on cutting-edge AI in the medical domain, and traveling to 90+ countries while indulging his love for cats.\n\n### Life at IIT\nArijit reminisces about his love for Bhatu Maggi, the joy of participating in Illu and Rangoli, and how he managed the intense coursework at KGP. He also shares how he earned the prestigious Rhodes Scholarship, diving into its rich history and selection process.\n\n### Life After IIT\nTransitioning to Oxford culture wasn’t easy, but Arijit embraced the challenge during his PhD. He opens up about his groundbreaking work on AI in prenatal imagery to detect congenital diseases, later pivoting to AI in the pharma industry to make an even bigger impact.\n\n### Travel Adventures & Cats\nWith an incredible tally of 90+ countries, Arijit shares wild stories from his travels and even reveals the extreme lengths he’s gone to just to meet and pet cats along the way!"
   },
   {
     id: "pragya",
@@ -598,62 +581,51 @@ export const episodes: Episode[] = [
     releaseDate: "April 2024",
     episodeNumber: 25,
     title: "From Super 30 to Filo CEO: Imbesat Ahmad's REMARKABLE EdTech Journey",
-    guestName: "Imbesat",
+    guestName: "Imbesat Ahmad",
     guestTitle: "CEO of Filo & RISE Kashmir Founder",
+    guestProfiles: [
+      { name: "Imbesat Ahmad", url: "https://www.linkedin.com/in/imbesatahmad1/" }
+    ],
     duration: "55:40",
     category: "startup",
     youtubeId: "IaCg-ImYpEQ",
-    spotifyUrl: "https://open.spotify.com/episode/imbesat",
-    description: "A breathtaking conversation with Imbesat, who started in Anand Kumar's Super 30, cracked the JEE, established RISE Kashmir, and went on to build Filo, an edtech giant.",
+    spotifyUrl: "https://open.spotify.com/episode/0NVYbJsJFxDgDxQOpomgGd",
+    description: "Imbesat Ahmad, CEO of Filo, shares his journey from Super 30's grueling IIT prep in Bihar to launching an EdTech startup that delivers 80K daily classes globally.",
     coverImage: "/thumbnails/Ep25-Imbesat.png",
-    tags: ["Super 30", "Filo", "RISE Kashmir", "EdTech"],
+    tags: ["EdTech", "Super 30", "Startup CEO", "Mental Health"],
     takeaways: [
       { title: "Lessons from Super 30", time: "10:15", seconds: 615, text: "Anand Sir taught us that resources don't determine outcomes—sheer focus and structured repetition do." },
       { title: "Addressing Kashmir Education", time: "25:40", seconds: 1540, text: "We realized that students in conflict-affected regions lack basic access to counseling. RISE Kashmir was built to close this gap." }
     ],
-    fullStoryMarkdown: "Imbesat's journey is a legendary testament to resilience, taking him from severe poverty to heading a massive educational startup."
+    fullStoryMarkdown: "In this inspiring episode, Somenath chats with Imbesat Ahmad, CEO & Founder of Filo—an instant tutoring app revolutionizing education for millions. Imbesat shares his epic tale of grit, from cracking Super 30's cutthroat IIT prep to building a highly successful EdTech startup.\n\n### The Super 30 Experience\nImbesat recounts a rain-soaked bike ride to join Super 30 in Bihar. He shares his raw resilience, detailing his daily routine of waking at dawn, battling self-doubt, managing intense distractions, and forging lifelong bonds with his peers.\n\n### Life at IIT KGP & Mental Health\nFrom campus chaos and roommate hacks to navigating academic pressure, Imbesat provides a candid look at IIT life. He also opens up about the critical importance of mental health, tackling the sensitive topic of student burnout and the dangers of constant comparison.\n\n### Igniting the Entrepreneurial Fire\nImbesat details his journey into entrepreneurship, starting with launching the RISE initiative in Kashmir to help turn dropouts into NIT stars.\n\n### Founding Filo\nHe dives into the massive scale of Filo—now operating in 50+ countries with 80K daily classes. Imbesat explains how they are integrating AI tutors that feel human, proving that with the right mission, toughness is temporary but impact is forever."
   },
   {
     id: "peter",
     releaseDate: "April 2024",
     episodeNumber: 26,
     title: "AI: Why Your \"Safe Job\" Will Disappear in 10 Years",
-    guestName: "Peter (Boeckel)",
-    guestTitle: "International Industrial Designer",
+    guestName: "Peter Boeckel",
+    guestTitle: "Global Design Leader & Futurist",
+    guestProfiles: [
+      { name: "Peter Boeckel", url: "https://www.linkedin.com/in/peterboeckel" },
+      { name: "Newsletter", url: "https://peterboeckel.com/newsletter" },
+      { name: "Peter's Podcast", url: "https://spotify.link/C7fpnTNRxXb" }
+    ],
     duration: "53:10",
     category: "global",
     youtubeId: "8aQ3Mf6cqhw",
-    spotifyUrl: "https://open.spotify.com/episode/peter",
-    description: "Peter shares his international design journey working at Philips, Steelcase, and Bandlab, discussing the intersection of human design, AI, and universal basic income.",
+    spotifyUrl: "https://open.spotify.com/episode/3mOHUCFjZrHNRMpORZSsfS",
+    description: "Global Design Leader Peter Boeckel (ex-Peloton, Philips) shares blunt truths about the future of work, AI replacing jobs, and his experience teaching at IIT Hyderabad.",
     coverImage: "/thumbnails/Ep26-Peter.png",
     gallery: [
       "/thumbnails/Ep26-Peter.png",
       "/thumbnails/Ep25-Imbesat.png",
       "/thumbnails/Ep24-Shashwat.png"
     ],
-    tags: ["Industrial Design", "AI", "Universal Basic Income", "Red Dot Award"],
+    tags: ["Design & AI", "Future of Work", "Industrial Design", "IIT Hyderabad"],
     takeaways: [
       { title: "The Philosophy of Clean Design", time: "18:20", seconds: 1100, text: "Design is not about looks; it is about how it works. A simple, functional system always beats decorative complexity." }
     ],
-    fullStoryMarkdown: "Peter shares a global masterclass on design systems, human interface principles, and industrial design."
-  },
-  {
-    id: "samarth",
-    releaseDate: "March 2024",
-    episodeNumber: 27,
-    title: "Borderlands, TheUnreserved & Alternative Storytelling",
-    guestName: "Samarth",
-    guestTitle: "Founder & Creative Storyteller",
-    duration: "37:15",
-    category: "startup",
-    youtubeId: "m7H04R9Wp-o",
-    spotifyUrl: "https://open.spotify.com/episode/samarth",
-    description: "Samarth speaks about alternative journalistic storytelling, founding TheUnreserved and Borderlands, and capturing stories of marginalized voices on the borders.",
-    coverImage: "/Simple Neon Stand Up Comedy Show Youtube Thumbnail.jpg",
-    tags: ["Storytelling", "Alternative Journalism", "Unreserved", "Borderlands"],
-    takeaways: [
-      { title: "Storytelling as a Mission", time: "12:10", seconds: 730, text: "Real stories are on the margins. Alternative journalism captures human lives that corporate media pipelines completely bypass." }
-    ],
-    fullStoryMarkdown: "Samarth shares his journey recording alternative media journals and amplifying unheard voices."
+    fullStoryMarkdown: "In this mind-bending conversation, Somenath chats with Peter Boeckel, a Global Design Leader (ex-Peloton, Steelcase, Philips) and Futurist, who is currently teaching Industrial Design at IIT Hyderabad. Peter shares his incredible journey—from being born in Germany to leading design teams in Hong Kong, Singapore, New York, and San Francisco, including pioneering work in cutting-edge surgical robotics.\n\n### The Future is Unstable: AI, Jobs, and Education\nPeter gives us the blunt truth about the future of work and the changing role of designers. He states that many jobs will simply \"go away,\" and most current education systems \"will not be here within the next five to ten years.\" The technological revolution is accelerating so fast that it is rapidly destabilizing traditional social and employment systems. \n\nWe discuss how AI models are already achieving top marks in exams like the IIT JEE, underscoring the extreme urgency for change. Peter argues that the solution isn't simply acquiring more skills; it's a fundamental shift, noting that \"the future of design lies more in retooling towards entrepreneurship.\"\n\n### Global Design & Medical Device Challenges\nPeter breaks down how corporate culture and innovation differ fundamentally across Asia, Europe, and the US. He also provides an insider's look at the extreme complexity of designing for high-stakes environments like surgical robotics, navigating the challenges of a highly regulated and risk-averse medical industry.\n\n### Cultural Insight from IIT\nTeaching at IIT Hyderabad, Peter shares his profound observation on the \"afterburner\" effect he sees in India—a generation incredibly \"hungry\" to excel because they see a clear, structured path to a vastly better life.\n\n### Recommended Books\nPeter highly recommends reading:\n- **[Life 3.0](https://amzn.to/4nYS9Bx)**\n- **[The Nvidia Way](https://amzn.to/4nVd74g)**"
   }
 ];

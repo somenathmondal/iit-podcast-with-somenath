@@ -28,23 +28,25 @@ export default function Header() {
             {link}
           </Link>
         ))}
-        <Link
-          href="/blog"
-          className="px-3.5 py-1.5 rounded-full text-[10px] tracking-widest font-mono font-bold text-stone-400 hover:text-white hover:bg-white/[0.05] active:bg-white/[0.08] transition-all duration-200 uppercase"
-        >
-          Journal
-        </Link>
       </nav>
 
       {/* CTA buttons */}
       <div className="flex items-center gap-2 md:gap-3">
-        {/* Mobile Journal Link */}
+        {/* Animated Journal CTA */}
         <Link
           href="/blog"
-          className="flex md:hidden items-center gap-1.5 px-3 py-1.5 rounded-full border border-accent-copper/20 bg-accent-copper/5 text-accent-copper font-bold text-[8px] tracking-widest uppercase hover:bg-accent-copper/15 active:scale-95 transition-all duration-300"
+          className="relative group inline-flex items-center justify-center p-[2px] rounded-full overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_15px_rgba(234,88,12,0.15)] hover:shadow-[0_0_25px_rgba(234,88,12,0.3)]"
         >
-          <BookOpen className="w-3 h-3 text-accent-copper" />
-          <span>Journal</span>
+          {/* Animated gradient rotating border */}
+          <span className="absolute inset-0 w-[200%] h-[200%] -left-[50%] -top-[50%] bg-[conic-gradient(from_0deg,transparent_0_300deg,#EA580C_360deg)] animate-[spin_2s_linear_infinite]" />
+          
+          {/* Inner Button Cover */}
+          <div className="relative flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5 rounded-full bg-[#0F0606] group-hover:bg-[#130707] transition-colors duration-300 z-10 border border-white/5">
+            <BookOpen className="w-3.5 h-3.5 md:w-4 md:h-4 text-accent-orange group-hover:-rotate-12 transition-transform duration-300" />
+            <span className="text-[10px] md:text-xs tracking-[0.2em] font-mono font-bold text-stone-200 group-hover:text-white uppercase whitespace-nowrap">
+              Journal
+            </span>
+          </div>
         </Link>
 
         {/* JEE Sandbox — hidden for now */}

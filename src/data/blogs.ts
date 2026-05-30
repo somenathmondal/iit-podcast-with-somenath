@@ -10,11 +10,47 @@ export interface BlogArticle {
   contentMarkdown: string;
   tags: string[];
   youtubeId?: string;
+  spotifyUrl?: string;
   guestName?: string;
   guestTitle?: string;
+  guestProfiles?: { name: string; url: string }[];
 }
 
 export const blogs: BlogArticle[] = [
+  {
+    id: "saumaric-aditi-harvard-journey",
+    title: "From IIT Kharagpur to Harvard Business School – The Global Journey of Saumaric & Aditi",
+    description: "An inspiring look at how two distinct IIT backgrounds merged into a shared journey through Harvard Business School, global consulting, and startup leadership.",
+    author: "Somenath Mondal",
+    readTime: "3 min read",
+    category: "global",
+    releaseDate: "MAY 2026",
+    coverImage: "/thumbnails/Ep20-SaumaricAditi.png",
+    youtubeId: "EaXu_3c7AZM",
+    spotifyUrl: "https://open.spotify.com/episode/7A1NuJ0QFKKzVL4Pf87BC4",
+    guestName: "Saumaric & Aditi",
+    guestTitle: "HBS Alum & Global Strategists",
+    guestProfiles: [
+      { name: "Saumaric", url: "https://www.linkedin.com/in/saumaric-dangwal-2a620148" },
+      { name: "Aditi", url: "https://www.linkedin.com/in/aditi-sharma-713ba54b" }
+    ],
+    tags: ["Harvard HBS", "Consulting", "Startup", "Global Careers"],
+    contentMarkdown: `In this inspiring episode, I sit down with my friends Saumaric and Aditi, who went from IIT Kharagpur to Harvard Business School, and have now returned to India after globetrotting careers in Consulting, Investment, Strategy, and Startup leadership.
+
+### 💭 Life Before IIT
+Aditi, the city girl from Mumbai, and Saumaric, the small-town dreamer from Dehradun, share their unique upbringings and intense IIT prep journeys in Kota. Despite their contrasting backgrounds, they were united by their ambition and drive.
+
+### 🎓 Life at IIT Kharagpur
+They take us through their department experiences, bonding over long nights at the Alumni Cell, where they reached out to legends like Sundar Pichai and Ashok Khemka. Saumaric offers a peek into the PlaceComm experience during the placement season, and together they discuss why they chose Consulting over conventional career paths.
+
+### 🌍 Life After IIT
+Saumaric recounts his whirlwind professional journey that took him to Nigeria, Brazil, Korea, China, and the Middle East. Aditi talks about the influence of strong women leaders that motivated her to pursue an MBA at Harvard.
+
+### 🏫 Life at Harvard Business School
+They reflect on the differences between IIT and HBS, the growth mindset, the global exposure, and ultimately why they chose to return to India to make an impact in the startup ecosystem.
+
+This episode is a powerful story of ambition, humility, global dreams, and the importance of giving back.`
+  },
   {
     id: "mckinsey-consulting-blueprint",
     title: "The McKinsey Case Interview Survival Guide: Pivoting from Engineering to Consulting",
