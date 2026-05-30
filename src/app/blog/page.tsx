@@ -24,7 +24,7 @@ export default function BlogHub() {
   };
   const letterVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { type: "spring", damping: 14, stiffness: 100 } },
+    visible: { opacity: 1, y: 0, transition: { type: "spring" as const, damping: 14, stiffness: 100 } },
   };
 
   // Transform standard episodes into short-form digest cards dynamically to instantly populate content!
