@@ -5,7 +5,7 @@ import { Rss, BookOpen } from "lucide-react";
 
 export default function Header() {
   return (
-    <header className="w-full px-4 py-3 md:px-8 md:py-4 flex justify-between items-center border-b border-white/[0.03] bg-background/50 backdrop-blur-md sticky top-0 z-40">
+    <header className="relative w-full px-4 py-3 md:px-8 md:py-4 flex justify-between items-center border-b border-white/[0.03] bg-background/50 backdrop-blur-md sticky top-0 z-40">
 
       {/* Brand logo */}
       <Link href="/" className="flex flex-col text-left group">
@@ -18,12 +18,12 @@ export default function Header() {
       </Link>
 
       {/* Navigation center links */}
-      <nav className="hidden md:flex items-center gap-1">
+      <nav className="hidden md:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
         {["Episodes", "About"].map((link) => (
           <Link
             key={link}
             href={`/#${link.toLowerCase().replace(" ", "-")}`}
-            className="px-3.5 py-1.5 rounded-full text-[10px] tracking-widest font-mono font-bold text-stone-400 hover:text-white hover:bg-white/[0.05] active:bg-white/[0.08] transition-all duration-200 uppercase"
+            className="px-4 py-1.5 rounded-full text-[10px] tracking-[0.2em] font-mono font-bold text-stone-400 uppercase transition-all duration-300 border border-transparent hover:border-accent-orange/30 hover:bg-accent-orange/10 hover:text-accent-orange hover:shadow-[0_0_15px_rgba(255,107,0,0.2)] hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
           >
             {link}
           </Link>

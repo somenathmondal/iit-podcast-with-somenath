@@ -257,7 +257,7 @@ export default function BlogHub() {
             <Link
               key={entry.id}
               href={`/blog/${entry.id}`}
-              className="group backdrop-blur-md bg-card-bg/25 border border-white/[0.04] hover:border-accent-orange/30 rounded-[28px] overflow-hidden flex flex-col justify-between transition-all duration-500 hover:scale-[1.008] shadow-lg shadow-black/40 text-left cursor-pointer"
+              className="group relative bg-[#1A0E0E]/80 backdrop-blur-md border-2 border-[#2A1616] hover:border-accent-orange/80 rounded-[28px] overflow-hidden flex flex-col justify-between transition-all duration-200 text-left cursor-pointer shadow-[0_6px_0_0_#2A1616] hover:shadow-[0_8px_0_0_#FF6B00] hover:-translate-y-1 active:translate-y-[6px] active:shadow-[0_0px_0_0_#FF6B00]"
             >
               <div>
                 {/* Visual Header Image Cover */}
