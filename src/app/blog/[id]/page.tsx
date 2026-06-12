@@ -58,7 +58,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: seoTitle,
       description: seoDescription,
       type: "article",
-      url: `https://iit-podcast.vercel.app/blog/${id}`,
+      url: `https://iit-podcast-with-somenath.vercel.app/blog/${id}`,
       siteName: "IIT Podcast",
       tags: tags,
       images: [

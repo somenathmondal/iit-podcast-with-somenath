@@ -248,7 +248,7 @@ export default function DailyTip() {
   const handleShare = async () => {
     if (!activeTip) return;
     try {
-      const textToCopy = `💡 "${activeTip.title}" - Daily Blueprint by ${activeTip.author}:\n\n"${activeTip.text}"\n\nExplore untold IIT alumni diaries at https://iit-podcast.vercel.app`;
+      const textToCopy = `💡 "${activeTip.title}" - Daily Blueprint by ${activeTip.author}:\n\n"${activeTip.text}"\n\nExplore untold IIT alumni diaries at https://iit-podcast-with-somenath.vercel.app`;
       await navigator.clipboard.writeText(textToCopy);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);

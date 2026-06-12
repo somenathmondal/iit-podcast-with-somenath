@@ -80,7 +80,7 @@ export default function Home() {
             "@type": "PodcastSeries",
             "name": "IIT Podcast with Somenath",
             "description": "Deconstructing life before the JEE, Kota coachings, hostel fests, fiver-point struggles, campus placement diaries, and high-impact paths following graduation.",
-            "url": "https://iit-podcast.vercel.app",
+            "url": "https://iit-podcast-with-somenath.vercel.app",
             "author": {
               "@type": "Person",
               "name": "Somenath Mondal"

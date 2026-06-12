@@ -28,7 +28,7 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://iit-podcast.vercel.app"),
+  metadataBase: new URL("https://iit-podcast-with-somenath.vercel.app"),
   title: {
     default: "IIT Podcast with Somenath — Insights & Untold Alumni Stories",
     template: "%s | IIT Podcast with Somenath"
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "IIT Podcast with Somenath — Insights & Untold Alumni Stories",
     description: "Deconstructing life before the JEE, Kota coachings, hostel fests, campus placement diaries, and high-impact paths following graduation.",
-    url: "https://iit-podcast.vercel.app",
+    url: "https://iit-podcast-with-somenath.vercel.app",
     siteName: "IIT Podcast with Somenath",
     images: [
       {
