@@ -41,7 +41,7 @@ export const episodes: Episode[] = [
     youtubeId: "4ivvkpPn9wk",
     spotifyUrl: "https://open.spotify.com/episode/6FWmZmk4lXus44k5Tk855Z",
     description: "An incredibly candid conversation with the Director of IIT Kharagpur. We tackle the harsh realities of student academic pressure, mental health struggles on campus, and the rise of AI—discussing whether it's a blessing or a curse for future engineers.",
-    coverImage: "/thumbnails/Ep00-ProfSuman.png",
+    coverImage: "/thumbnails/Ep00-ProfSuman.jpg",
     tags: ["Mental Health", "IIT KGP", "AI & Tech", "Director Special"],
     takeaways: [
       { title: "The Illusion of Perfect Grades", time: "08:12", seconds: 492, text: "Academic performance is a single metric in a multi-dimensional life. A 10-pointer or a 5-pointer does not define your creative potential." },
@@ -63,7 +63,7 @@ export const episodes: Episode[] = [
     youtubeId: "4ivvkpPn9wk",
     spotifyUrl: "https://open.spotify.com/episode/45UTNZFKOWZD1zYjpLX67b",
     description: "Prof. Suman Chakraborty, Director of IIT Kharagpur, discusses the AI revolution, the future of work, rethinking the JEE exam, and the evolving role of the B.Tech degree.",
-    coverImage: "/thumbnails/Ep00-ProfSuman2.png",
+    coverImage: "/thumbnails/Ep00-ProfSuman2.jpg",
     tags: ["Academia", "AI Revolution", "Future of Work", "IIT KGP Director"],
     takeaways: [
       { title: "Solving Global Loop Failures", time: "05:10", seconds: 310, text: "Our local research pipelines must utilize pairwise refinement to overcome global closure constraints, replicating practical engineering successes." },
@@ -83,7 +83,7 @@ export const episodes: Episode[] = [
     youtubeId: "a5RhmyDLMr0",
     spotifyUrl: "https://open.spotify.com/episode/arpit",
     description: "In this 68-minute podcast, we dive deep into the incredible journey of a small-town boy who beat the odds to crack IITJEE – the toughest exam in India!",
-    coverImage: "/thumbnails/Ep01-Arpit.png",
+    coverImage: "/thumbnails/Ep01-Arpit.jpg",
     tags: ["Placements", "Software Engineering", "Systems", "DSA"],
     takeaways: [
       { title: "Mastering Core Systems", time: "12:05", seconds: 725, text: "Understanding operating systems and databases deeply beats solving 500 duplicate LeetCode challenges." }
@@ -121,7 +121,7 @@ This podcast is full of inspiration, motivation, and a sprinkle of humor 😄. T
     youtubeId: "upAxW9oPYeM",
     spotifyUrl: "https://open.spotify.com/episode/dheeraj",
     description: "In this episode, I catch up with my friend Dheeraj to explore his intense journey through the rigorous IIT prep in Andhra Pradesh that pushed him to his limits – even leading to breakdowns despite being one of the brightest students. 📚😓",
-    coverImage: "/thumbnails/Ep02-Dheeraj.png",
+    coverImage: "/thumbnails/Ep02-Dheeraj.jpg",
     tags: ["Leadership", "NSS", "Campus Life", "Management"],
     takeaways: [
       { title: "Student Administration Realities", time: "09:30", seconds: 570, text: "Hostel politics and administration teach you more about real-world human resource management than any lecture hall." }
@@ -156,7 +156,7 @@ This episode is a mix of honesty, struggle, laughter, and growth. Tune in for an
     youtubeId: "vUW8YgPzDYg",
     spotifyUrl: "https://open.spotify.com/episode/nikhil",
     description: "Nikhil speaks candidly about maintaining a low CGPA in early semesters, handling intense peer pressure, and landing a top-tier software placement through projects.",
-    coverImage: "/thumbnails/Ep03-Nikhil.png",
+    coverImage: "/thumbnails/Ep03-Nikhil.jpg",
     tags: ["GPA Struggles", "Placements", "Resilience", "Projects"],
     takeaways: [
       { title: "Moving Past Low Grades", time: "07:45", seconds: 465, text: "Showcasing high-fidelity open source work can completely bypass early screening filters." }
@@ -175,7 +175,7 @@ This episode is a mix of honesty, struggle, laughter, and growth. Tune in for an
     youtubeId: "w5nmXFV6S_Q",
     spotifyUrl: "https://open.spotify.com/episode/kv",
     description: "A fun and deeply insightful chat about campus meme pages, late-night canteen talks, the business of chicken fried maggi, and scaling a digital media startup.",
-    coverImage: "/thumbnails/Ep04-KV.png",
+    coverImage: "/thumbnails/Ep04-KV.jpg",
     tags: ["Meme Culture", "Startups", "Digital Media", "Canteen Tales"],
     takeaways: [
       { title: "Meme Marketing Power", time: "14:10", seconds: 850, text: "Virality is a science. Understanding internet humor is a powerful, highly-leveraged business skill today." }
@@ -194,7 +194,7 @@ This episode is a mix of honesty, struggle, laughter, and growth. Tune in for an
     youtubeId: "q02Ztg67hPY",
     spotifyUrl: "https://open.spotify.com/episode/ankur",
     description: "Ankur shares the behind-the-scenes engineering of KGP's famous Illumination night—designing complex chalkboard murals and coordinating thousands of glowing oil lamps.",
-    coverImage: "/thumbnails/Ep05-Ankur.png",
+    coverImage: "/thumbnails/Ep05-Ankur.jpg",
     tags: ["Illumination", "Cultural Fest", "Logistics", "IIT Traditions"],
     takeaways: [
       { title: "Logistics of a Masterpiece", time: "18:20", seconds: 1100, text: "Stitching together efforts from 20+ hostels requires local pairwise alignment of teams to avoid loop failures." }
@@ -213,7 +213,7 @@ This episode is a mix of honesty, struggle, laughter, and growth. Tune in for an
     youtubeId: "j-zpE1mPznk",
     spotifyUrl: "https://open.spotify.com/episode/jayanta",
     description: "A soulful dialogue on balancing musical passions with an engineering degree, composing campus anthems, and recording indie tracks in dormitory rooms.",
-    coverImage: "/thumbnails/Ep06-Jayanta.png",
+    coverImage: "/thumbnails/Ep06-Jayanta.jpg",
     tags: ["Music", "Creativity", "Campus Anthems", "Balance"],
     takeaways: [
       { title: "Recording with Constraints", time: "10:15", seconds: 615, text: "You don't need a high-end studio; a simple microphone in a hostel room with blankets can sound incredibly professional." }
@@ -232,7 +232,7 @@ This episode is a mix of honesty, struggle, laughter, and growth. Tune in for an
     youtubeId: "7Y9xgtR0EwU",
     spotifyUrl: "https://open.spotify.com/episode/0HTlBvn481UJYPpaDgXd6r",
     description: "Pranali reveals how she cleared interviews at top companies like Ola, LinkedIn, Grab, Disney+ Hotstar, Google, and Instagram after starting with a 7-pointer.",
-    coverImage: "/thumbnails/Ep07-Pranali.png",
+    coverImage: "/thumbnails/Ep07-Pranali.jpg",
     tags: ["Tech", "Big Tech", "Coding Strategy", "Instagram"],
     guestProfiles: [
       { name: "Pranali Jalgam", url: "https://www.linkedin.com/in/pranali-jalgam-7b83743b" }
@@ -265,7 +265,7 @@ Listen to Pranali's views on the Gender Imbalance at IIT and Tech and how she do
     youtubeId: "xmlZiS4qibU",
     spotifyUrl: "https://open.spotify.com/episode/bagathi",
     description: "Bagathi shares a hilarious, highly academic journey inside mechanical labs, building solar cars, and landing core automotive engineering jobs.",
-    coverImage: "/thumbnails/Ep08-Bagathi.png",
+    coverImage: "/thumbnails/Ep08-Bagathi.jpg",
     tags: ["Mechanical", "Automotive", "Engineering", "Core Jobs"],
     takeaways: [
       { title: "Core vs Software", time: "12:45", seconds: 765, text: "Mechanical engineering is highly rewarding if you focus on hardware-software interfaces like EV drivetrains." }
@@ -284,7 +284,7 @@ Listen to Pranali's views on the Gender Imbalance at IIT and Tech and how she do
     youtubeId: "bHr3ZnaSR4M",
     spotifyUrl: "https://open.spotify.com/episode/charu",
     description: "Charu reflects on her early years in Kota's intense coaching institutes, cracking the JEE, and later building scale frameworks for global retail technology.",
-    coverImage: "/thumbnails/Ep09-Charu.png",
+    coverImage: "/thumbnails/Ep09-Charu.jpg",
     tags: ["Kota Factory", "JEE Prep", "Walmart", "Scale"],
     takeaways: [
       { title: "Kota Survival Skills", time: "08:15", seconds: 495, text: "The extreme discipline of JEE preparation builds a deep resilience that helps you manage high-stress production environments." }
@@ -306,7 +306,7 @@ Listen to Pranali's views on the Gender Imbalance at IIT and Tech and how she do
     youtubeId: "vrewbhtdcc0",
     spotifyUrl: "https://open.spotify.com/episode/1igV4jMmoFJ3SRcPOnd8lJ",
     description: "Sanghamitra Dutta, Assistant Professor at the University of Maryland, discusses her journey from Kolkata to academia, surviving IIT placements, and finding her true calling in research.",
-    coverImage: "/thumbnails/Ep10-Sanghamitra.png",
+    coverImage: "/thumbnails/Ep10-Sanghamitra.jpg",
     tags: ["Academia", "Higher Studies", "Research", "Relationships"],
     takeaways: [
       { title: "Writing a Strong SOP", time: "22:15", seconds: 1335, text: "A successful statement of purpose is a story. Connect your undergraduate projects to the professor's current research agenda." }
@@ -325,7 +325,7 @@ Listen to Pranali's views on the Gender Imbalance at IIT and Tech and how she do
     youtubeId: "Hw5365OdRGQ",
     spotifyUrl: "https://open.spotify.com/episode/akash",
     description: "Akash details the messy reality of building food supply chains, optimizing cooking times in cloud kitchens, and scaling his startup from a single outlet to a major brand.",
-    coverImage: "/thumbnails/Ep11-Akash.png",
+    coverImage: "/thumbnails/Ep11-Akash.jpg",
     tags: ["Food Tech", "Entrepreneurship", "Supply Chain", "Bootstrapping"],
     takeaways: [
       { title: "The Cloud Kitchen Loophole", time: "16:40", seconds: 1000, text: "Optimize unit economics before raising capital. Food quality and delivery speed are your only true parameters." }
@@ -344,7 +344,7 @@ Listen to Pranali's views on the Gender Imbalance at IIT and Tech and how she do
     youtubeId: "TFAedhUisqI",
     spotifyUrl: "https://open.spotify.com/episode/gupthaji",
     description: "Gupthaji shares his hilarious experiences in Hindi dramatic societies, directing late-night campus plays, and making the bold choice to pursue acting over corporate placements.",
-    coverImage: "/thumbnails/Ep12-Gupthaji.png",
+    coverImage: "/thumbnails/Ep12-Gupthaji.jpg",
     tags: ["Dramatics", "Creative Careers", "Unconventional", "Acting"],
     takeaways: [
       { title: "Public Speaking & Confidence", time: "11:20", seconds: 680, text: "Dramatic societies teach you how to read a room and present ideas with high impact—essential traits for any leader." }
@@ -363,7 +363,7 @@ Listen to Pranali's views on the Gender Imbalance at IIT and Tech and how she do
     youtubeId: "IAddKg8lL2I",
     spotifyUrl: "https://open.spotify.com/episode/goundla",
     description: "An expansive look at global academic pipelines, researching next-generation database systems, and transitioning from IIT to research careers in the US.",
-    coverImage: "/thumbnails/Ep13-Goundla.png",
+    coverImage: "/thumbnails/Ep13-Goundla.jpg",
     tags: ["Global Education", "Database Systems", "US Research", "Google"],
     takeaways: [
       { title: "Securing US Research Assistantships", time: "24:10", seconds: 1450, text: "Build direct relationships with international professors by contributing to their open-source database engines." }
@@ -382,7 +382,7 @@ Listen to Pranali's views on the Gender Imbalance at IIT and Tech and how she do
     youtubeId: "brNr-LpGI9U",
     spotifyUrl: "https://open.spotify.com/episode/shrrinesh",
     description: "From playing competitive tennis to entering the world's most prestigious startup accelerator. Shrrinesh outlines how to pitch, build MVPs, and secure institutional backing.",
-    coverImage: "/thumbnails/Ep14-Shrrinesh.png",
+    coverImage: "/thumbnails/Ep14-Shrrinesh.jpg",
     tags: ["Y Combinator", "Sports", "Venture Capital", "Founder Life"],
     takeaways: [
       { title: "The YC Pitch Formula", time: "19:05", seconds: 1145, text: "Explain your product in three simple words. VCs buy momentum, product-market fit, and relentless focus." }
@@ -406,7 +406,7 @@ Listen to Pranali's views on the Gender Imbalance at IIT and Tech and how she do
     youtubeId: "RKSmHM8bQFw",
     spotifyUrl: "https://open.spotify.com/episode/3qtlfRCBXwCb7hKGpQGn8a",
     description: "Prakhar shares his journey from feeling overwhelmed in Kota to cracking IIT, declining JPMorgan, and successfully clearing the UPSC exams in 1 year.",
-    coverImage: "/thumbnails/Ep15-Prakhar.png",
+    coverImage: "/thumbnails/Ep15-Prakhar.jpg",
     tags: ["UPSC", "IAS Officer", "Kota Prep", "IIT KGP"],
     takeaways: [
       { title: "UPSC Preparation Roadmap", time: "15:20", seconds: 920, text: "Consistency is key. Studying a few topics deeply every single day beats cramming 14 hours sporadically." }
@@ -427,7 +427,7 @@ Listen to Pranali's views on the Gender Imbalance at IIT and Tech and how she do
     youtubeId: "X93mNP7qjfU",
     spotifyUrl: "https://open.spotify.com/episode/sai",
     description: "Sai shares a beautiful narrative on maintaining a deep connection to classical music (Veena) while working in demanding corporate roles and traveling the globe.",
-    coverImage: "/thumbnails/Ep16-Sai.png",
+    coverImage: "/thumbnails/Ep16-Sai.jpg",
     tags: ["Classical Music", "Corporate", "Global Travel", "Art"],
     takeaways: [
       { title: "Creative Outlets as Stress Relief", time: "14:10", seconds: 850, text: "Your art is not a distraction; it is a creative anchor that prevents corporate burnout and brings fresh cognitive perspectives." }
@@ -449,7 +449,7 @@ Listen to Pranali's views on the Gender Imbalance at IIT and Tech and how she do
     youtubeId: "fPbOY0rzC48",
     spotifyUrl: "https://open.spotify.com/episode/7nOY9TMCfmw8K6rQtCE8QI",
     description: "Arijit Patra discusses his transition from Mechanical Engineering at IIT to becoming an Oxford Rhodes Scholar, his work in medical AI, and traveling to 90+ countries.",
-    coverImage: "/thumbnails/Ep17-Arijit.png",
+    coverImage: "/thumbnails/Ep17-Arijit.jpg",
     tags: ["Higher Studies", "Rhodes Scholar", "Medical AI", "Travel"],
     takeaways: [
       { title: "Rhodes Interview Secrets", time: "21:30", seconds: 1290, text: "The panel looks for deep intellectual curiosity combined with a commitment to public service. Authenticity beats standard scripts." }
@@ -468,7 +468,7 @@ Listen to Pranali's views on the Gender Imbalance at IIT and Tech and how she do
     youtubeId: "-F06brwpnCg",
     spotifyUrl: "https://open.spotify.com/episode/pragya",
     description: "Pragya discusses growing up in military bases, bringing that discipline to software engineering, and working on next-generation AI and mobile research at Samsung.",
-    coverImage: "/thumbnails/Ep18-Pragya.png",
+    coverImage: "/thumbnails/Ep18-Pragya.jpg",
     tags: ["Samsung SRIB", "AI Research", "Military Upbringing", "Tech Careers"],
     takeaways: [
       { title: "Applying Military Discipline to Tech", time: "12:15", seconds: 735, text: "High-pressure situations in software releases require calm, systematic diagnostics, much like military tactical maneuvers." }
@@ -487,7 +487,7 @@ Listen to Pranali's views on the Gender Imbalance at IIT and Tech and how she do
     youtubeId: "fgHoOdm-Z7k",
     spotifyUrl: "https://open.spotify.com/episode/soumi-abhisek",
     description: "A candid conversation on moving to Germany, adjusting to European work cultures, handling mental health struggles abroad, and publishing high-impact research.",
-    coverImage: "/thumbnails/Ep19-SoumiAbhisek.png",
+    coverImage: "/thumbnails/Ep19-SoumiAbhisek.jpg",
     tags: ["Germany", "Mental Health", "European Culture", "Research Life"],
     takeaways: [
       { title: "Adjusting to European Workplaces", time: "18:40", seconds: 1120, text: "Work-life balance is structural in Germany. Output quality matters more than spending hours sitting at your desk." }
@@ -507,7 +507,7 @@ Listen to Pranali's views on the Gender Imbalance at IIT and Tech and how she do
     youtubeId: "EaXu_3c7AZM",
     spotifyUrl: "https://open.spotify.com/episode/saumaric-aditi",
     description: "An elite deep-dive comparing the academic and social environments of IIT and Harvard. We map the entire roadmap to entering top-tier consulting firms like McKinsey and Bain.",
-    coverImage: "/thumbnails/Ep20-SaumAditi.png",
+    coverImage: "/thumbnails/Ep20-SaumAditi.jpg",
     tags: ["Harvard HBS", "McKinsey", "Consulting", "Elite Careers"],
     takeaways: [
       { title: "The HBS Case Study Method", time: "25:10", seconds: 1510, text: "IIT trains you to find the exact mathematical solution. Harvard trains you to make decisions with 60% of the data under uncertainty." }
@@ -526,7 +526,7 @@ Listen to Pranali's views on the Gender Imbalance at IIT and Tech and how she do
     youtubeId: "mLo3KqXmV5M",
     spotifyUrl: "https://open.spotify.com/episode/dk",
     description: "A fascinating discussion on late-night hostel LAN gaming (DOTA, Age of Empires), managing screen addiction, and landing jobs in core enterprise systems at IBM.",
-    coverImage: "/thumbnails/Ep21-DK.png",
+    coverImage: "/thumbnails/Ep21-DK.jpg",
     tags: ["Gaming", "DOTA", "IBM", "Screen Addiction"],
     takeaways: [
       { title: "Managing Digital Addiction", time: "14:20", seconds: 860, text: "LAN gaming builds extreme strategic teamwork, but it requires guardrails to prevent it from consuming your entire academic life." }
@@ -545,7 +545,7 @@ Listen to Pranali's views on the Gender Imbalance at IIT and Tech and how she do
     youtubeId: "qEppc07tl50",
     spotifyUrl: "https://open.spotify.com/episode/amarjeet",
     description: "The incredible story of a corporate leader at ITC who has completed over 100 marathons. We discuss endurance training, physical health, and professional consistency.",
-    coverImage: "/thumbnails/Ep22-Amarjeet.png",
+    coverImage: "/thumbnails/Ep22-Amarjeet.jpg",
     tags: ["Marathons", "ITC", "Consistency", "Physical Health"],
     takeaways: [
       { title: "The Consistency Equation", time: "18:10", seconds: 1090, text: "Completing a marathon is not a physical feat; it is a mental commitment to a daily training program. Translate this to your career." }
@@ -564,7 +564,7 @@ Listen to Pranali's views on the Gender Imbalance at IIT and Tech and how she do
     youtubeId: "m7H04R9Wp-o",
     spotifyUrl: "https://open.spotify.com/show/2OkRCNNTbwaAB2CElTDdYH",
     description: "An extraordinary journey from the intense JEE prep corridors of Kota to playing Surbahaar at IIT Bombay assemblies, and eventually securing a consulting role at Kearney before entering Harvard Business School.",
-    coverImage: "/thumbnails/Ep23-Anushree.png",
+    coverImage: "/thumbnails/Ep23-Anushree.jpg",
     tags: ["IIT Bombay", "Harvard Business School", "Kearney", "Stopwatch Method"],
     takeaways: [
       { title: "The Stopwatch Study Method", time: "11:55", seconds: 715, text: "Bansal Sir in Kota taught us to study exclusively by a physical stopwatch. If you stand up, take a water sip, or answer a phone, you must pause the timer. This discipline reveals that 14 desk hours are actually 8 hours of pure, concentrated learning." },
@@ -585,7 +585,7 @@ Listen to Pranali's views on the Gender Imbalance at IIT and Tech and how she do
     youtubeId: "wGoU_5GjRro", // Matching the active working video ID for perfect modal rendering
     spotifyUrl: "https://open.spotify.com/show/2OkRCNNTbwaAB2CElTDdYH",
     description: "Shashwat shares his highly strategic blueprint for switching from Mechanical Engineering at IIT Kharagpur to top-tier McKinsey analyst roles, before quitting corporate tech during COVID to pursue a PhD in Finance in Boston.",
-    coverImage: "/thumbnails/Ep24-Shashwat.png",
+    coverImage: "/thumbnails/Ep24-Shashwat.jpg",
     tags: ["IIT KGP", "McKinsey", "Dummy School", "Boston PhD"],
     takeaways: [
       { title: "Dummy School Strategy", time: "09:26", seconds: 566, text: "To maximize competitive JEE Advanced focus, enrolling in a non-attending dummy school back home allows students to dedicate 100% of their physical and mental hours directly to problem solving without daily school attendance overheads." },
@@ -609,7 +609,7 @@ Listen to Pranali's views on the Gender Imbalance at IIT and Tech and how she do
     youtubeId: "IaCg-ImYpEQ",
     spotifyUrl: "https://open.spotify.com/episode/0NVYbJsJFxDgDxQOpomgGd",
     description: "Imbesat Ahmad, CEO of Filo, shares his journey from Super 30's grueling IIT prep in Bihar to launching an EdTech startup that delivers 80K daily classes globally.",
-    coverImage: "/thumbnails/Ep25-Imbesat.png",
+    coverImage: "/thumbnails/Ep25-Imbesat.jpg",
     tags: ["EdTech", "Super 30", "Startup CEO", "Mental Health"],
     takeaways: [
       { title: "Lessons from Super 30", time: "10:15", seconds: 615, text: "Anand Sir taught us that resources don't determine outcomes—sheer focus and structured repetition do." },
@@ -634,11 +634,11 @@ Listen to Pranali's views on the Gender Imbalance at IIT and Tech and how she do
     youtubeId: "8aQ3Mf6cqhw",
     spotifyUrl: "https://open.spotify.com/episode/3mOHUCFjZrHNRMpORZSsfS",
     description: "Global Design Leader Peter Boeckel (ex-Peloton, Philips) shares blunt truths about the future of work, AI replacing jobs, and his experience teaching at IIT Hyderabad.",
-    coverImage: "/thumbnails/Ep26-Peter.png",
+    coverImage: "/thumbnails/Ep26-Peter.jpg",
     gallery: [
-      "/thumbnails/Ep26-Peter.png",
-      "/thumbnails/Ep25-Imbesat.png",
-      "/thumbnails/Ep24-Shashwat.png"
+      "/thumbnails/Ep26-Peter.jpg",
+      "/thumbnails/Ep25-Imbesat.jpg",
+      "/thumbnails/Ep24-Shashwat.jpg"
     ],
     tags: ["Design & AI", "Future of Work", "Industrial Design", "IIT Hyderabad"],
     takeaways: [
