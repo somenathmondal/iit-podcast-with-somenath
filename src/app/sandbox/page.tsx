@@ -76,14 +76,14 @@ export default function Sandbox() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0F0606] text-white flex flex-col font-sans select-none relative overflow-x-hidden selection:bg-accent-gold selection:text-black">
+    <div className="min-h-screen bg-background text-foreground flex flex-col font-sans select-none relative overflow-x-hidden selection:bg-accent-gold selection:text-black">
       
       {/* Background circular glowing sunset orb */}
       <div className="absolute top-[-20%] left-[20%] w-[80%] h-[60%] rounded-full bg-gradient-to-br from-accent-gold/15 via-accent-orange/5 to-transparent blur-[120px] pointer-events-none" />
 
       {/* Header Bar */}
-      <header className="w-full p-6 md:p-8 flex items-center justify-between border-b border-white/[0.03] backdrop-blur-md sticky top-0 z-40 bg-background/50">
-        <Link href="/" className="flex items-center gap-2 text-stone-400 hover:text-white transition-colors duration-300">
+      <header className="w-full p-6 md:p-8 flex items-center justify-between border-b border-border-light backdrop-blur-md sticky top-0 z-40 bg-background/50">
+        <Link href="/" className="flex items-center gap-2 text-stone-400 hover:text-foreground transition-colors duration-300">
           <ArrowLeft className="w-4 h-4" />
           <span className="text-[10px] tracking-widest font-mono uppercase font-bold">BACK TO HOME</span>
         </Link>
@@ -98,7 +98,7 @@ export default function Sandbox() {
       <main className="w-full max-w-5xl mx-auto px-6 py-10 md:py-16 flex-grow flex flex-col gap-16">
         
         {/* SECTION 1: THE COUNTDOWN CLOCK */}
-        <section className="w-full backdrop-blur-md bg-card-bg/25 border border-white/[0.04] p-8 rounded-[32px] text-center shadow-xl">
+        <section className="w-full backdrop-blur-md bg-card-bg/25 border border-border-light p-8 rounded-[32px] text-center shadow-xl">
           <span className="text-[9px] tracking-[0.4em] font-mono text-accent-gold uppercase font-bold mb-4 block">
             JEE ADVANCED 2027 TARGET
           </span>
@@ -111,8 +111,8 @@ export default function Sandbox() {
               { val: timeLeft.minutes, label: "MINUTES" },
               { val: timeLeft.seconds, label: "SECONDS" }
             ].map((cell, idx) => (
-              <div key={idx} className="bg-[#1A0D0D]/60 border border-white/[0.03] p-4 md:p-6 rounded-2xl flex flex-col items-center">
-                <span className="text-2xl md:text-5xl font-mono font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-accent-copper leading-none">
+              <div key={idx} className="bg-card-glow-bg/60 border border-border-light p-4 md:p-6 rounded-2xl flex flex-col items-center">
+                <span className="text-2xl md:text-5xl font-mono font-bold text-transparent bg-clip-text bg-gradient-to-b from-foreground to-accent-copper leading-none">
                   {cell.val.toString().padStart(2, "0")}
                 </span>
                 <span className="text-[7px] md:text-[9px] tracking-widest font-mono text-stone-500 uppercase mt-2">
@@ -142,18 +142,18 @@ export default function Sandbox() {
                 exit={{ rotateY: -90, opacity: 0 }}
                 transition={{ duration: 0.3 }}
                 onClick={handleNextQuote}
-                className="cursor-pointer absolute inset-0 w-full h-full backdrop-blur-md bg-gradient-to-tr from-card-bg/50 to-[#221010]/30 border border-accent-gold/15 p-8 rounded-3xl flex flex-col justify-between shadow-2xl hover:border-accent-orange/40 text-left"
+                className="cursor-pointer absolute inset-0 w-full h-full backdrop-blur-md bg-gradient-to-tr from-card-bg/50 to-card-glow-bg/30 border border-accent-gold/15 p-8 rounded-3xl flex flex-col justify-between shadow-2xl hover:border-accent-orange/40 text-left"
               >
-                <div className="font-serif italic text-base md:text-lg leading-relaxed text-white">
+                <div className="font-serif italic text-base md:text-lg leading-relaxed text-foreground">
                   "{quotes[activeQuoteIdx].quote}"
                 </div>
 
-                <div className="flex justify-between items-end border-t border-white/[0.03] pt-4 font-mono text-[9px]">
+                <div className="flex justify-between items-end border-t border-border-light pt-4 font-mono text-[9px]">
                   <div className="flex flex-col text-left">
                     <span className="text-accent-gold font-bold uppercase">{quotes[activeQuoteIdx].author}</span>
                     <span className="text-stone-500 uppercase mt-0.5">{quotes[activeQuoteIdx].context}</span>
                   </div>
-                  <span className="px-2 py-1 rounded bg-[#2D1212] border border-accent-orange/10 text-accent-orange font-bold uppercase">
+                  <span className="px-2 py-1 rounded bg-pill-orange border border-accent-orange/10 text-accent-orange font-bold uppercase">
                     {quotes[activeQuoteIdx].source}
                   </span>
                 </div>
@@ -163,7 +163,7 @@ export default function Sandbox() {
 
           <button
             onClick={handleNextQuote}
-            className="text-[9px] tracking-widest font-mono text-stone-400 hover:text-white uppercase flex items-center gap-1.5 cursor-pointer mt-4"
+            className="text-[9px] tracking-widest font-mono text-stone-400 hover:text-foreground uppercase flex items-center gap-1.5 cursor-pointer mt-4"
           >
             <span>Dial Next Takeaway</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -172,7 +172,7 @@ export default function Sandbox() {
 
         {/* SECTION 3: THE IIT SURVIVAL PLAYBOOK */}
         <section className="text-left">
-          <div className="flex items-center gap-2 mb-8 border-b border-white/[0.03] pb-4">
+          <div className="flex items-center gap-2 mb-8 border-b border-border-light pb-4">
             <BookOpen className="w-4 h-4 text-accent-copper" />
             <span className="text-[10px] tracking-[0.4em] font-mono text-stone-400 uppercase font-bold">
               IIT SURVIVAL BLUEPRINTS
@@ -192,8 +192,8 @@ export default function Sandbox() {
                 bullets: ["Maintain a written 'Mistake Diary' for mock testing feedback.", "Break study periods into highly structured 90-minute blocks.", "Dismantle grading obsessions: grades are a single, narrow index."]
               }
             ].map((playbook, idx) => (
-              <div key={idx} className="backdrop-blur-md bg-card-bg/15 border border-white/[0.03] p-6 rounded-2xl">
-                <h4 className="text-lg font-serif italic text-white mb-3">
+              <div key={idx} className="backdrop-blur-md bg-card-bg/15 border border-border-light p-6 rounded-2xl">
+                <h4 className="text-lg font-serif italic text-foreground mb-3">
                   {playbook.title}
                 </h4>
                 <p className="text-xs text-stone-400 leading-relaxed font-serif mb-5">
@@ -215,7 +215,7 @@ export default function Sandbox() {
       </main>
 
       {/* Footer */}
-      <footer className="w-full p-8 border-t border-white/[0.02] text-center text-[8px] font-mono tracking-widest text-stone-500 uppercase">
+      <footer className="w-full p-8 border-t border-border-light text-center text-[8px] font-mono tracking-widest text-stone-500 uppercase">
         © 2026 IIT PODCAST DIGITAL HUB • DESIGNED FOR IMMERSIVE EDUCATION
       </footer>
 

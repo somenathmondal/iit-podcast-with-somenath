@@ -259,14 +259,14 @@ export default function DailyTip() {
 
   if (!mounted || !activeTip) {
     return (
-      <div className="w-full h-40 rounded-[32px] bg-card-bg/20 border border-white/[0.03] animate-pulse flex items-center justify-center">
+      <div className="w-full h-40 rounded-[32px] bg-card-bg/20 border border-border-light animate-pulse flex items-center justify-center">
         <span className="text-stone-500 font-mono text-xs uppercase tracking-widest">Loading Daily Blueprint...</span>
       </div>
     );
   }
 
   return (
-    <div className="relative w-full overflow-hidden rounded-[32px] border border-white/[0.05] bg-card-bg/30 p-6 md:p-8 backdrop-blur-xl shadow-2xl transition-all duration-500 hover:border-accent-orange/30 group">
+    <div className="relative w-full overflow-hidden rounded-[32px] border border-border-light bg-card-bg/30 p-6 md:p-8 backdrop-blur-xl shadow-2xl transition-all duration-500 hover:border-accent-orange/30 group">
       {/* Dynamic Projector Light Leak glow overlay */}
       <div className="absolute -right-20 -top-20 w-44 h-44 bg-accent-orange/5 rounded-full blur-3xl group-hover:bg-accent-orange/10 transition-colors pointer-events-none" />
       
@@ -280,17 +280,17 @@ export default function DailyTip() {
           
           <div className="flex flex-col">
             <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-              <span className="px-2 py-0.5 rounded bg-[#2D1212] border border-accent-orange/15 text-[8px] font-mono tracking-widest text-accent-orange uppercase font-bold flex items-center gap-1">
+              <span className="px-2 py-0.5 rounded bg-pill-orange border border-accent-orange/15 text-[8px] font-mono tracking-widest text-accent-orange uppercase font-bold flex items-center gap-1">
                 <Sparkles className="w-2.5 h-2.5 text-accent-gold" />
                 Blueprint of the Day
               </span>
               <span className="text-stone-700 text-xs font-mono">•</span>
-              <span className="px-2 py-0.5 rounded bg-[#251E1A] border border-accent-copper/10 text-[8px] font-mono tracking-widest text-accent-copper uppercase font-bold">
+              <span className="px-2 py-0.5 rounded bg-pill-copper border border-accent-copper/10 text-[8px] font-mono tracking-widest text-accent-copper uppercase font-bold">
                 {activeTip.category}
               </span>
             </div>
             
-            <h3 className="text-xl md:text-2xl font-serif italic text-white font-medium leading-tight">
+            <h3 className="text-xl md:text-2xl font-serif italic text-foreground font-medium leading-tight">
               {activeTip.title}
             </h3>
             <span className="text-[10px] font-mono text-stone-500 uppercase tracking-wider mt-1 block">
@@ -319,7 +319,7 @@ export default function DailyTip() {
       </div>
 
       {/* Main Quote Frame - Serif Comfortable Block */}
-      <div className="mt-6 pt-6 border-t border-white/[0.03] text-left">
+      <div className="mt-6 pt-6 border-t border-border-light text-left">
         <p className="text-base md:text-lg text-stone-200 leading-relaxed font-serif italic relative pl-4 border-l-2 border-accent-orange/40">
           "{activeTip.text}"
         </p>

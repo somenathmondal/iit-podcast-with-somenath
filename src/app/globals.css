@@ -1,13 +1,69 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0F0606;
-  --foreground: #ffffff;
+  --background: #3B1E1E; /* RedSands dark reddish-brown */
+  --foreground: #ffffff; /* Bright white primary text */
   --color-accent-orange: #FF5E36;
   --color-accent-gold: #FFAE19;
   --color-accent-copper: #C5A07F;
   --color-accent-bronze: #D4AF37;
-  --color-card-bg: #140A0A;
+  --color-card-bg: #231111; /* Rich dark chocolate red, clearly darker than background #3B1E1E */
+
+  /* Additional themes and helpers */
+  --card-elevated: #2A1414; /* Elevated card surface, clearly distinct from background */
+  --card-glow-bg: #462525;
+  --pill-bg-orange: #4A1E1E;
+  --pill-bg-gold: #4A3B1E;
+  --pill-bg-copper: #45332A;
+  --pill-bg-bronze: #444422;
+  --border-light: rgba(255, 255, 255, 0.05);
+  --border-medium: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.15);
+  --shadow-color: rgba(0, 0, 0, 0.65);
+  --card-shadow: #1D0A0A; /* Deep 3D solid shadow */
+
+  /* Overriding Tailwind stone colors for Dark mode */
+  --text-stone-100: #f5f5f4;
+  --text-stone-200: #e7e5e4;
+  --text-stone-300: #d6d3d1;
+  --text-stone-400: #a8a29e;
+  --text-stone-500: #78716c;
+  --text-stone-700: #44403c;
+  --text-stone-850: #1c1917;
+  --text-stone-900: #1c1917;
+}
+
+html[data-theme="light"] {
+  --background: #FDFBF7; /* Warm light sand background */
+  --foreground: #2C1E1A; /* Deep warm charcoal/black */
+  --color-accent-orange: #E0431D; /* Slightly darker orange for better contrast on light */
+  --color-accent-gold: #B45309; /* Darker amber gold */
+  --color-accent-copper: #8B5A2B;
+  --color-accent-bronze: #856404;
+  --color-card-bg: #F5EFEB; /* Soft cream card bg */
+
+  /* Additional themes and helpers */
+  --card-elevated: #EFE6DD;
+  --card-glow-bg: #ECE3DA;
+  --pill-bg-orange: #FDF2E9; /* Very light warm orange */
+  --pill-bg-gold: #FEF3C7; /* Very light warm gold */
+  --pill-bg-copper: #F5EBE6; /* Very light warm copper */
+  --pill-bg-bronze: #F4F4D5; /* Very light warm bronze */
+  --border-light: rgba(44, 30, 26, 0.08);
+  --border-medium: rgba(44, 30, 26, 0.12);
+  --border-strong: rgba(44, 30, 26, 0.2);
+  --shadow-color: rgba(44, 30, 26, 0.1);
+  --card-shadow: #E2D7CD; /* Warm gray shadow */
+
+  /* Overriding Tailwind stone colors for Light Mode */
+  --text-stone-100: #1c1917;
+  --text-stone-200: #2c2523; /* Primary readable text (was e7e5e4 in dark) */
+  --text-stone-300: #44403c; /* Readable subtext (was d6d3d1 in dark) */
+  --text-stone-400: #57534e; /* Subtext (was a8a29e in dark) */
+  --text-stone-500: #78716c; /* Dimmed text */
+  --text-stone-700: #d6d3d1; /* Faint line divider */
+  --text-stone-850: #e7e5e4; /* Light borders */
+  --text-stone-900: #f5f5f4; /* Light backgrounds */
 }
 
 @theme inline {
@@ -18,6 +74,26 @@
   --color-accent-copper: var(--color-accent-copper);
   --color-accent-bronze: var(--color-accent-bronze);
   --color-card-bg: var(--color-card-bg);
+  --color-card-elevated: var(--card-elevated);
+  --color-card-glow-bg: var(--card-glow-bg);
+  --color-pill-orange: var(--pill-bg-orange);
+  --color-pill-gold: var(--pill-bg-gold);
+  --color-pill-copper: var(--pill-bg-copper);
+  --color-pill-bronze: var(--pill-bg-bronze);
+  --color-border-light: var(--border-light);
+  --color-border-medium: var(--border-medium);
+  --color-border-strong: var(--border-strong);
+  --color-card-shadow: var(--card-shadow);
+  
+  --color-stone-100: var(--text-stone-100);
+  --color-stone-200: var(--text-stone-200);
+  --color-stone-300: var(--text-stone-300);
+  --color-stone-400: var(--text-stone-400);
+  --color-stone-500: var(--text-stone-500);
+  --color-stone-700: var(--text-stone-700);
+  --color-stone-850: var(--text-stone-850);
+  --color-stone-900: var(--text-stone-900);
+
   --font-sans: var(--font-sans), sans-serif;
   --font-serif: var(--font-serif), serif;
   --font-mono: var(--font-mono), monospace;
@@ -40,14 +116,14 @@ body {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0F0606;
+  background: var(--background);
 }
 ::-webkit-scrollbar-thumb {
-  background: #251212;
+  background: var(--card-elevated);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #FF5E36;
+  background: var(--color-accent-orange);
 }
 
 /* --- Floating book icon animation --- */
@@ -213,14 +289,14 @@ body {
   width: 6px;
 }
 .custom-scroll::-webkit-scrollbar-track {
-  background: #140A0A;
+  background: var(--color-card-bg);
 }
 .custom-scroll::-webkit-scrollbar-thumb {
-  background: #2D1515;
+  background: var(--card-elevated);
   border-radius: 3px;
 }
 .custom-scroll::-webkit-scrollbar-thumb:hover {
-  background: #FF5E36;
+  background: var(--color-accent-orange);
 }
 
 /* --- Premium Cinematic Entrance Animations --- */
@@ -382,11 +458,22 @@ body {
 /* -------------------------------------------------------------------------- */
 /* Kindle-Style Native View Transitions API                                   */
 /* -------------------------------------------------------------------------- */
-::view-transition-old(root) {
+/* Forward navigation animations (default) */
+html:not(.back-transition)::view-transition-old(root) {
   animation: 400ms cubic-bezier(0.4, 0, 0.2, 1) both slide-out-left;
 }
-::view-transition-new(root) {
+html:not(.back-transition)::view-transition-new(root) {
   animation: 400ms cubic-bezier(0.4, 0, 0.2, 1) both slide-in-right;
+}
+
+/* Backward navigation animations (back-transition class active) */
+html.back-transition::view-transition-old(root) {
+  animation: 400ms cubic-bezier(0.4, 0, 0.2, 1) both slide-out-right;
+  z-index: 2;
+}
+html.back-transition::view-transition-new(root) {
+  animation: 400ms cubic-bezier(0.4, 0, 0.2, 1) both slide-in-left;
+  z-index: 1;
 }
 
 @keyframes slide-out-left {
@@ -397,4 +484,14 @@ body {
 @keyframes slide-in-right {
   from { transform: translateX(100%); opacity: 1; box-shadow: -30px 0 50px rgba(0,0,0,0.9); }
   to { transform: translateX(0); opacity: 1; box-shadow: -30px 0 50px rgba(0,0,0,0); }
+}
+
+@keyframes slide-out-right {
+  from { transform: translateX(0); opacity: 1; box-shadow: -30px 0 50px rgba(0,0,0,0.9); }
+  to { transform: translateX(100%); opacity: 1; box-shadow: -30px 0 50px rgba(0,0,0,0); }
+}
+
+@keyframes slide-in-left {
+  from { transform: translateX(-30%); opacity: 0; filter: blur(4px); }
+  to { transform: translateX(0); opacity: 1; }
 }

@@ -147,8 +147,8 @@ function CassetteMesh() {
 
 // Flat HTML/CSS fallback placeholder to guarantee the hero section is never empty
 const CassetteFallback = () => (
-  <div className="absolute inset-0 flex flex-col items-center justify-center p-8 bg-card-bg/30 border border-white/[0.04] rounded-[28px] backdrop-blur-md">
-    <div className="w-56 h-36 bg-[#2D1212]/90 border-2 border-accent-orange/30 rounded-2xl relative flex flex-col justify-between p-4 shadow-[0_15px_35px_rgba(0,0,0,0.6)]">
+  <div className="absolute inset-0 flex flex-col items-center justify-center p-8 bg-card-bg/30 border border-border-light rounded-[28px] backdrop-blur-md">
+    <div className="w-56 h-36 bg-pill-orange/90 border-2 border-accent-orange/30 rounded-2xl relative flex flex-col justify-between p-4 shadow-[0_15px_35px_rgba(0,0,0,0.6)]">
       
       {/* Tape label details */}
       <div className="w-full h-12 bg-[#EAE3D2] rounded-lg flex flex-col items-center justify-center border border-black/10">

@@ -18,7 +18,7 @@ const parseInlineElements = (text: string): React.ReactNode[] | string => {
   return tokens.flatMap((token, idx) => {
     if (token.startsWith("`") && token.endsWith("`")) {
       return (
-        <code key={`code-${idx}`} className="font-mono text-[11px] px-1.5 py-0.5 bg-[#2D1212]/50 border border-accent-orange/15 text-accent-orange rounded mx-0.5">
+        <code key={`code-${idx}`} className="font-mono text-[11px] px-1.5 py-0.5 bg-pill-orange/50 border border-accent-orange/15 text-accent-orange rounded mx-0.5">
           {token.slice(1, -1)}
         </code>
       );
@@ -35,7 +35,7 @@ const parseInlineElements = (text: string): React.ReactNode[] | string => {
             href={linkMatch[2]} 
             target="_blank" 
             rel="noopener noreferrer"
-            className="text-accent-gold font-bold hover:text-white underline decoration-accent-gold/40 hover:decoration-white transition-colors underline-offset-4"
+            className="text-accent-gold font-bold hover:text-foreground underline decoration-accent-gold/40 hover:decoration-foreground transition-colors underline-offset-4"
           >
             {linkMatch[1]}
           </a>
@@ -47,7 +47,7 @@ const parseInlineElements = (text: string): React.ReactNode[] | string => {
       return formatTokens.map((formatToken, formatIdx) => {
         if (formatToken.startsWith("**") && formatToken.endsWith("**")) {
           return (
-            <strong key={`bold-${idx}-${linkIdx}-${formatIdx}`} className="font-sans font-bold text-white tracking-wide">
+            <strong key={`bold-${idx}-${linkIdx}-${formatIdx}`} className="font-sans font-bold text-foreground tracking-wide">
               {formatToken.slice(2, -2)}
             </strong>
           );
@@ -105,7 +105,7 @@ const renderMarkdown = (markdown: string) => {
     // Divider
     if (trimmed === "---") {
       pushList(idx);
-      elements.push(<hr key={`hr-${idx}`} className="my-8 border-t border-white/[0.08]" />);
+      elements.push(<hr key={`hr-${idx}`} className="my-8 border-t border-border-medium" />);
       return;
     }
 
@@ -126,7 +126,7 @@ const renderMarkdown = (markdown: string) => {
       pushList(idx);
       const headingText = trimmed.replace(/^###\s+/, "");
       elements.push(
-        <h3 key={`h3-${idx}`} className="text-2xl md:text-3xl font-serif text-white font-semibold mt-10 mb-5 border-l-2 border-accent-orange pl-4 text-left">
+        <h3 key={`h3-${idx}`} className="text-2xl md:text-3xl font-serif text-foreground font-semibold mt-10 mb-5 border-l-2 border-accent-orange pl-4 text-left">
           {parseInlineElements(headingText)}
         </h3>
       );
@@ -212,7 +212,7 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
 
   if (!mounted) {
     return (
-      <div className="min-h-screen bg-[#0F0606] text-white flex items-center justify-center font-mono">
+      <div className="min-h-screen bg-background text-foreground flex items-center justify-center font-mono">
         <span className="text-stone-500 uppercase tracking-widest text-xs animate-pulse">Loading Journal...</span>
       </div>
     );
@@ -221,7 +221,7 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
   // Handle case where article is not found
   if (!editorial && !episode) {
     return (
-      <div className="min-h-screen bg-[#0F0606] text-white flex flex-col items-center justify-center p-6 text-center">
+      <div className="min-h-screen bg-background text-foreground flex flex-col items-center justify-center p-6 text-center">
         <h2 className="text-2xl font-serif italic mb-4">Journal Entry Not Found</h2>
         <p className="text-sm text-stone-400 mb-8 max-w-sm">The notebook ID does not match any current files.</p>
         <Link href="/blog" className="px-6 py-3 rounded-full bg-accent-orange text-white text-xs font-mono uppercase tracking-widest font-bold">
@@ -271,7 +271,7 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
 
 
   return (
-    <div className="min-h-screen bg-[#0F0606] text-white flex flex-col font-sans selection:bg-accent-orange selection:text-white relative">
+    <div className="min-h-screen bg-background text-foreground flex flex-col font-sans selection:bg-accent-orange selection:text-white relative">
       
       {/* Dynamic Scroll Progress Bar */}
       <div 
@@ -286,7 +286,7 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
         {/* Back Link */}
         <Link 
           href="/blog" 
-          className="inline-flex items-center gap-2 text-stone-400 hover:text-white text-xs font-mono uppercase tracking-wider mb-2 md:mb-4 transition-colors group cursor-pointer"
+          className="inline-flex items-center gap-2 text-stone-400 hover:text-foreground text-xs font-mono uppercase tracking-wider mb-2 md:mb-4 transition-colors group cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           <span>Back to Journal</span>
@@ -294,7 +294,7 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
 
         {/* Categories Row */}
         <div className="flex flex-wrap items-center gap-3 mb-2 md:mb-6">
-          <span className={`px-2.5 py-1 rounded bg-[#0F0606]/85 border text-[8px] font-mono tracking-widest uppercase font-bold ${
+          <span className={`px-2.5 py-1 rounded bg-background/85 border text-[8px] font-mono tracking-widest uppercase font-bold ${
             editorial 
               ? "text-accent-gold border-accent-gold/20 bg-accent-gold/5" 
               : "text-accent-copper border-accent-copper/20 bg-accent-copper/5"
@@ -302,13 +302,13 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
             {editorial ? "Long-form Editorial" : "Episode Digest"}
           </span>
           <span className="text-stone-700 text-xs font-mono">•</span>
-          <span className="px-2 py-0.5 rounded bg-[#2D1212] border border-accent-orange/15 text-[8px] font-mono tracking-widest text-accent-orange uppercase font-bold">
+          <span className="px-2 py-0.5 rounded bg-pill-orange border border-accent-orange/15 text-[8px] font-mono tracking-widest text-accent-orange uppercase font-bold">
             {category}
           </span>
         </div>
 
         {/* Main Title */}
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-sans font-extrabold tracking-tight leading-[1.2] bg-gradient-to-r from-white via-[#FFF5F2] to-accent-orange bg-clip-text text-transparent mb-3 md:mb-6">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-sans font-extrabold tracking-tight leading-[1.2] bg-gradient-to-r from-foreground to-accent-orange bg-clip-text text-transparent mb-3 md:mb-6">
           {title}
         </h1>
 
@@ -332,9 +332,9 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
               target="_blank" 
               rel="noopener noreferrer" 
               onClick={() => track('LinkedIn Click', { location: 'author_meta_top' })}
-              className="flex items-center gap-1.5 hover:text-white transition-colors group"
+              className="flex items-center gap-1.5 hover:text-foreground transition-colors group"
             >
-              <div className="w-5 h-5 rounded-full overflow-hidden border border-white/[0.1] group-hover:border-accent-orange/40 transition-colors">
+              <div className="w-5 h-5 rounded-full overflow-hidden border border-border-medium group-hover:border-accent-orange/40 transition-colors">
                 <img src="/somenath_profile.png" alt="Somenath Mondal" className="w-full h-full object-cover" />
               </div>
               <span>By {author}</span>
@@ -345,7 +345,7 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
             {/* Share */}
             <button
               onClick={handleShare}
-              className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl border-2 border-stone-800 bg-[#0F0606] hover:bg-stone-900 font-bold text-[10px] tracking-widest uppercase text-stone-300 hover:text-white hover:border-accent-orange hover:-translate-y-1 active:translate-y-1 shadow-[0_4px_0_0_rgba(41,37,36,1)] hover:shadow-[0_4px_0_0_rgba(234,88,12,1)] active:shadow-none transition-all duration-200 cursor-pointer whitespace-nowrap"
+              className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl border-2 border-stone-700 bg-background hover:bg-stone-900 font-bold text-[10px] tracking-widest uppercase text-stone-300 hover:text-foreground hover:border-accent-orange hover:-translate-y-1 active:translate-y-1 shadow-[0_4px_0_0_var(--card-shadow)] hover:shadow-[0_4px_0_0_rgba(234,88,12,1)] active:shadow-none transition-all duration-200 cursor-pointer whitespace-nowrap"
             >
               {copied ? (
                 <>
@@ -367,7 +367,7 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => track('Spotify Click', { location: 'blog_header' })}
-                className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl border-2 border-[#1DB954] bg-[#0F0606] font-bold text-[10px] tracking-widest uppercase text-[#1DB954] hover:bg-[#1DB954] hover:text-black hover:-translate-y-1 active:translate-y-1 shadow-[0_4px_0_0_rgba(29,185,84,0.3)] hover:shadow-[0_4px_0_0_rgba(29,185,84,1)] active:shadow-none transition-all duration-200 cursor-pointer whitespace-nowrap"
+                className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl border-2 border-[#1DB954] bg-background font-bold text-[10px] tracking-widest uppercase text-[#1DB954] hover:bg-[#1DB954] hover:text-black hover:-translate-y-1 active:translate-y-1 shadow-[0_4px_0_0_rgba(29,185,84,0.3)] hover:shadow-[0_4px_0_0_rgba(29,185,84,1)] active:shadow-none transition-all duration-200 cursor-pointer whitespace-nowrap"
               >
                 <Headphones className="w-3.5 h-3.5" />
                 <span>Listen on Spotify</span>
@@ -377,7 +377,7 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
         </div>
 
         {/* Dynamic YouTube Video Embed Banner - ALWAYS rendered at the top of the blog page */}
-        <div className="w-full aspect-video rounded-3xl overflow-hidden bg-black border border-white/[0.05] shadow-2xl mb-5 md:mb-10 relative">
+        <div className="w-full aspect-video rounded-3xl overflow-hidden bg-black border border-border-light shadow-2xl mb-5 md:mb-10 relative">
           <iframe
             src={`https://www.youtube.com/embed/${youtubeId}`}
             title={title}
@@ -388,7 +388,7 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
         </div>
 
         {/* MAIN ARTICLE BODY CONTAINER */}
-        <div className="prose prose-invert prose-stone max-w-none prose-headings:font-serif prose-blockquote:font-serif text-left">
+        <div className="prose dark:prose-invert prose-stone max-w-none prose-headings:font-serif prose-blockquote:font-serif text-left">
           
           {editorial ? (
             /* A. Long-Form Editorial Renderer (Supports rich markdown styling) */
@@ -400,7 +400,7 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
             <div className="flex flex-col gap-8">
               
               {/* Main Dynamic Transcript Commentary Narrative */}
-              <div className="border-t border-white/[0.03] pt-8 text-left">
+              <div className="border-t border-border-light pt-8 text-left">
                 <h4 className="text-xs tracking-[0.2em] font-mono text-stone-500 uppercase block mb-6">
                   THE CHRONICLE JOURNAL
                 </h4>
@@ -410,18 +410,18 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
                   
                   {/* Part 1: Detailed Overview */}
                   <p>
-                    Welcome to the official chronicle digest of our conversation with <strong className="text-white font-semibold">{episode!.guestName}</strong>, who serves as the <span className="text-accent-gold font-mono text-xs font-bold uppercase">{episode!.guestTitle}</span>. In this high-leverage episode, we dive deep behind-the-scenes to deconstruct career paths, survival tactics, and personal blueprints. 
+                    Welcome to the official chronicle digest of our conversation with <strong className="text-foreground font-semibold">{episode!.guestName}</strong>, who serves as the <span className="text-accent-gold font-mono text-xs font-bold uppercase">{episode!.guestTitle}</span>. In this high-leverage episode, we dive deep behind-the-scenes to deconstruct career paths, survival tactics, and personal blueprints. 
                   </p>
                   
                   <p>
-                    <strong className="text-white font-sans font-medium text-lg md:text-xl lg:text-2xl leading-relaxed">{episode!.description}</strong>
+                    <strong className="text-foreground font-sans font-medium text-lg md:text-xl lg:text-2xl leading-relaxed">{episode!.description}</strong>
                   </p>
  
-                  <hr className="border-t border-white/[0.05]" />
+                  <hr className="border-t border-border-light" />
  
                   {/* Part 3: Dynamic Chronicle Conclusion */}
                   <div className="space-y-4">
-                    <h3 className="text-2xl md:text-3xl font-serif text-white font-semibold border-l-2 border-accent-orange pl-4">
+                    <h3 className="text-2xl md:text-3xl font-serif text-foreground font-semibold border-l-2 border-accent-orange pl-4">
                       Chronicle Summary & Reflections
                     </h3>
                     <div className="text-stone-200/90 text-left">
@@ -439,8 +439,8 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
 
         {/* Dynamic Guest Connections (Duolingo Style) */}
         {guestProfiles && guestProfiles.length > 0 && (
-          <div className="mt-12 pt-8 border-t border-white/[0.03] text-left">
-            <h3 className="text-xl md:text-2xl font-serif text-white mb-6 flex items-center gap-3">
+          <div className="mt-12 pt-8 border-t border-border-light text-left">
+            <h3 className="text-xl md:text-2xl font-serif text-foreground mb-6 flex items-center gap-3">
               <span className="text-2xl">🤝</span> <span>Connect with the guests</span>
             </h3>
             <div className="flex flex-wrap gap-4">
@@ -451,7 +451,7 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => track('LinkedIn Click', { location: 'guest_bottom_button', guest: guest.name })}
-                  className="px-6 py-3.5 rounded-2xl border-2 border-stone-800 bg-[#0F0606] text-stone-300 font-bold font-sans hover:-translate-y-1 hover:border-accent-orange hover:text-white transition-all shadow-[0_4px_0_0_rgba(41,37,36,1)] hover:shadow-[0_4px_0_0_rgba(234,88,12,1)] active:translate-y-1 active:shadow-none flex items-center gap-2"
+                  className="px-6 py-3.5 rounded-2xl border-2 border-stone-700 bg-background text-stone-300 font-bold font-sans hover:-translate-y-1 hover:border-accent-orange hover:text-foreground transition-all shadow-[0_4px_0_0_var(--card-shadow)] hover:shadow-[0_4px_0_0_rgba(234,88,12,1)] active:translate-y-1 active:shadow-none flex items-center gap-2"
                 >
                   <BookOpen className="w-4 h-4 text-accent-gold" />
                   {guest.name}
@@ -467,14 +467,14 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
           target="_blank" 
           rel="noopener noreferrer" 
           onClick={() => track('LinkedIn Click', { location: 'author_bio_card' })}
-          className="mt-12 bg-card-bg/10 border border-white/[0.03] hover:border-accent-orange/20 hover:bg-card-bg/20 p-6 rounded-2xl flex items-center gap-4 text-left transition-all group block"
+          className="mt-12 bg-card-bg/10 border border-border-light hover:border-accent-orange/20 hover:bg-card-bg/20 p-6 rounded-2xl flex items-center gap-4 text-left transition-all group block"
         >
-          <div className="w-12 h-12 rounded-full overflow-hidden border border-white/[0.08] flex-shrink-0 group-hover:border-accent-orange/40 transition-colors shadow-lg">
+          <div className="w-12 h-12 rounded-full overflow-hidden border border-border-medium flex-shrink-0 group-hover:border-accent-orange/40 transition-colors shadow-lg">
             <img src="/somenath_profile.png" alt="Somenath Mondal" className="w-full h-full object-cover" />
           </div>
           <div className="flex flex-col">
             <span className="text-xs font-mono text-stone-500 uppercase tracking-widest">WRITTEN BY</span>
-            <h4 className="text-sm font-bold text-white mt-0.5 group-hover:text-accent-orange transition-colors">Somenath Mondal</h4>
+            <h4 className="text-sm font-bold text-foreground mt-0.5 group-hover:text-accent-orange transition-colors">Somenath Mondal</h4>
             <span className="text-[9px] font-mono text-accent-copper uppercase font-bold">CREATOR & HOST, IIT PODCAST</span>
           </div>
         </a>
@@ -483,18 +483,18 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
         {nextEntry && (
           <Link
             href={`/blog/${nextEntry.id}`}
-            className="mt-8 group relative bg-[#1A0E0E]/80 backdrop-blur-md border-2 border-[#2A1616] hover:border-accent-orange/80 rounded-[28px] overflow-hidden flex justify-between items-center transition-all duration-200 text-left cursor-pointer shadow-[0_6px_0_0_#2A1616] hover:shadow-[0_8px_0_0_#FF6B00] hover:-translate-y-1 active:translate-y-[6px] active:shadow-[0_0px_0_0_#FF6B00] p-6 md:p-8"
+            className="mt-8 group relative bg-card-elevated/80 backdrop-blur-md border-2 border-card-shadow hover:border-accent-orange/80 rounded-[28px] overflow-hidden flex justify-between items-center transition-all duration-200 text-left cursor-pointer shadow-[0_6px_0_0_var(--card-shadow)] hover:shadow-[0_8px_0_0_#FF6B00] hover:-translate-y-1 active:translate-y-[6px] active:shadow-[0_0px_0_0_#FF6B00] p-6 md:p-8"
           >
             <div className="flex flex-col max-w-[80%]">
               <span className="text-[10px] font-mono text-accent-orange tracking-widest uppercase font-bold mb-2 flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-accent-orange animate-pulse" />
                 Read Next Chronicle
               </span>
-              <h4 className="text-lg md:text-xl font-sans font-bold text-white group-hover:text-accent-orange transition-colors line-clamp-2">
+              <h4 className="text-lg md:text-xl font-sans font-bold text-foreground group-hover:text-accent-orange transition-colors line-clamp-2">
                 {nextEntry.title}
               </h4>
             </div>
-            <div className="w-12 h-12 rounded-full border-2 border-[#2A1616] bg-[#110808] flex items-center justify-center group-hover:bg-[#FF6B00] group-hover:border-[#FF6B00] transition-colors flex-shrink-0 shadow-inner">
+            <div className="w-12 h-12 rounded-full border-2 border-border-strong bg-background flex items-center justify-center group-hover:bg-[#FF6B00] group-hover:border-[#FF6B00] transition-colors flex-shrink-0 shadow-inner">
               <ArrowRight className="w-6 h-6 text-stone-500 group-hover:text-white transition-colors" />
             </div>
           </Link>

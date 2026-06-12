@@ -13,6 +13,15 @@ type FilterType = "all" | "editorial" | "digest";
 
 export default function BlogHub() {
   const [filter, setFilter] = useState<FilterType>("all");
+  const [entranceDone, setEntranceDone] = useState(false);
+
+  useEffect(() => {
+    // Entrance animation delay (3.5s) + duration (2.5s) = 6s
+    const timer = setTimeout(() => {
+      setEntranceDone(true);
+    }, 6000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const titleText = "IIT Alumni Stories";
   const containerVariants = {
@@ -111,7 +120,7 @@ export default function BlogHub() {
   });
 
   return (
-    <div className="min-h-screen bg-[#0F0606] text-white flex flex-col font-sans selection:bg-accent-orange selection:text-white">
+    <div className="min-h-screen bg-background text-foreground flex flex-col font-sans selection:bg-accent-orange selection:text-white">
       {/* Navigation Header */}
       <Header />
 
@@ -120,7 +129,7 @@ export default function BlogHub() {
         {/* Back Link */}
         <Link 
           href="/" 
-          className="hidden sm:inline-flex items-center gap-2 text-stone-400 hover:text-white text-xs font-mono uppercase tracking-wider mb-8 transition-colors group cursor-pointer"
+          className="hidden sm:inline-flex items-center gap-2 text-stone-400 hover:text-foreground text-xs font-mono uppercase tracking-wider mb-8 transition-colors group cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           <span>Back to Studio</span>
@@ -171,12 +180,18 @@ export default function BlogHub() {
             whileHover="hovered"
             variants={{
               initial: { scale: 1, y: 0 },
-              animate: { 
-                scale: [1, 1.02, 1],
-                y: [0, -8, 0],
-                transition: { delay: 3.5, duration: 2.5, ease: "easeInOut" }
-              },
-              hovered: { scale: 1.02, y: -8, transition: { duration: 0.3 } }
+              animate: entranceDone
+                ? { 
+                    scale: 1, 
+                    y: 0, 
+                    transition: { type: "spring", stiffness: 200, damping: 25 } 
+                  }
+                : { 
+                    scale: [1, 1.02, 1],
+                    y: [0, -8, 0],
+                    transition: { delay: 3.5, duration: 2.5, ease: "easeInOut" }
+                  },
+              hovered: { scale: 1.02, y: -8, transition: { duration: 0.3, ease: "easeOut" } }
             }}
           >
             {/* Animated Magic Border */}
@@ -187,11 +202,17 @@ export default function BlogHub() {
               }}
               variants={{
                 initial: { rotate: 0, opacity: 0 },
-                animate: { 
-                  rotate: [0, 360], 
-                  opacity: [0, 1, 1, 0], 
-                  transition: { delay: 3.5, duration: 2.5, ease: "linear" } 
-                },
+                animate: entranceDone
+                  ? { 
+                      rotate: 0, 
+                      opacity: 0, 
+                      transition: { duration: 0.8, ease: "easeOut" } 
+                    }
+                  : { 
+                      rotate: [0, 360], 
+                      opacity: [0, 1, 1, 0], 
+                      transition: { delay: 3.5, duration: 2.5, ease: "linear" } 
+                    },
                 hovered: { 
                   rotate: [0, 360], 
                   opacity: 1, 
@@ -200,15 +221,15 @@ export default function BlogHub() {
               }}
             />
             
-            <Link href={`/blog/${featuredEntry.id}`} className="relative z-10 group flex flex-col md:block w-full rounded-[23px] md:rounded-[30px] overflow-hidden border border-white/[0.05] hover:border-accent-orange/40 transition-all duration-500 shadow-2xl bg-[#110808]">
+            <Link href={`/blog/${featuredEntry.id}`} className="relative z-10 group flex flex-col md:block w-full rounded-[23px] md:rounded-[30px] overflow-hidden border border-border-light hover:border-accent-orange/40 transition-all duration-500 shadow-2xl bg-card-elevated">
               
               {/* Image Container */}
               <div className="relative md:absolute md:inset-0 h-[220px] sm:h-[300px] md:h-auto z-0 overflow-hidden">
                 <img src={featuredEntry.coverImage} alt={featuredEntry.title} className="w-full h-full object-cover object-center brightness-90 md:brightness-75 group-hover:scale-105 group-hover:brightness-100 transition-all duration-700" />
-                <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-[#0F0606] via-[#0F0606]/90 to-transparent" />
-                <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-[#0F0606] via-transparent to-transparent" />
+                <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-background via-background/90 to-transparent" />
+                <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
                 {/* Mobile fade gradient */}
-                <div className="md:hidden absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#110808] to-transparent" />
+                <div className="md:hidden absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-card-elevated to-transparent" />
               </div>
               
               {/* Content Container */}
@@ -225,11 +246,16 @@ export default function BlogHub() {
                 <motion.h2 
                   className="text-3xl md:text-4xl lg:text-5xl font-sans font-bold leading-tight mb-4"
                   variants={{
-                    initial: { color: "#FFFFFF" },
-                    animate: { 
-                      color: ["#FFFFFF", "#FF6B00", "#FFFFFF"],
-                      transition: { delay: 3.5, duration: 2.5, ease: "easeInOut" }
-                    },
+                    initial: { color: "var(--foreground)" },
+                    animate: entranceDone
+                      ? { 
+                          color: "var(--foreground)", 
+                          transition: { duration: 0.5 } 
+                        }
+                      : { 
+                          color: ["var(--foreground)", "#FF6B00", "var(--foreground)"],
+                          transition: { delay: 3.5, duration: 2.5, ease: "easeInOut" }
+                        },
                     hovered: { color: "#FF6B00", transition: { duration: 0.3 } }
                   }}
                 >
@@ -257,7 +283,7 @@ export default function BlogHub() {
             <Link
               key={entry.id}
               href={`/blog/${entry.id}`}
-              className="group relative bg-[#1A0E0E]/80 backdrop-blur-md border-2 border-[#2A1616] hover:border-accent-orange/80 rounded-[28px] overflow-hidden flex flex-col justify-between transition-all duration-200 text-left cursor-pointer shadow-[0_6px_0_0_#2A1616] hover:shadow-[0_8px_0_0_#FF6B00] hover:-translate-y-1 active:translate-y-[6px] active:shadow-[0_0px_0_0_#FF6B00]"
+              className="group relative bg-card-elevated/80 backdrop-blur-md border-2 border-card-shadow hover:border-accent-orange/80 rounded-[28px] overflow-hidden flex flex-col justify-between transition-all duration-200 text-left cursor-pointer shadow-[0_6px_0_0_var(--card-shadow)] hover:shadow-[0_8px_0_0_#FF6B00] hover:-translate-y-1 active:translate-y-[6px] active:shadow-[0_0px_0_0_#FF6B00]"
             >
               <div>
                 {/* Visual Header Image Cover */}
@@ -267,11 +293,11 @@ export default function BlogHub() {
                     alt={entry.title}
                     className="w-full h-full object-cover scale-100 group-hover:scale-[1.02] transition-transform duration-700 brightness-95 group-hover:brightness-100"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0F0606]/40 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
                   
                   {/* Floating Tag Type Badge */}
                   <div className="absolute top-3 left-3 z-10">
-                    <span className={`px-2.5 py-1 rounded bg-[#0F0606]/85 backdrop-blur-md border text-[8px] font-mono tracking-widest uppercase font-bold ${
+                    <span className={`px-2.5 py-1 rounded bg-background/85 backdrop-blur-md border text-[8px] font-mono tracking-widest uppercase font-bold ${
                       entry.isDigest 
                         ? "text-accent-copper border-accent-copper/20" 
                         : "text-accent-gold border-accent-gold/20"
@@ -296,7 +322,7 @@ export default function BlogHub() {
                     </div>
                   </div>
 
-                  <h3 className="text-lg md:text-xl font-sans font-bold leading-tight text-white group-hover:text-accent-orange transition-colors duration-300 mb-3">
+                  <h3 className="text-lg md:text-xl font-sans font-bold leading-tight text-foreground group-hover:text-accent-orange transition-colors duration-300 mb-3">
                     {entry.title}
                   </h3>
                   
@@ -307,7 +333,7 @@ export default function BlogHub() {
               </div>
 
               {/* Action Footer */}
-              <div className="px-6 pb-6 pt-4 border-t border-white/[0.02] flex items-center justify-between">
+              <div className="px-6 pb-6 pt-4 border-t border-border-light flex items-center justify-between">
                 <span className="text-[10px] font-mono text-stone-500 uppercase">
                   By {entry.author}
                 </span>

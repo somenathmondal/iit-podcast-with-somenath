@@ -273,11 +273,11 @@ export default function MediaPlayer() {
         )}
 
         {/* 1.2. Unified Premium Glassmorphic Console Card (Expands smoothly like a sliding drawer!) */}
-        <div className="backdrop-blur-xl bg-[#1A0D0D]/65 border border-white/[0.08] shadow-[0_12px_40px_rgba(0,0,0,0.6)] rounded-3xl overflow-hidden transition-all duration-500 ease-in-out flex flex-col w-full">
+        <div className="backdrop-blur-xl bg-card-elevated/65 border border-border-medium shadow-[0_12px_40px_rgba(0,0,0,0.6)] rounded-3xl overflow-hidden transition-all duration-500 ease-in-out flex flex-col w-full">
           
           {/* Dynamic sliding drawer for YouTube Video */}
           <div 
-            className="transition-all duration-500 ease-in-out overflow-hidden w-full flex items-center justify-center bg-black/30 border-b border-white/[0.04]"
+            className="transition-all duration-500 ease-in-out overflow-hidden w-full flex items-center justify-center bg-black/30 border-b border-border-light"
             style={{ 
               height: isExpanded ? "380px" : "0px",
               maxHeight: isExpanded ? "380px" : "0px",
@@ -303,7 +303,7 @@ export default function MediaPlayer() {
             {/* Absolute positioned close button inside controls row to prevent overlap */}
             <button 
               onClick={() => setIsDismissed(true)}
-              className="absolute top-2 right-2 md:top-3 md:right-3 text-stone-500 hover:text-white hover:bg-white/[0.04] p-1.5 rounded-full transition-all cursor-pointer active:scale-95 z-20"
+              className="absolute top-2 right-2 md:top-3 md:right-3 text-stone-500 hover:text-foreground hover:bg-foreground/[0.04] p-1.5 rounded-full transition-all cursor-pointer active:scale-95 z-20"
               title="Minimize Player"
             >
               <X className="w-3.5 h-3.5" />
@@ -318,7 +318,7 @@ export default function MediaPlayer() {
                 <span className="text-[10px] tracking-widest text-accent-copper uppercase font-mono">
                   NOW PLAYING: EPISODE {activeEpisode.episodeNumber}
                 </span>
-                <span className="text-xs font-serif italic text-white font-medium truncate">
+                <span className="text-xs font-serif italic text-foreground font-medium truncate">
                   {activeEpisode.title}
                 </span>
                 <span className="text-[9px] text-stone-400 truncate">

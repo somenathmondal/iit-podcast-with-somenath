@@ -70,7 +70,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0F0606] text-white flex flex-col font-sans selection:bg-accent-orange selection:text-white">
+    <div className="min-h-screen bg-background text-foreground flex flex-col font-sans selection:bg-accent-orange selection:text-white">
       {/* Google PodcastSeries Structured JSON-LD Schema */}
       <script
         type="application/ld+json"
@@ -100,7 +100,7 @@ export default function Home() {
       <Header />
 
       {/* 2. TWO-COLUMN HERO ZONE */}
-      <section className="w-full max-w-7xl mx-auto px-4 md:px-8 pt-8 pb-12 md:py-20 flex flex-col-reverse lg:flex-row items-stretch lg:items-center justify-between gap-6 md:gap-8 lg:gap-16 border-b border-white/[0.02]">
+      <section className="w-full max-w-7xl mx-auto px-4 md:px-8 pt-8 pb-12 md:py-20 flex flex-col-reverse lg:flex-row items-stretch lg:items-center justify-between gap-6 md:gap-8 lg:gap-16 border-b border-border-light">
         
         {/* Left Column: Title & Editorial Text */}
         <div className="w-full lg:w-[44%] flex flex-col text-center lg:text-left items-center lg:items-start justify-center py-2 lg:py-4">
@@ -110,7 +110,7 @@ export default function Home() {
               EST. JUNE 2025 • 32 STORIES
             </span>
           </div>
-          <h2 className="text-[2.2rem] sm:text-[2.5rem] md:text-6xl lg:text-7xl font-sans font-black tracking-tight leading-[1.08] mb-4 md:mb-8 text-white" style={{ perspective: '600px' }}>
+          <h2 className="text-[2.2rem] sm:text-[2.5rem] md:text-6xl lg:text-7xl font-sans font-black tracking-tight leading-[1.08] mb-4 md:mb-8 text-foreground" style={{ perspective: '600px' }}>
             {/* Part 1: Insights From */}
             {"Insights From ".split("").map((char, index) => (
               <span
@@ -128,17 +128,19 @@ export default function Home() {
             <br />
             {/* Part 2: IIT Alumni — gradient on the whole phrase */}
             <span
-              className="animate-char-reveal inline-block text-transparent bg-clip-text bg-gradient-to-r from-accent-orange via-accent-gold to-white"
+              className="animate-char-reveal inline-block text-transparent bg-clip-text bg-gradient-to-r from-accent-orange via-accent-gold to-foreground"
               style={{ animationDelay: '700ms' }}
             >
               IIT Alumni
             </span>
           </h2>
-          <p className="text-sm md:text-base lg:text-lg text-stone-400 font-sans leading-[1.9] mb-8 md:mb-10 max-w-sm mx-auto lg:mx-0 animate-fade-in-up" style={{ animationDelay: '850ms' }}>
-            Is the JEE grind actually worth it?<br />
-            What really happens inside IIT —<br />
-            the pressure, the breakthroughs,<br />
-            the careers nobody talks about.<br />
+          <p className="text-sm md:text-base lg:text-lg text-stone-400 font-sans leading-[1.7] md:leading-[1.9] mb-6 md:mb-10 max-w-sm mx-auto lg:mx-0 animate-fade-in-up" style={{ animationDelay: '850ms' }}>
+            <span className="hidden sm:block mb-2">
+              Is the JEE grind actually worth it?<br />
+              What really happens inside IIT —<br />
+              the pressure, the breakthroughs,<br />
+              the careers nobody talks about.
+            </span>
             <span className="text-stone-200 font-medium">Hear it raw, from the people who lived it.</span>
           </p>
           <div className="flex flex-wrap justify-center lg:justify-start gap-2.5 md:gap-4 animate-fade-in-up" style={{ animationDelay: '1050ms' }}>
@@ -158,67 +160,76 @@ export default function Home() {
             EPISODE SPOTLIGHT
           </span>
           {episodes.map((ep) => ep.id === "suman-chakraborty-1" && (
-            <div
-              key={ep.id}
-              onClick={() => handleSpotlightPlay(ep)}
-              className={`w-full group cursor-pointer backdrop-blur-md bg-card-bg/40 border border-white/[0.06] hover:border-accent-orange/30 p-0 md:p-8 rounded-2xl md:rounded-[36px] transition-all duration-500 shadow-2xl shadow-black/50 text-left hover:scale-[1.01] flex flex-col gap-0 md:gap-6 animate-scale-in-projector animation-delay-700 overflow-hidden ${spotlightAttract ? 'spotlight-attract' : ''}`}
-            >
-              {/* Premium Episode 0A (Prof Suman Part 1) Thumbnail Header - FULL WIDTH */}
-              <div className="spotlight-thumb w-full aspect-video rounded-[4px] overflow-hidden border border-white/[0.08] relative group-hover:border-accent-orange/40 transition-all duration-500 shadow-[0_12px_40px_rgba(0,0,0,0.5)] animate-shine">
-                <img 
-                  src={ep.coverImage} 
-                  alt={ep.title} 
-                  className="w-full h-full object-cover scale-100 group-hover:scale-[1.03] transition-transform duration-700" 
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent z-10" />
-                
-                {/* Floating aesthetic label */}
-                <div className="absolute top-4 left-4 z-20 bg-black/75 backdrop-blur-md border border-white/[0.08] px-3.5 py-1.5 rounded-full shadow-lg">
-                  <span className="text-[8px] font-mono tracking-widest text-accent-gold uppercase font-bold flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent-orange animate-pulse" />
-                    FEATURED EPISODE
-                  </span>
-                </div>
-                
-                <div className="spotlight-play-overlay absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
-                  <div className="w-14 h-14 rounded-full bg-accent-orange flex items-center justify-center shadow-lg shadow-accent-orange/40 transform scale-90 group-hover:scale-100 transition-transform duration-300">
-                    <Play className="w-6 h-6 fill-white text-white translate-x-0.5" />
-                  </div>
-                </div>
-              </div>
-
-              {/* Textual Narrative details side */}
-              <div className="w-full flex flex-col justify-between px-4 py-4 md:p-0">
-                <div>
-                  <div className="flex flex-wrap justify-between items-center gap-2 mb-3 md:mb-4">
-                    <span className="px-2.5 py-1 rounded bg-[#2D1212] border border-accent-orange/15 text-[8.5px] font-mono tracking-widest text-accent-orange uppercase font-bold">
-                      DIRECTOR SPECIAL
+            <div key={ep.id} className="relative group/glow w-full">
+              {/* Ambient Glow Underlay */}
+              <div className={`absolute -inset-1.5 rounded-3xl md:rounded-[38px] bg-gradient-to-r from-accent-orange/15 to-accent-gold/15 opacity-0 group-hover/glow:opacity-100 blur-xl transition-opacity duration-700 pointer-events-none z-0 ${spotlightAttract ? 'opacity-100 scale-102' : ''}`} />
+              
+              <div
+                onClick={() => handleSpotlightPlay(ep)}
+                className={`relative z-10 w-full group cursor-pointer backdrop-blur-md bg-card-elevated/80 border-2 border-card-shadow hover:border-accent-orange/80 p-0 rounded-[28px] md:rounded-[32px] transition-all duration-300 shadow-[0_6px_0_0_var(--card-shadow)] hover:shadow-[0_8px_0_0_#FF6B00] hover:-translate-y-1 active:translate-y-[6px] active:shadow-[0_0px_0_0_#FF6B00] text-left flex flex-col justify-between animate-scale-in-projector animation-delay-700 overflow-hidden ${spotlightAttract ? 'spotlight-attract' : ''}`}
+              >
+                {/* Premium Episode 0A (Prof Suman Part 1) Thumbnail Header - FULL WIDTH */}
+                <div className="spotlight-thumb w-full aspect-video overflow-hidden border-b border-border-light relative group-hover:border-accent-orange/20 transition-all duration-500 animate-shine">
+                  <img 
+                    src={ep.coverImage} 
+                    alt={ep.title} 
+                    className="w-full h-full object-cover scale-100 group-hover:scale-[1.03] transition-transform duration-700" 
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent z-10" />
+                  
+                  {/* Floating aesthetic label */}
+                  <div className="absolute top-4 left-4 z-20 bg-black/75 backdrop-blur-md border border-border-medium px-3.5 py-1.5 rounded-full shadow-lg">
+                    <span className="text-[8px] font-mono tracking-widest text-accent-gold uppercase font-bold flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-accent-orange animate-pulse" />
+                      FEATURED EPISODE
                     </span>
-                    <div className="flex items-center gap-3">
-                      <span className="text-xs font-mono text-stone-300 uppercase font-bold">
-                        EP. {ep.episodeNumber}{ep.episodeSub ? ep.episodeSub.toUpperCase() : ""}
-                      </span>
-                      <span className="text-stone-700 text-xs font-mono">•</span>
-                      <span className="text-[9px] font-mono text-accent-copper uppercase font-bold">
-                        {ep.releaseDate || "JUNE 2025"}
-                      </span>
+                  </div>
+                  
+                  <div className="spotlight-play-overlay absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
+                    <div className="relative w-14 h-14 flex items-center justify-center">
+                      {/* Sonar Ring */}
+                      <div className={`absolute inset-0 rounded-full bg-accent-orange/30 opacity-0 group-hover:opacity-100 group-hover:animate-ping pointer-events-none ${spotlightAttract ? 'opacity-100 animate-ping' : ''}`} />
+                      
+                      <div className="w-14 h-14 rounded-full bg-accent-orange flex items-center justify-center shadow-lg shadow-accent-orange/40 transform scale-90 group-hover:scale-100 transition-transform duration-300 relative z-10">
+                        <Play className="w-6 h-6 fill-white text-white translate-x-0.5" />
+                      </div>
                     </div>
                   </div>
-                  <h3 className="spotlight-title text-xl md:text-3xl font-sans font-bold leading-tight text-white group-hover:text-accent-orange transition-colors duration-300 mb-2 md:mb-3">
-                    {ep.title}
-                  </h3>
-                  <p className="hidden md:block text-sm text-stone-400 leading-relaxed mb-6 font-sans">
-                    {ep.description}
-                  </p>
                 </div>
-                <div className="flex items-center justify-between border-t border-white/[0.04] pt-3 md:pt-4 pb-1 md:pb-0 text-xs text-stone-500 font-mono">
-                  <div className="flex items-center gap-1.5 text-stone-400">
-                    <Clock className="w-3.5 h-3.5 text-accent-gold" />
-                    <span>{ep.duration} MINS</span>
+
+                {/* Textual Narrative details side */}
+                <div className="w-full flex flex-col justify-between p-6 md:p-8">
+                  <div>
+                    <div className="flex flex-wrap justify-between items-center gap-2 mb-3 md:mb-4">
+                      <span className="px-2.5 py-1 rounded bg-[#2D1212] border border-accent-orange/15 text-[8.5px] font-mono tracking-widest text-accent-orange uppercase font-bold">
+                        DIRECTOR SPECIAL
+                      </span>
+                      <div className="flex items-center gap-3">
+                        <span className="text-xs font-mono text-stone-300 uppercase font-bold">
+                          EP. {ep.episodeNumber}{ep.episodeSub ? ep.episodeSub.toUpperCase() : ""}
+                        </span>
+                        <span className="text-stone-700 text-xs font-mono">•</span>
+                        <span className="text-[9px] font-mono text-accent-copper uppercase font-bold">
+                          {ep.releaseDate || "JUNE 2025"}
+                        </span>
+                      </div>
+                    </div>
+                    <h3 className="spotlight-title text-xl md:text-3xl font-sans font-bold leading-tight text-foreground group-hover:text-accent-orange transition-colors duration-300 mb-2 md:mb-3">
+                      {ep.title}
+                    </h3>
+                    <p className="hidden md:block text-sm text-stone-400 leading-relaxed mb-6 font-sans">
+                      {ep.description}
+                    </p>
                   </div>
-                  <span className="spotlight-cta text-accent-orange group-hover:translate-x-1.5 transition-transform duration-300 font-bold tracking-widest uppercase flex items-center gap-1.5">
-                    LISTEN NOW <ArrowRight className="w-3.5 h-3.5" />
-                  </span>
+                  <div className="flex items-center justify-between border-t border-border-light pt-3 md:pt-4 pb-1 md:pb-0 text-xs text-stone-500 font-mono">
+                    <div className="flex items-center gap-1.5 text-stone-400">
+                      <Clock className="w-3.5 h-3.5 text-accent-gold" />
+                      <span>{ep.duration} MINS</span>
+                    </div>
+                    <span className="spotlight-cta text-accent-orange group-hover:translate-x-1.5 transition-transform duration-300 font-bold tracking-widest uppercase flex items-center gap-1.5">
+                      LISTEN NOW <ArrowRight className="w-3.5 h-3.5" />
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -274,7 +285,7 @@ export default function Home() {
             {filteredEpisodes.map((ep) => (
               <div
                 key={ep.id}
-                className="group backdrop-blur-md bg-card-bg/10 border border-white/[0.02] hover:border-white/[0.06] px-4 md:px-6 py-4 md:py-5 rounded-2xl flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 md:gap-6 transition-all duration-300 hover:scale-[1.005] relative"
+                className="group backdrop-blur-md bg-card-bg/10 border border-border-light hover:border-border-medium px-4 md:px-6 py-4 md:py-5 rounded-2xl flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 md:gap-6 transition-all duration-300 hover:scale-[1.005] relative"
               >
                 {/* Visual node on the orange timeline thread */}
                 <div className={`absolute left-[-18px] md:left-[-26px] top-1/2 w-3.5 h-3.5 rounded-full border border-black group-hover:scale-125 transition-all duration-300 z-10 animate-pulse-glow ${
@@ -294,12 +305,12 @@ export default function Home() {
                   <div className="flex flex-col text-left">
                     <h4 
                       onClick={() => handleOpenHighlights(ep)}
-                      className="text-lg md:text-xl font-sans font-bold text-white hover:text-accent-orange transition-colors duration-300 cursor-pointer"
+                      className="text-lg md:text-xl font-sans font-bold text-foreground hover:text-accent-orange transition-colors duration-300 cursor-pointer"
                     >
                       {ep.title}
                     </h4>
                     <div className="flex items-center gap-2 mt-1.5 flex-wrap">
-                      <span className="text-[10px] tracking-wider text-[#C5A07F] font-mono uppercase bg-white/[0.03] px-2.5 py-0.5 rounded border border-white/[0.04] font-bold">
+                      <span className="text-[10px] tracking-wider text-[#C5A07F] font-mono uppercase bg-card-glow-bg px-2.5 py-0.5 rounded border border-border-light font-bold">
                         {ep.releaseDate || "JUNE 2025"}
                       </span>
                       <span className="text-stone-700 text-xs font-mono">•</span>
@@ -310,16 +321,16 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between md:justify-end gap-6 w-full md:w-2/5 border-t border-white/[0.03] md:border-t-0 pt-4 md:pt-0">
+                <div className="flex items-center justify-between md:justify-end gap-6 w-full md:w-2/5 border-t border-border-light md:border-t-0 pt-4 md:pt-0">
                   <div className="flex items-center gap-4 text-xs font-mono text-stone-500 uppercase">
                     <span className={`px-3 py-1 rounded font-mono text-[9px] tracking-widest uppercase border ${
                       ep.category === "startup"
-                        ? "bg-[#2D1212] text-accent-orange border-accent-orange/10"
+                        ? "bg-pill-orange text-accent-orange border-accent-orange/10"
                         : ep.category === "academic"
-                        ? "bg-[#2D2412] text-accent-gold border-accent-gold/10"
+                        ? "bg-pill-gold text-accent-gold border-accent-gold/10"
                         : ep.category === "placement"
-                        ? "bg-[#251E1A] text-accent-copper border-accent-copper/10"
-                        : "bg-[#25251A] text-accent-bronze border-accent-bronze/10"
+                        ? "bg-pill-copper text-accent-copper border-accent-copper/10"
+                        : "bg-pill-bronze text-accent-bronze border-accent-bronze/10"
                     }`}>
                       {ep.category}
                     </span>
@@ -375,7 +386,7 @@ export default function Home() {
       </section>
 
       {/* 4.5. ABOUT SECTION */}
-      <section id="about" className="w-full border-t border-white/[0.02] bg-[#0F0606] relative overflow-hidden">
+      <section id="about" className="w-full border-t border-border-light bg-background relative overflow-hidden">
         {/* Subtle orange accent light underlay */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[450px] bg-accent-orange/[0.03] rounded-full blur-[180px] pointer-events-none" />
 
@@ -387,9 +398,9 @@ export default function Home() {
             <span className="hidden lg:block text-xs tracking-[0.4em] font-mono text-accent-orange uppercase font-bold mb-4">
               ABOUT THE PODCAST
             </span>
-            <h2 className="hidden lg:block text-3xl md:text-5xl font-sans font-bold tracking-tight leading-tight text-white mb-6">
+            <h2 className="hidden lg:block text-3xl md:text-5xl font-sans font-bold tracking-tight leading-tight text-foreground mb-6">
               Deconstructing the <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-orange via-accent-gold to-white">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-orange via-accent-gold to-foreground">
                 IIT Legacy
               </span>
             </h2>
@@ -398,7 +409,7 @@ export default function Home() {
             </p>
             
             {/* Channel Art — landscape on mobile, square on desktop */}
-            <div className="w-full aspect-square rounded-2xl lg:rounded-[36px] overflow-hidden border border-white/[0.06] hover:border-accent-orange/20 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative group transition-all duration-500 bg-black/40 animate-shine">
+            <div className="w-full aspect-square rounded-2xl lg:rounded-[36px] overflow-hidden border border-border-medium hover:border-accent-orange/20 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative group transition-all duration-500 bg-black/40 animate-shine">
               <div className="absolute inset-0 bg-gradient-to-tr from-accent-orange/5 via-transparent to-white/5 pointer-events-none z-10" />
               
               <img 
@@ -422,15 +433,15 @@ export default function Home() {
             <span className="text-xs tracking-[0.4em] font-mono text-accent-gold uppercase font-bold mb-3 md:mb-4 block">
               THE VOICE
             </span>
-            <h2 className="text-2xl md:text-5xl font-sans font-bold tracking-tight leading-tight text-white mb-5 md:mb-8">
+            <h2 className="text-2xl md:text-5xl font-sans font-bold tracking-tight leading-tight text-foreground mb-5 md:mb-8">
               About the{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-copper via-accent-gold to-white">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-copper via-accent-gold to-foreground">
                 Creator
               </span>
             </h2>
 
             {/* Embedded Creator Box */}
-            <div className="backdrop-blur-xl bg-[#130707]/30 border border-white/[0.05] hover:border-accent-orange/20 p-6 md:p-10 rounded-[28px] md:rounded-[38px] shadow-[0_20px_50px_rgba(0,0,0,0.4)] w-full text-left transition-all duration-500 relative overflow-hidden group">
+            <div className="backdrop-blur-xl bg-card-glow-bg/30 border border-border-light hover:border-accent-orange/20 p-6 md:p-10 rounded-[28px] md:rounded-[38px] shadow-[0_20px_50px_rgba(0,0,0,0.4)] w-full text-left transition-all duration-500 relative overflow-hidden group">
               {/* Radial glow effect */}
               <div className="absolute -top-20 -left-20 w-40 h-40 bg-accent-orange/10 rounded-full blur-3xl pointer-events-none group-hover:bg-accent-orange/15 transition-colors" />
 
@@ -439,7 +450,7 @@ export default function Home() {
                   SM
                 </div>
                 <div className="flex flex-col text-left">
-                  <h3 className="text-2xl md:text-3xl font-sans font-bold text-white leading-tight">
+                  <h3 className="text-2xl md:text-3xl font-sans font-bold text-foreground leading-tight">
                     Somenath Mondal
                   </h3>
                   <span className="text-xs font-mono text-accent-copper uppercase font-bold tracking-[0.15em] mt-1 block">
@@ -456,7 +467,7 @@ export default function Home() {
                 Unlocking the personal files behind academic pressure, mental struggles, multi-hostel festival coordination, and the high-leverage careers post-graduation.
               </p>
 
-              <div className="flex flex-col gap-3 border-t border-white/[0.04] pt-5 md:pt-8">
+              <div className="flex flex-col gap-3 border-t border-border-light pt-5 md:pt-8">
                 <a
                   href="https://www.linkedin.com/in/somenath-mondal-xr-tech/"
                   target="_blank"
@@ -465,7 +476,7 @@ export default function Home() {
                     track('LinkedIn Click', { location: 'creator_card' });
                     sendGAEvent('event', 'clicked_linkedin_profile', { location: 'creator_card' });
                   }}
-                  className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-2xl border-2 border-stone-800 bg-[#0F0606] hover:bg-stone-900 text-stone-300 hover:text-white hover:border-accent-orange font-bold text-[10px] tracking-widest uppercase transition-all duration-200 shadow-[0_4px_0_0_rgba(41,37,36,1)] hover:shadow-[0_4px_0_0_rgba(234,88,12,1)] active:shadow-none hover:-translate-y-1 active:translate-y-1 cursor-pointer w-full whitespace-nowrap"
+                  className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-2xl border-2 border-stone-700 bg-background hover:bg-stone-900 text-stone-300 hover:text-foreground hover:border-accent-orange font-bold text-[10px] tracking-widest uppercase transition-all duration-200 shadow-[0_4px_0_0_var(--card-shadow)] hover:shadow-[0_4px_0_0_rgba(234,88,12,1)] active:shadow-none hover:-translate-y-1 active:translate-y-1 cursor-pointer w-full whitespace-nowrap"
                 >
                   <span>LinkedIn Profile</span>
                   <ExternalLink className="w-4 h-4" />
@@ -491,21 +502,21 @@ export default function Home() {
       {/* 6. FULL STORY MODAL READ OVERLAY */}
       {readingEpisode && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-4 animate-in fade-in duration-300">
-          <div className="bg-[#140808] border border-white/[0.06] rounded-[32px] w-full max-w-4xl max-h-[85vh] flex flex-col shadow-[0_24px_60px_rgba(0,0,0,0.8)] overflow-hidden">
+          <div className="bg-card-elevated border border-border-medium rounded-[32px] w-full max-w-4xl max-h-[85vh] flex flex-col shadow-[0_24px_60px_rgba(0,0,0,0.8)] overflow-hidden">
             
             {/* Modal Header */}
-            <div className="px-8 py-6 border-b border-white/[0.03] flex justify-between items-center text-left">
+            <div className="px-8 py-6 border-b border-border-light flex justify-between items-center text-left">
               <div className="flex flex-col">
                 <span className="text-xs tracking-widest font-mono text-accent-orange uppercase font-bold">
                   EPISODE {readingEpisode.episodeNumber}{readingEpisode.episodeSub ? readingEpisode.episodeSub.toUpperCase() : ""} CHRONICLE
                 </span>
-                <h3 className="text-xl md:text-2xl font-sans font-bold text-white mt-1 leading-tight">
+                <h3 className="text-xl md:text-2xl font-sans font-bold text-foreground mt-1 leading-tight">
                   {readingEpisode.title}
                 </h3>
               </div>
               <button
                 onClick={() => setReadingEpisode(null)}
-                className="w-10 h-10 rounded-full border border-stone-850 hover:border-stone-600 flex items-center justify-center text-stone-400 hover:text-white transition-all cursor-pointer"
+                className="w-10 h-10 rounded-full border border-stone-850 hover:border-stone-500 flex items-center justify-center text-stone-400 hover:text-foreground transition-all cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -515,7 +526,7 @@ export default function Home() {
             <div className="flex-grow p-8 overflow-y-auto custom-scroll text-left">
               
               {/* Embedded On-Site YouTube Video Player */}
-              <div className="w-full aspect-video rounded-3xl overflow-hidden bg-black border border-white/[0.05] mb-8 shadow-2xl relative">
+              <div className="w-full aspect-video rounded-3xl overflow-hidden bg-black border border-border-light mb-8 shadow-2xl relative">
                 <iframe
                   src={`https://www.youtube.com/embed/${readingEpisode.youtubeId}?autoplay=${modalVideoSeconds !== null ? 1 : 0}&start=${modalVideoSeconds !== null ? modalVideoSeconds : 0}`}
                   title={readingEpisode.title}
@@ -539,15 +550,15 @@ export default function Home() {
                         handleSpotlightPlay(readingEpisode);
                         jumpToTimestamp(takeaway.seconds);
                       }}
-                      className="cursor-pointer bg-card-bg/25 border border-white/[0.04] hover:border-accent-orange/30 p-4 rounded-2xl transition-all duration-300 hover:scale-[1.02]"
+                      className="cursor-pointer bg-card-bg/25 border border-border-light hover:border-accent-orange/30 p-4 rounded-2xl transition-all duration-300 hover:scale-[1.02]"
                     >
                       <div className="flex justify-between items-center mb-2 font-mono text-xs">
                         <span className="text-accent-copper font-bold uppercase">TAKEAWAY 0{idx + 1}</span>
-                        <span className="px-2 py-0.5 bg-[#2D1212] border border-accent-orange/10 rounded text-accent-orange flex items-center gap-1 font-bold">
+                        <span className="px-2 py-0.5 bg-pill-orange border border-accent-orange/10 rounded text-accent-orange flex items-center gap-1 font-bold">
                           <Play className="w-2.5 h-2.5 fill-accent-orange" /> {takeaway.time}
                         </span>
                       </div>
-                      <h5 className="text-base font-sans font-bold text-white mb-2">{takeaway.title}</h5>
+                      <h5 className="text-base font-sans font-bold text-foreground mb-2">{takeaway.title}</h5>
                       <p className="text-sm text-stone-300 leading-relaxed font-sans">"{takeaway.text}"</p>
                     </div>
                   ))}
@@ -555,7 +566,7 @@ export default function Home() {
               </div>
 
               {/* Main Narrative Article */}
-              <div className="prose prose-invert prose-stone max-w-none border-t border-white/[0.03] pt-8">
+              <div className="prose prose-invert prose-stone max-w-none border-t border-border-light pt-8">
                 <span className="text-xs tracking-[0.2em] font-mono text-stone-500 uppercase block mb-6">
                   FULL HIGHLIGHTS DIARY
                 </span>
@@ -568,7 +579,7 @@ export default function Home() {
             </div>
 
             {/* Modal Footer with Multi-Destination Playback Options */}
-            <div className="px-8 py-5 border-t border-white/[0.03] flex flex-col sm:flex-row justify-between items-center gap-4 bg-[#0F0606]/60">
+            <div className="px-8 py-5 border-t border-border-light flex flex-col sm:flex-row justify-between items-center gap-4 bg-background/60">
               <div className="flex items-center gap-2">
                 <Calendar className="w-3.5 h-3.5 text-accent-orange" />
                 <span className="text-xs font-mono text-stone-300 uppercase font-bold">
@@ -594,7 +605,7 @@ export default function Home() {
                   href={`https://www.youtube.com/watch?v=${readingEpisode.youtubeId}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl border-2 border-[#FF0000] bg-[#0F0606] font-bold text-[10px] tracking-widest uppercase text-[#FF0000] hover:bg-[#FF0000] hover:text-white hover:-translate-y-1 active:translate-y-1 shadow-[0_4px_0_0_rgba(255,0,0,0.3)] hover:shadow-[0_4px_0_0_rgba(255,0,0,1)] active:shadow-none transition-all duration-200 cursor-pointer whitespace-nowrap"
+                  className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl border-2 border-[#FF0000] bg-background font-bold text-[10px] tracking-widest uppercase text-[#FF0000] hover:bg-[#FF0000] hover:text-white hover:-translate-y-1 active:translate-y-1 shadow-[0_4px_0_0_rgba(255,0,0,0.3)] hover:shadow-[0_4px_0_0_rgba(255,0,0,1)] active:shadow-none transition-all duration-200 cursor-pointer whitespace-nowrap"
                 >
                   <YoutubeIcon className="w-3.5 h-3.5" />
                   <span>Watch on YouTube</span>
@@ -606,7 +617,7 @@ export default function Home() {
                     href={readingEpisode.spotifyUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl border-2 border-[#1DB954] bg-[#0F0606] font-bold text-[10px] tracking-widest uppercase text-[#1DB954] hover:bg-[#1DB954] hover:text-black hover:-translate-y-1 active:translate-y-1 shadow-[0_4px_0_0_rgba(29,185,84,0.3)] hover:shadow-[0_4px_0_0_rgba(29,185,84,1)] active:shadow-none transition-all duration-200 cursor-pointer whitespace-nowrap"
+                    className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl border-2 border-[#1DB954] bg-background font-bold text-[10px] tracking-widest uppercase text-[#1DB954] hover:bg-[#1DB954] hover:text-black hover:-translate-y-1 active:translate-y-1 shadow-[0_4px_0_0_rgba(29,185,84,0.3)] hover:shadow-[0_4px_0_0_rgba(29,185,84,1)] active:shadow-none transition-all duration-200 cursor-pointer whitespace-nowrap"
                   >
                     <Headphones className="w-3.5 h-3.5" />
                     <span>Listen on Spotify</span>

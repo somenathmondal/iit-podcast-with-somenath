@@ -4,6 +4,7 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 import { Playfair_Display, Ubuntu, JetBrains_Mono } from "next/font/google";
 import MediaPlayer from "../components/MediaPlayer";
 import { ViewTransitions } from "next-view-transitions";
+import TransitionDirectionTracker from "../components/TransitionDirectionTracker";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -66,8 +67,23 @@ export default function RootLayout({
 }>) {
   return (
     <ViewTransitions>
-      <html lang="en" className={`h-full antialiased ${playfair.variable} ${ubuntu.variable} ${jetbrains.variable}`}>
-        <body className="min-h-full flex flex-col bg-[#0F0606] text-white">
+      <html lang="en" suppressHydrationWarning className={`h-full antialiased ${playfair.variable} ${ubuntu.variable} ${jetbrains.variable}`}>
+        <head>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                (function() {
+                  try {
+                    var theme = localStorage.getItem('theme') || 'dark';
+                    document.documentElement.setAttribute('data-theme', theme);
+                  } catch (e) {}
+                })();
+              `
+            }}
+          />
+        </head>
+        <body className="min-h-full flex flex-col bg-background text-foreground transition-colors duration-300">
+          <TransitionDirectionTracker />
           {children}
           <MediaPlayer />
           <Analytics />

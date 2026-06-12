@@ -75,39 +75,74 @@ export const episodes: Episode[] = [
     id: "arpit",
     releaseDate: "June 2025",
     episodeNumber: 1,
-    title: "How did this SMALL TOWN BOY overcome his FEAR OF EXAMS to CRACK IITJEE (from Kota)?",
+    title: "From Small Town Dreams to Cracking India's Toughest Exam!",
     guestName: "Arpit",
     guestTitle: "Core Software Systems Engineer",
-    duration: "42:10",
+    duration: "68:00",
     category: "placement",
     youtubeId: "a5RhmyDLMr0",
     spotifyUrl: "https://open.spotify.com/episode/arpit",
-    description: "Arpit breaks down his precise DSA preparation strategy and explains how focusing on core systems engineering rather than rote learning led to a highly-coveted placement.",
+    description: "In this 68-minute podcast, we dive deep into the incredible journey of a small-town boy who beat the odds to crack IITJEE – the toughest exam in India!",
     coverImage: "/thumbnails/Ep01-Arpit.png",
     tags: ["Placements", "Software Engineering", "Systems", "DSA"],
     takeaways: [
       { title: "Mastering Core Systems", time: "12:05", seconds: 725, text: "Understanding operating systems and databases deeply beats solving 500 duplicate LeetCode challenges." }
     ],
-    fullStoryMarkdown: "Arpit shares a step-by-step breakdown of DSA pattern mastery and structural engineering preparation."
+    guestProfiles: [
+      { name: "Arpit Singhal", url: "https://www.linkedin.com/in/arpit-singhal-78439757/" }
+    ],
+    fullStoryMarkdown: `🎙️ From Small Town Dreams to Cracking India's Toughest Exam! 💪
+
+In this 68-minute podcast, we dive deep into the incredible journey of a small-town boy who beat the odds to crack IITJEE – the toughest exam in India! 🇮🇳
+
+### 🎒 Life Before IIT
+From his early days as a student to discovering the world of IIT, we explore his struggles with personal, mental, and financial challenges.
+
+### 📚 Conquering the Exam
+Learn how he prepared, fought his fear of failure, and had the courage to repeat a year, ultimately securing an All India Rank of 649 in 2011!
+
+### 🏫 Life at IIT
+Get a peek into the exciting IIT culture, crazy stories, lifelong friendships, and unforgettable memories. 💥
+
+### 💼 After IIT
+We wrap it up by chatting about his current job and how his IIT skills shaped his career! 🚀
+
+This podcast is full of inspiration, motivation, and a sprinkle of humor 😄. Tune in to hear his remarkable story!`
   },
   {
     id: "dheeraj",
     releaseDate: "May 2025",
     episodeNumber: 2,
-    title: "TERRIBLE DECISION to DROPOUT of IIT and TAKING OWNERSHIP",
+    title: "Breakdowns, Tough Decisions, and Taking Responsibility",
     guestName: "Dheeraj",
     guestTitle: "Student Leader & Community organizer",
     duration: "38:40",
     category: "academic",
     youtubeId: "upAxW9oPYeM",
     spotifyUrl: "https://open.spotify.com/episode/dheeraj",
-    description: "An inspiring look into hostel administration, running large-scale NSS camps, and maintaining high academic standards while managing massive student operations.",
+    description: "In this episode, I catch up with my friend Dheeraj to explore his intense journey through the rigorous IIT prep in Andhra Pradesh that pushed him to his limits – even leading to breakdowns despite being one of the brightest students. 📚😓",
     coverImage: "/thumbnails/Ep02-Dheeraj.png",
     tags: ["Leadership", "NSS", "Campus Life", "Management"],
     takeaways: [
       { title: "Student Administration Realities", time: "09:30", seconds: 570, text: "Hostel politics and administration teach you more about real-world human resource management than any lecture hall." }
     ],
-    fullStoryMarkdown: "Dheeraj recounts his journey running camps, handling crises, and balancing leadership duties with academics."
+    guestProfiles: [
+      { name: "Dheeraj Mukka", url: "https://www.linkedin.com/in/dheeraj-mukka-7840b8187/" }
+    ],
+    fullStoryMarkdown: `🎙️ Breakdowns, Tough Decisions, and Taking Responsibility 💥
+
+In this episode, I catch up with my friend Dheeraj to explore his intense journey through the rigorous IIT prep in Andhra Pradesh that pushed him to his limits – even leading to breakdowns despite being one of the brightest students. 📚😓
+
+### 💡 Life at IIT
+We dive into how Dheeraj started strong at IIT but made a terrible decision that cost him six months. Despite the setback, his resilience is inspiring.
+
+### 😂 Fun Stories Along the Way
+Don’t worry, we keep it light with some fun and crazy stories from our time together at IIT!
+
+### 💼 Life After IIT
+We chat about Dheeraj’s career path and how the challenges at IIT taught him a valuable life lesson – learning to take responsibility for his actions and decisions. 🚀
+
+This episode is a mix of honesty, struggle, laughter, and growth. Tune in for an unfiltered conversation about life’s ups and downs!`
   },
   {
     id: "nikhil",
@@ -478,26 +513,6 @@ Listen to Pranali's views on the Gender Imbalance at IIT and Tech and how she do
       { title: "The HBS Case Study Method", time: "25:10", seconds: 1510, text: "IIT trains you to find the exact mathematical solution. Harvard trains you to make decisions with 60% of the data under uncertainty." }
     ],
     fullStoryMarkdown: "Saumaric and Aditi present a comprehensive masterclass on consulting, case interview prep, and corporate strategy."
-  },
-  {
-    id: "subham",
-    releaseDate: "July 2024",
-    episodeNumber: 20,
-    episodeSub: "b",
-    title: "Reservation & Systemic Caste Discussions in Tech",
-    guestName: "Subham",
-    guestTitle: "Social Analyst & Tech Advocate",
-    duration: "44:10",
-    category: "academic",
-    youtubeId: "m7H04R9Wp-o",
-    spotifyUrl: "https://open.spotify.com/episode/subham",
-    description: "A groundbreaking, respectful conversation on reservation, caste dynamics on competitive engineering campuses, and building inclusive tech cultures.",
-    coverImage: "/thumbnails/Ep20-Subham.png",
-    tags: ["Social Dynamics", "Inclusivity", "Systemic Reform", "Campus Life"],
-    takeaways: [
-      { title: "Building Inclusive Campuses", time: "16:15", seconds: 975, text: "Empathy is key. We must build peer networks that support students from all backgrounds without institutional biases." }
-    ],
-    fullStoryMarkdown: "Subham brings a constructive, deeply researched analysis of equity and representation in higher education."
   },
   {
     id: "dk",
