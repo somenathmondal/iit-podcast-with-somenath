@@ -3,6 +3,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { Playfair_Display, Ubuntu, JetBrains_Mono } from "next/font/google";
 import MediaPlayer from "../components/MediaPlayer";
+import AnalyticsVisualizer from "../components/AnalyticsVisualizer";
 import { ViewTransitions } from "next-view-transitions";
 import TransitionDirectionTracker from "../components/TransitionDirectionTracker";
 import "./globals.css";
@@ -86,6 +87,7 @@ export default function RootLayout({
           <TransitionDirectionTracker />
           {children}
           <MediaPlayer />
+          <AnalyticsVisualizer />
           <Analytics />
           <GoogleAnalytics gaId="G-90T9HPG5JB" />
         </body>

@@ -3,13 +3,18 @@
 import { Link } from "next-view-transitions";
 import { Rss, BookOpen } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
+import { trackEvent } from "../lib/analytics";
 
 export default function Header() {
   return (
     <header className="relative w-full px-4 py-3 md:px-8 md:py-4 flex justify-between items-center border-b border-border-light bg-background/50 backdrop-blur-md sticky top-0 z-40">
 
       {/* Brand logo */}
-      <Link href="/" className="flex flex-col text-left group">
+      <Link
+        href="/"
+        onClick={() => trackEvent('header_logo_click')}
+        className="flex flex-col text-left group"
+      >
         <h1 className="text-xl md:text-2xl font-sans font-black tracking-tight text-foreground group-hover:text-accent-copper transition-colors duration-300 leading-none">
           IIT Podcast
         </h1>
@@ -24,6 +29,7 @@ export default function Header() {
           <Link
             key={link}
             href={`/#${link.toLowerCase().replace(" ", "-")}`}
+            onClick={() => trackEvent('header_nav_link_click', { target: link })}
             className="px-4 py-1.5 rounded-full text-[10px] tracking-[0.2em] font-mono font-bold text-stone-400 uppercase transition-all duration-300 border border-transparent hover:border-accent-orange/30 hover:bg-accent-orange/10 hover:text-accent-orange hover:shadow-[0_0_15px_rgba(255,107,0,0.2)] hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
           >
             {link}
@@ -36,6 +42,7 @@ export default function Header() {
         {/* Animated Journal CTA */}
         <Link
           href="/blog"
+          onClick={() => trackEvent('header_journal_cta_click')}
           className="relative group inline-flex items-center justify-center p-[2px] rounded-full overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_15px_rgba(234,88,12,0.15)] hover:shadow-[0_0_25px_rgba(234,88,12,0.3)]"
         >
           {/* Animated gradient rotating border */}

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Sun, Moon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { trackEvent } from "../lib/analytics";
 
 export default function ThemeToggle() {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
@@ -19,6 +20,7 @@ export default function ThemeToggle() {
     setTheme(nextTheme);
     localStorage.setItem("theme", nextTheme);
     document.documentElement.setAttribute("data-theme", nextTheme);
+    trackEvent('theme_toggle', { theme: nextTheme });
   };
 
   if (!mounted) {

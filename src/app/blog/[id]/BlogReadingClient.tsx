@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "next-view-transitions";
 import { ArrowLeft, ArrowRight, Calendar, Clock, Share2, Check, BookOpen, Headphones } from "lucide-react";
-import { track } from "@vercel/analytics";
+import { trackEvent } from "../../../lib/analytics";
 import Header from "../../../components/Header";
 import { blogs, BlogArticle } from "../../../data/blogs";
 import { episodes, Episode } from "../../../data/episodes";
@@ -179,9 +179,19 @@ interface BlogReadingClientProps {
 
 export default function BlogReadingClient({ id }: BlogReadingClientProps) {
 
+  // 1. Check if ID belongs to custom long-form editorials
+  const editorial = blogs.find((b) => b.id === id);
+
+  // 2. Check if ID belongs to episode digests
+  const episode = episodes.find((ep) => ep.id === id);
+
+  // Derive standardized values based on whether it is an editorial or episode digest
+  const title = editorial ? editorial.title : (episode ? episode.title : "");
+
   const [mounted, setMounted] = useState(false);
   const [copied, setCopied] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const trackedMilestones = React.useRef<{ [key: number]: boolean }>({ 25: false, 50: false, 75: false, 100: false });
 
   // Scroll reading progress calculator
   useEffect(() => {
@@ -191,19 +201,26 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
       const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
       if (totalScroll > 0) {
         const currentScroll = window.scrollY;
-        setScrollProgress((currentScroll / totalScroll) * 100);
+        const progress = (currentScroll / totalScroll) * 100;
+        setScrollProgress(progress);
+
+        // Dispatch scroll milestones once per page view
+        [25, 50, 75, 100].forEach((milestone) => {
+          if (progress >= milestone && !trackedMilestones.current[milestone]) {
+            trackedMilestones.current[milestone] = true;
+            trackEvent('blog_scroll_depth', {
+              blog_id: id,
+              title: title,
+              milestone_percent: milestone
+            });
+          }
+        });
       }
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // 1. Check if ID belongs to custom long-form editorials
-  const editorial = blogs.find((b) => b.id === id);
-
-  // 2. Check if ID belongs to episode digests
-  const episode = episodes.find((ep) => ep.id === id);
+  }, [id, title]);
 
   // 3. Compute the next entry for continuous swiping navigation
   const allEntries = [...blogs, ...episodes];
@@ -232,7 +249,6 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
   }
 
   // Derive standardized values based on whether it is an editorial or episode digest
-  const title = editorial ? editorial.title : episode!.title;
   const description = editorial ? editorial.description : episode!.description;
   const author = "Somenath Mondal";
   const authorTitle = editorial ? "IIT PODCAST EDITORIAL" : episode!.guestTitle;
@@ -331,7 +347,9 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
               href="https://www.linkedin.com/in/somenath-mondal-xr-tech/" 
               target="_blank" 
               rel="noopener noreferrer" 
-              onClick={() => track('LinkedIn Click', { location: 'author_meta_top' })}
+              onClick={() => {
+                trackEvent('linkedin_click', { location: 'author_meta_top', blog_id: id });
+              }}
               className="flex items-center gap-1.5 hover:text-foreground transition-colors group"
             >
               <div className="w-5 h-5 rounded-full overflow-hidden border border-border-medium group-hover:border-accent-orange/40 transition-colors">
@@ -344,7 +362,10 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
           <div className="flex items-center gap-2 self-start sm:self-center">
             {/* Share */}
             <button
-              onClick={handleShare}
+              onClick={() => {
+                handleShare();
+                trackEvent('share_link_click', { blog_id: id, title: title });
+              }}
               className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl border-2 border-stone-700 bg-background hover:bg-stone-900 font-bold text-[10px] tracking-widest uppercase text-stone-300 hover:text-foreground hover:border-accent-orange hover:-translate-y-1 active:translate-y-1 shadow-[0_4px_0_0_var(--card-shadow)] hover:shadow-[0_4px_0_0_rgba(234,88,12,1)] active:shadow-none transition-all duration-200 cursor-pointer whitespace-nowrap"
             >
               {copied ? (
@@ -366,7 +387,9 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
                 href={spotifyUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => track('Spotify Click', { location: 'blog_header' })}
+                onClick={() => {
+                  trackEvent('spotify_click', { location: 'blog_header', blog_id: id, title: title });
+                }}
                 className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl border-2 border-[#1DB954] bg-background font-bold text-[10px] tracking-widest uppercase text-[#1DB954] hover:bg-[#1DB954] hover:text-black hover:-translate-y-1 active:translate-y-1 shadow-[0_4px_0_0_rgba(29,185,84,0.3)] hover:shadow-[0_4px_0_0_rgba(29,185,84,1)] active:shadow-none transition-all duration-200 cursor-pointer whitespace-nowrap"
               >
                 <Headphones className="w-3.5 h-3.5" />
@@ -450,7 +473,9 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
                   href={guest.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => track('LinkedIn Click', { location: 'guest_bottom_button', guest: guest.name })}
+                  onClick={() => {
+                    trackEvent('linkedin_click', { location: 'guest_bottom_button', guest: guest.name, blog_id: id });
+                  }}
                   className="px-6 py-3.5 rounded-2xl border-2 border-stone-700 bg-background text-stone-300 font-bold font-sans hover:-translate-y-1 hover:border-accent-orange hover:text-foreground transition-all shadow-[0_4px_0_0_var(--card-shadow)] hover:shadow-[0_4px_0_0_rgba(234,88,12,1)] active:translate-y-1 active:shadow-none flex items-center gap-2"
                 >
                   <BookOpen className="w-4 h-4 text-accent-gold" />
@@ -466,7 +491,9 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
           href="https://www.linkedin.com/in/somenath-mondal-xr-tech/" 
           target="_blank" 
           rel="noopener noreferrer" 
-          onClick={() => track('LinkedIn Click', { location: 'author_bio_card' })}
+          onClick={() => {
+            trackEvent('linkedin_click', { location: 'author_bio_card', blog_id: id });
+          }}
           className="mt-12 bg-card-bg/10 border border-border-light hover:border-accent-orange/20 hover:bg-card-bg/20 p-6 rounded-2xl flex items-center gap-4 text-left transition-all group block"
         >
           <div className="w-12 h-12 rounded-full overflow-hidden border border-border-medium flex-shrink-0 group-hover:border-accent-orange/40 transition-colors shadow-lg">
@@ -483,6 +510,9 @@ export default function BlogReadingClient({ id }: BlogReadingClientProps) {
         {nextEntry && (
           <Link
             href={`/blog/${nextEntry.id}`}
+            onClick={() => {
+              trackEvent('read_next_card_click', { current_blog_id: id, next_blog_id: nextEntry.id, next_blog_title: nextEntry.title });
+            }}
             className="mt-8 group relative bg-card-elevated/80 backdrop-blur-md border-2 border-card-shadow hover:border-accent-orange/80 rounded-[28px] overflow-hidden flex justify-between items-center transition-all duration-200 text-left cursor-pointer shadow-[0_6px_0_0_var(--card-shadow)] hover:shadow-[0_8px_0_0_#FF6B00] hover:-translate-y-1 active:translate-y-[6px] active:shadow-[0_0px_0_0_#FF6B00] p-6 md:p-8"
           >
             <div className="flex flex-col max-w-[80%]">

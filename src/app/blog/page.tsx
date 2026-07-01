@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import DailyTip from "../../components/DailyTip";
 import { blogs, BlogArticle } from "../../data/blogs";
 import { episodes, Episode } from "../../data/episodes";
+import { trackEvent } from "../../lib/analytics";
 
 type FilterType = "all" | "editorial" | "digest";
 
@@ -221,7 +222,13 @@ export default function BlogHub() {
               }}
             />
             
-            <Link href={`/blog/${featuredEntry.id}`} className="relative z-10 group flex flex-col md:block w-full rounded-[23px] md:rounded-[30px] overflow-hidden border border-border-light hover:border-accent-orange/40 transition-all duration-500 shadow-2xl bg-card-elevated">
+            <Link 
+              href={`/blog/${featuredEntry.id}`} 
+              onClick={() => {
+                trackEvent('featured_blog_card_click', { blog_id: featuredEntry.id, blog_title: featuredEntry.title });
+              }}
+              className="relative z-10 group flex flex-col md:block w-full rounded-[23px] md:rounded-[30px] overflow-hidden border border-border-light hover:border-accent-orange/40 transition-all duration-500 shadow-2xl bg-card-elevated"
+            >
               
               {/* Image Container */}
               <div className="relative md:absolute md:inset-0 h-[220px] sm:h-[300px] md:h-auto z-0 overflow-hidden">
@@ -283,6 +290,9 @@ export default function BlogHub() {
             <Link
               key={entry.id}
               href={`/blog/${entry.id}`}
+              onClick={() => {
+                trackEvent('blog_card_click', { blog_id: entry.id, blog_title: entry.title, is_digest: entry.isDigest });
+              }}
               className="group relative bg-card-elevated/80 backdrop-blur-md border-2 border-card-shadow hover:border-accent-orange/80 rounded-[28px] overflow-hidden flex flex-col justify-between transition-all duration-200 text-left cursor-pointer shadow-[0_6px_0_0_var(--card-shadow)] hover:shadow-[0_8px_0_0_#FF6B00] hover:-translate-y-1 active:translate-y-[6px] active:shadow-[0_0px_0_0_#FF6B00]"
             >
               <div>

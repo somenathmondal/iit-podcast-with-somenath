@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, memo } from "react";
 import { Play, Pause, SkipBack, SkipForward, Volume2, Maximize2, Minimize2, X } from "lucide-react";
 import { usePlayerStore } from "../lib/store";
 import { usePathname } from "next/navigation";
+import { trackEvent } from "../lib/analytics";
 
 interface Particle {
   x: number;
@@ -252,7 +253,14 @@ export default function MediaPlayer() {
       const clickX = e.clientX - rect.left;
       const width = rect.width;
       const percentage = clickX / width;
-      setCurrentTime(percentage * duration);
+      const targetTime = percentage * duration;
+      trackEvent('player_seek', {
+        episode_id: activeEpisode.id,
+        episode_title: activeEpisode.title,
+        previous_time_seconds: Math.floor(currentTime),
+        target_time_seconds: Math.floor(targetTime)
+      });
+      setCurrentTime(targetTime);
     }
   };
 
@@ -302,7 +310,13 @@ export default function MediaPlayer() {
             
             {/* Absolute positioned close button inside controls row to prevent overlap */}
             <button 
-              onClick={() => setIsDismissed(true)}
+              onClick={() => {
+                setIsDismissed(true);
+                trackEvent('player_dismiss', {
+                  episode_id: activeEpisode.id,
+                  episode_title: activeEpisode.title
+                });
+              }}
               className="absolute top-2 right-2 md:top-3 md:right-3 text-stone-500 hover:text-foreground hover:bg-foreground/[0.04] p-1.5 rounded-full transition-all cursor-pointer active:scale-95 z-20"
               title="Minimize Player"
             >
@@ -335,7 +349,16 @@ export default function MediaPlayer() {
                   <SkipBack className="w-4 h-4" />
                 </button>
                 <button
-                  onClick={() => setIsPlaying(!isPlaying)}
+                  onClick={() => {
+                    const nextPlaying = !isPlaying;
+                    setIsPlaying(nextPlaying);
+                    trackEvent('player_play_pause_click', {
+                      episode_id: activeEpisode.id,
+                      episode_title: activeEpisode.title,
+                      is_playing: nextPlaying,
+                      current_time_seconds: Math.floor(currentTime)
+                    });
+                  }}
                   className="w-10 h-10 rounded-full bg-accent-orange text-white flex items-center justify-center shadow-lg shadow-accent-orange/20 hover:scale-105 active:scale-95 transition-all duration-300"
                 >
                   {isPlaying ? <Pause className="w-4 h-4 fill-white" /> : <Play className="w-4 h-4 fill-white translate-x-[1px]" />}
@@ -370,7 +393,15 @@ export default function MediaPlayer() {
             <div className="flex items-center justify-end gap-5 w-full md:w-1/3">
               {/* YouTube Video View Toggle */}
               <button 
-                onClick={() => setIsExpanded(!isExpanded)}
+                onClick={() => {
+                  const nextExpanded = !isExpanded;
+                  setIsExpanded(nextExpanded);
+                  trackEvent('player_video_view_toggle', {
+                    episode_id: activeEpisode.id,
+                    episode_title: activeEpisode.title,
+                    is_expanded: nextExpanded
+                  });
+                }}
                 className={`flex items-center gap-1.5 px-3 py-1.5 border rounded-full text-[9px] tracking-widest font-mono uppercase transition-all duration-300 ${
                   isExpanded 
                     ? 'border-accent-orange text-accent-orange bg-accent-orange/5' 
@@ -410,7 +441,13 @@ export default function MediaPlayer() {
         }`}
       >
         <button
-          onClick={() => setIsDismissed(false)}
+          onClick={() => {
+            setIsDismissed(false);
+            trackEvent('player_restore', {
+              episode_id: activeEpisode.id,
+              episode_title: activeEpisode.title
+            });
+          }}
           className="w-12 h-12 rounded-full bg-accent-orange hover:bg-accent-orange/95 text-white flex items-center justify-center shadow-lg shadow-accent-orange/30 hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer border border-accent-orange/20"
           title="Restore Player"
         >

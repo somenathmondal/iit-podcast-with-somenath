@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Sparkles, Copy, Check, Lightbulb } from "lucide-react";
+import { trackEvent } from "../lib/analytics";
 
 export interface DailyBlueprint {
   day: number;
@@ -252,6 +253,12 @@ export default function DailyTip() {
       await navigator.clipboard.writeText(textToCopy);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
+      trackEvent('share_daily_blueprint_click', {
+        day: activeTip.day,
+        title: activeTip.title,
+        category: activeTip.category,
+        author: activeTip.author
+      });
     } catch (err) {
       console.error("Failed to copy text", err);
     }

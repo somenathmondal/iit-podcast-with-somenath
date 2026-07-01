@@ -3,8 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { BookOpen, Play, Calendar, Clock, ArrowRight, X, ExternalLink, Headphones } from "lucide-react";
-import { track } from "@vercel/analytics";
-import { sendGAEvent } from '@next/third-parties/google';
+import { trackEvent } from "../lib/analytics";
 import Header from "../components/Header";
 import { episodes, Episode } from "../data/episodes";
 import { usePlayerStore } from "../lib/store";
@@ -146,6 +145,9 @@ export default function Home() {
           <div className="flex flex-wrap justify-center lg:justify-start gap-2.5 md:gap-4 animate-fade-in-up" style={{ animationDelay: '1050ms' }}>
             <Link
               href="/blog"
+              onClick={() => {
+                trackEvent('read_journal_button_click', { location: 'hero' });
+              }}
               className="group flex items-center gap-3 px-8 py-4 md:px-10 md:py-5 rounded-2xl bg-accent-orange text-white font-black text-sm md:text-base tracking-wide uppercase hover:bg-[#ff4a1f] hover:scale-[1.03] active:scale-95 transition-all duration-200 shadow-[0_6px_0_#c43d1a] hover:shadow-[0_3px_0_#c43d1a] hover:translate-y-[3px] active:shadow-none active:translate-y-[6px] cursor-pointer"
             >
               <BookOpen className="w-5 h-5 animate-float" />
@@ -165,7 +167,10 @@ export default function Home() {
               <div className={`absolute -inset-1.5 rounded-3xl md:rounded-[38px] bg-gradient-to-r from-accent-orange/15 to-accent-gold/15 opacity-0 group-hover/glow:opacity-100 blur-xl transition-opacity duration-700 pointer-events-none z-0 ${spotlightAttract ? 'opacity-100 scale-102' : ''}`} />
               
               <div
-                onClick={() => handleSpotlightPlay(ep)}
+                onClick={() => {
+                  handleSpotlightPlay(ep);
+                  trackEvent('spotlight_card_click', { episode_id: ep.id, episode_title: ep.title });
+                }}
                 className={`relative z-10 w-full group cursor-pointer backdrop-blur-md bg-card-elevated/80 border-2 border-card-shadow hover:border-accent-orange/80 p-0 rounded-[28px] md:rounded-[32px] transition-all duration-300 shadow-[0_6px_0_0_var(--card-shadow)] hover:shadow-[0_8px_0_0_#FF6B00] hover:-translate-y-1 active:translate-y-[6px] active:shadow-[0_0px_0_0_#FF6B00] text-left flex flex-col justify-between animate-scale-in-projector animation-delay-700 overflow-hidden ${spotlightAttract ? 'spotlight-attract' : ''}`}
               >
                 {/* Premium Episode 0A (Prof Suman Part 1) Thumbnail Header - FULL WIDTH */}
@@ -267,7 +272,10 @@ export default function Home() {
               ].map((tab) => (
                 <button
                   key={tab.id}
-                  onClick={() => setSelectedCategory(tab.id)}
+                  onClick={() => {
+                    setSelectedCategory(tab.id);
+                    trackEvent('catalogue_filter_tab_click', { category: tab.id });
+                  }}
                   className={`px-4 py-2 rounded-full text-[9px] tracking-widest font-mono uppercase transition-all duration-300 cursor-pointer ${
                     selectedCategory === tab.id
                       ? "bg-accent-orange text-white font-bold"
@@ -304,7 +312,10 @@ export default function Home() {
                   </span>
                   <div className="flex flex-col text-left">
                     <h4 
-                      onClick={() => handleOpenHighlights(ep)}
+                      onClick={() => {
+                        handleOpenHighlights(ep);
+                        trackEvent('catalogue_card_click', { card_action: 'view_highlights', episode_id: ep.id, episode_title: ep.title });
+                      }}
                       className="text-lg md:text-xl font-sans font-bold text-foreground hover:text-accent-orange transition-colors duration-300 cursor-pointer"
                     >
                       {ep.title}
@@ -344,7 +355,10 @@ export default function Home() {
                   <div className="flex items-center gap-2">
                     {/* Direct On-Site Play */}
                     <button
-                      onClick={() => handleSpotlightPlay(ep)}
+                      onClick={() => {
+                        handleSpotlightPlay(ep);
+                        trackEvent('catalogue_card_click', { card_action: 'play', episode_id: ep.id, episode_title: ep.title });
+                      }}
                       className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-accent-orange/10 hover:bg-accent-orange text-accent-orange hover:text-white font-bold text-xs tracking-widest font-mono uppercase transition-all duration-300 cursor-pointer"
                     >
                       <span>Play</span>
@@ -356,6 +370,9 @@ export default function Home() {
                       href={`https://www.youtube.com/watch?v=${ep.youtubeId}`}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => {
+                        trackEvent('catalogue_card_click', { card_action: 'youtube', episode_id: ep.id, episode_title: ep.title });
+                      }}
                       className="p-2.5 rounded-full border border-stone-850 hover:border-[#FF0000] hover:bg-[#FF0000]/10 text-stone-500 hover:text-[#FF0000] transition-colors"
                       title="Watch on YouTube"
                     >
@@ -368,6 +385,9 @@ export default function Home() {
                         href="https://open.spotify.com/show/2OkRCNNTbwaAB2CElTDdYH"
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => {
+                          trackEvent('catalogue_card_click', { card_action: 'spotify', episode_id: ep.id, episode_title: ep.title });
+                        }}
                         className="p-2.5 rounded-full border border-stone-850 hover:border-[#1DB954] hover:bg-[#1DB954]/10 text-stone-500 hover:text-[#1DB954] transition-colors"
                         title="Listen on Spotify"
                       >
@@ -473,8 +493,7 @@ export default function Home() {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => {
-                    track('LinkedIn Click', { location: 'creator_card' });
-                    sendGAEvent('event', 'clicked_linkedin_profile', { location: 'creator_card' });
+                    trackEvent('linkedin_click', { location: 'creator_card' });
                   }}
                   className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-2xl border-2 border-stone-700 bg-background hover:bg-stone-900 text-stone-300 hover:text-foreground hover:border-accent-orange font-bold text-[10px] tracking-widest uppercase transition-all duration-200 shadow-[0_4px_0_0_var(--card-shadow)] hover:shadow-[0_4px_0_0_rgba(234,88,12,1)] active:shadow-none hover:-translate-y-1 active:translate-y-1 cursor-pointer w-full whitespace-nowrap"
                 >
@@ -549,6 +568,7 @@ export default function Home() {
                         setModalVideoSeconds(takeaway.seconds);
                         handleSpotlightPlay(readingEpisode);
                         jumpToTimestamp(takeaway.seconds);
+                        trackEvent('modal_takeaway_click', { episode_id: readingEpisode.id, title: readingEpisode.title, takeaway_index: idx + 1, takeaway_title: takeaway.title });
                       }}
                       className="cursor-pointer bg-card-bg/25 border border-border-light hover:border-accent-orange/30 p-4 rounded-2xl transition-all duration-300 hover:scale-[1.02]"
                     >
@@ -589,10 +609,11 @@ export default function Home() {
               
               {/* Playback Destinations Toolbar */}
               <div className="flex flex-wrap items-center gap-3">
-                <button
+                 <button
                   onClick={() => {
                     handleSpotlightPlay(readingEpisode);
                     setReadingEpisode(null);
+                    trackEvent('modal_play_onsite_click', { episode_id: readingEpisode.id, title: readingEpisode.title });
                   }}
                   className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl border-2 border-accent-orange bg-accent-orange font-bold text-[10px] tracking-widest uppercase text-white hover:bg-[#E85D10] hover:-translate-y-1 active:translate-y-1 shadow-[0_4px_0_0_rgba(194,65,12,1)] active:shadow-none transition-all duration-200 cursor-pointer whitespace-nowrap"
                 >
@@ -605,6 +626,9 @@ export default function Home() {
                   href={`https://www.youtube.com/watch?v=${readingEpisode.youtubeId}`}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => {
+                    trackEvent('modal_youtube_click', { episode_id: readingEpisode.id, title: readingEpisode.title });
+                  }}
                   className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl border-2 border-[#FF0000] bg-background font-bold text-[10px] tracking-widest uppercase text-[#FF0000] hover:bg-[#FF0000] hover:text-white hover:-translate-y-1 active:translate-y-1 shadow-[0_4px_0_0_rgba(255,0,0,0.3)] hover:shadow-[0_4px_0_0_rgba(255,0,0,1)] active:shadow-none transition-all duration-200 cursor-pointer whitespace-nowrap"
                 >
                   <YoutubeIcon className="w-3.5 h-3.5" />
@@ -617,6 +641,9 @@ export default function Home() {
                     href={readingEpisode.spotifyUrl}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => {
+                      trackEvent('modal_spotify_click', { episode_id: readingEpisode.id, title: readingEpisode.title });
+                    }}
                     className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl border-2 border-[#1DB954] bg-background font-bold text-[10px] tracking-widest uppercase text-[#1DB954] hover:bg-[#1DB954] hover:text-black hover:-translate-y-1 active:translate-y-1 shadow-[0_4px_0_0_rgba(29,185,84,0.3)] hover:shadow-[0_4px_0_0_rgba(29,185,84,1)] active:shadow-none transition-all duration-200 cursor-pointer whitespace-nowrap"
                   >
                     <Headphones className="w-3.5 h-3.5" />
