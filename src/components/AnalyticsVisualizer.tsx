@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BarChart3, X, Trash2, Activity, Play, FileText, Share2, Moon } from "lucide-react";
 import { useAnalyticsStore } from "../lib/store";
 
@@ -8,6 +8,27 @@ export default function AnalyticsVisualizer() {
   const { events, eventCounts, clearEvents } = useAnalyticsStore();
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<"log" | "cards">("log");
+  const [mounted, setMounted] = useState(false);
+  const [isDebug, setIsDebug] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+
+    const checkHash = () => {
+      setIsDebug(window.location.hash === "#debug");
+    };
+
+    // Check initially
+    checkHash();
+
+    // Listen to hash shifts
+    window.addEventListener("hashchange", checkHash);
+    return () => window.removeEventListener("hashchange", checkHash);
+  }, []);
+
+  if (!mounted || !isDebug) {
+    return null;
+  }
 
   // Sum up all events to show total count on floating badge
   const totalEvents = Object.values(eventCounts).reduce((a, b) => a + b, 0);
