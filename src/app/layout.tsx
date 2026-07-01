@@ -37,6 +37,9 @@ export const metadata: Metadata = {
   description: "Deconstructing life before the JEE, Kota coachings, hostel fests, fiver-point struggles, campus placement diaries, and high-impact paths following graduation.",
   keywords: ["IIT Podcast", "IIT Kharagpur", "JEE Advanced preparation", "IIT placements", "Somenath Mondal", "IIT alumni stories", "IIT Director Special", "IIT Admissions", "Consulting Prep", "Software Engineering placements"],
   authors: [{ name: "Somenath Mondal" }],
+  icons: {
+    icon: "/somenath_profile.png",
+  },
   openGraph: {
     title: "IIT Podcast with Somenath — Insights & Untold Alumni Stories",
     description: "Deconstructing life before the JEE, Kota coachings, hostel fests, campus placement diaries, and high-impact paths following graduation.",
